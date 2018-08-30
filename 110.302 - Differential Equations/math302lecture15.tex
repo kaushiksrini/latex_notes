@@ -1,0 +1,74 @@
+\classheader{2018-08-14}
+\subsection*{Nonhomogeneous Equations; Method of Undetermined Coefficients}
+Let's go back to the original linear
+\begin{equation*}
+	L[y] = y'' + p(t)y' + q(t) = g(t) \tag{+}
+\end{equation*}
+where $p$, $q$, and $g$ are continuous on some $I$ and $g(t) \neq 0$ (The non-homogenous case)\\
+{\textbf{Note:}} $(+)$ is linear, but superposition \underline{only} holds for the LHS!
+\begin{theorem}
+	Suppose $\Ylines_1 (t)$ solves $L[y] = g_1(t)$ and $\Ylines_2 (t)$ solves $L[y] = g_2(t)$
+\end{theorem}
+\begin{proof}
+	$L[\Ylines_1 + \Ylines_2] = L[\Ylines_1] + L[\Ylines_2] = g_1(t) + g_2(t)$
+\end{proof}
+\begin{corollary}
+	Suppose $\Ylines_1 (t)$ and $\Ylines_2 (t)$ both solve $L[y] = g(t)$. Then $\Ylines_2 (t) - \Ylines_1(t)$ solve $L[y] = 0$.
+\end{corollary}
+Let $L[y] = g(t)$ be non-homogenous, and $\Ylines_1(t)$ and $\Ylines_2(t)$ be 2 solutions.\\
+Let $c_1y_1(t) + c_2y_2(t)$ be a fundamental set of solutions to the homogenous $L[y] = 0$.\\\\
+Since $\Ylines_2 (t) - \Ylines_1(t)$ solves $L[y] = 0$ also, we set:
+\begin{enumerate}[label=\protect\circled{\Roman*}]
+	\item $\Ylines_2 (t) - \Ylines_1(t) = c_1y_1(t) + c_2y_2(t)$ \textit{for some values of $c_1$, $c_2$} 
+	\item $\underbrace{\Ylines_2}_{\text{any other soln. to } L[y] = g(t) } = \underbrace{c_1y_1(t) + c_2y_2(t)}_{\text{fund. set of solns to L[y] = 0}} + \underbrace{\Ylines_1(t)}_{\text{a soln. to } L[y] = g(t)}$ 
+\end{enumerate}
+We use this to set
+\begin{theorem}
+	The general solution to $L[y] = g(t)$ is $y(t) = c_1y_1(t) + c_2y_2(t) + \Ylines(t)$\\
+	where $y_1$, $y_2$ form a fund. set of solns. to $L[y] = 0$, and $\Ylines(t)$ is \underline{ANY} particular solution to $L[y] = g(t)$
+\end{theorem}
+This gives us a method for solving $L[y] = g(t)$:
+\begin{enumerate}[label=\protect\circled{\Roman*}]
+	\item First, solve $L[y] = 0$
+	\item Find any soln to $L[y] = g(t)$
+	\item Put them together to get general solution
+\end{enumerate}
+So the new question appears: Find a particular solution to $L[y] = g(t)$. 
+\underline{In general, this is hard}, But there are ways. [Assume the form of a solution and solve.]
+\subsubsection*{Undetermined coefficients}
+Say ODE part has:
+\begin{enumerate}[label=\protect\circled{\Roman*}]
+	\item homogenous part with constant coefficients
+	\item $g(t)$ is a sum of products of
+	\begin{enumerate}[label=\protect\circled{\alph*}]
+		\item exponent
+		\item sins and cosines
+		\item polynomials
+	\end{enumerate}
+\end{enumerate}
+Then you can assume the solution is also of a similar type. Write it out with some unknown coefficients, sub in and solve for the coefficients.
+\begin{example-N}
+	Solve $y'' - 2y' -2y = 3e^{2t}$\\
+	Homogenous fundamental solution set is $c_1 e^{3t} + c_2 e^{-t}$.\\
+	Assume soln. $\Ylines(t) = Ae^{2t} \Rightarrow 4Ae^{2t} - 4Ae^{2t} - 3Ae^{2t} = 3e^{2t} \Rightarrow A = -1$\\
+	\begin{equation*}
+		\text{General solution is } \quad y(t) = c_1e^{3t} + c_2e^{-t} - e^{2t}
+	\end{equation*}
+\end{example-N}
+\redhline\\
+\begin{example-N}
+	Solve $y'' - 2y' -3y = 3 \sin 3t$\\
+	Again, assume $\Ylines(t) = A\sin 3t + B \cos 3t \rightarrowtail$ \textbf{need to have both!!}
+	\begin{align*}
+		\Rightarrow & \quad -9A \sin 3t - 9B \cos 3t - 6A \cos 3t + 6B \sin 3t - 3A \sin 3t - 3B \cos 3t = 3 \sin 3t\\
+		\Rightarrow & \quad -9A + 6B - 3A = 3 \quad \text{(sins)}\\
+		& \quad -9B - 6A - 3B = 0 \quad \text{(cos)}
+	\end{align*}
+	\begin{equation*}
+		\boxed{A = -\frac{1}{5} \quad B = \frac{1}{10}}
+	\end{equation*}
+	\underline{Fundamental set of solutions is}
+	\begin{equation*}
+		\boxed{y(t) = c_1 e^{3t} + c_2e^{-t} - \frac{1}{8} \sin 3t + \frac{1}{10} \cos 3t}
+	\end{equation*}
+\end{example-N}

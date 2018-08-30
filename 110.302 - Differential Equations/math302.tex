@@ -1,0 +1,450 @@
+%Math template by Kaushik Srinivasan
+
+\documentclass[11pt]{article}
+
+
+
+
+%----------%
+%  Basics  %
+%----------%
+
+
+%  Specfies basic information.
+%  In the metadata section of the preamble, you can specify the subject and a list of keywords for the PDF.
+%
+\newcommand{\coursetitle}{MATH 110.302 - Differential Equations and Applications}
+\newcommand{\lecturer}{Robert Brown}
+\newcommand{\notetaker}{Kaushik Srinivasan}
+\newcommand{\notetakersemail}{ksriniv4@jhu.edu}
+\newcommand{\courseterm}{Fall 2018}
+\newcommand{\institution}{Johns Hopkins University}
+
+
+%  array provides more column styles for the tabular and array environments.
+%  (http://ctan.org/pkg/array)
+%
+%  parskip sets block paragraphs as the default, instead of indentation.
+%  (http://www.ctan.org/pkg/parskip)
+%
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,amsfonts,array,parskip}
+
+
+%  Allows equation, align, gather, etc. environments to split across pages.
+\allowdisplaybreaks
+
+
+%  Sets date formatting to the ISO 8601 standard, YYYY-MM-DD.
+\usepackage{datetime} \renewcommand{\dateseparator}{-} \yyyymmdddate
+
+
+%---------%
+%  Fonts  %
+%---------%
+
+
+%  Defines \cal for standard calligraphy, \eucal for Euler calligraphy, and \frak for Fraktur.
+\usepackage{eucal}  \let\eucal\mathcal  \let\cal\CMcal  \renewcommand{\frak}{\mathfrak}
+
+
+%  Removes ligatures (e.g. the connection ordinarily made between the two f's in "differentiable").
+%\usepackage{microtype} \DisableLigatures{encoding=*,family=*}
+
+
+%  Removes extra space after periods.
+
+
+
+
+%-------------------------------%
+%  Environments and Sectioning  %
+%-------------------------------%
+
+
+%  Defines some standard theorem environments, in both numbered and non-numbered versions. The numbering of each enviroment will be reset for each lecture.
+\newcounter{lecture}       \setcounter{lecture}{0}
+\newcounter{tN}[lecture]   \newcounter{dN}[lecture]
+\newcounter{lN}[lecture]   \newcounter{rN}[lecture]
+\newcounter{cN}[lecture]   \newcounter{eN}[lecture]
+\newcounter{pN}[lecture]
+
+\newtheorem*{theorem}{Theorem}          \newtheorem{theorem-N}[tN]{Theorem}
+\newtheorem*{lemma}{Lemma}              \newtheorem{lemma-N}[lN]{Lemma}
+\newtheorem*{corollary}{Corollary}      \newtheorem{corollary-N}[cN]{Corollary}
+\newtheorem*{proposition}{Proposition}  \newtheorem{proposition-N}[pN]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}    \newtheorem{definition-N}[dN]{Definition}
+\newtheorem*{remark}{Remark}            \newtheorem{remark-N}[rN]{Remark}
+\newtheorem*{example}{Example}          \newtheorem{example-N}[eN]{Example}
+\newtheorem*{claim}{Claim}          \newtheorem{claim-N}[cN]{Claim}
+
+% Modifies the spacing above theorem environments, which is messed up during the parskip package
+
+\makeatletter \def\thm@space@setup{\thm@preskip=\parskip \thm@postskip=0pt} \makeatother
+
+%Modifies the spacing above the proof environment
+
+\makeatletter \renewenvironment{proof}[1][\proofname]{\pushQED{\qed}\normalfont
+\partopsep=\z@skip \topsep=\z@skip \trivlist \item[\hskip\labelsep\itshape #1\@addpunct{.}]
+\ignorespaces}{\popQED\endtrivlist\@endpefalse} \makeatother
+
+\renewcommand{\qedsymbol}{\rule{0.7em}{0.7em}}
+
+%Removes extra space before and after section headings
+
+\usepackage[compact]{titlesec}
+
+%% PICTURES AND DIAGRAMS
+
+
+\usepackage[usenames, dvipsnames]{xcolor}
+\definecolor{myred}{rgb}{0.9,0.2,0.2}
+\definecolor{mygreen}{rgb}{0.2,0.6,0.2}
+\definecolor{myblue}{rgb}{0.2,0.2,0.8}
+\usepackage{caption}
+
+%graphicx provides advanced graphics options
+
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+% tikz is for drawing all sorts of pictures and diagrams
+
+\usepackage{tikz}
+\usetikzlibrary{decorations.text}
+\newcommand{\tikzmark}[2]{%
+    \tikz[remember picture,baseline=-2pt]
+    \node[circle,red,draw,text=black,anchor=center,inner sep=1pt] (#1) {$#2$};}
+\usepackage{tikz-cd}
+\usepackage{pgf, pgfplots}
+\usetikzlibrary{arrows,calc,decorations,decorations.markings,fadings,positioning,patterns,shapes}
+\tikzset{>=latex}
+\tikzstyle{mypoint}=[inner sep=0pt,outer sep=0pt,minimum size=5pt,fill,circle]
+% for circled commands
+\usepackage{enumitem}
+%\begin{enumerate[label=\protect\circled{\arabic*}]
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+% HORIZONTAL LINES
+
+\newcommand{\redhline}{\vspace{-0.1in}{\color{myred}{\rule{\textwidth}{0.02in}}}}
+
+
+%------------------------%
+%  Commands and Symbols  %
+%------------------------%
+
+
+%  Creates commands by running over a comma-separated list. For example,
+%
+%     \forcsvlist{\define{\newcommand}{\textbf}{bold}}{A,B}
+%
+%  would create
+%
+%     \newcommand{\boldA}{\textbf{A}}    \newcommand{\boldB}{\textbf{B}}
+%
+%  (http://tex.stackexchange.com/a/5776/20882)
+%
+\usepackage{etoolbox}
+\newcommand{\define}[4]{\expandafter#1\csname#3#4\endcsname{#2{#4}}}
+\forcsvlist{\define{\DeclareMathOperator}{}{}}{im,coker,rad,nil,Ann,Ass,codim,Spec,mSpec,diam,ord,Supp,supp,disc,Ob,vol,rank,Sym,Alt,Ind}
+\forcsvlist{\define{\newcommand}{\mathrm}{}}{Hom,Mor,id,GL,SL,SO,SU,U,M,Mat,Ext,Tor,Res,Cor,Inf,End,Irr,Aut,Gal,lcm,tr,sign,triv,diag,Map,op,ev,act,alg,sep,unr,nr,ab}
+
+%  Creates commands for some names of categories in the sans-serif font.
+\forcsvlist{\define{\newcommand}{\mathsf}{}}{Set,Grp,Ab,CRing,Mod,Vect,Cat,Top,PreSh,Sh,Sch,Nat,Fun,Diff}
+
+%  Creates commands for some blackboard bold letters.
+\forcsvlist{\define{\newcommand}{\mathbb}{}}{N,Z,Q,R,C,F,G,T,A,B,D}
+
+
+%  Saves the section symbol, paragraph symbol, Hungarian accent, and Scandanavian O in the macros \SS, \PP, \HH, and \OO, then redefines \S, \P, \H, and \O to be the corresponding blackboard bold letters.
+%
+\let\SS\S  \let\PP\P  \let\HH\H  \let\OO\O
+\forcsvlist{\define{\renewcommand}{\mathbb}{}}{S,P,H,O}
+
+
+%  latexsym defines some alternative versions of amssymb symbols.
+%  (http://www.bakoma-tex.com/doc/latex/base/latexsym.pdf)
+%
+\usepackage{latexsym}
+
+\usepackage{accents}
+\newcommand{\Ylines}{\underaccent{\bar}{\bar{Y}}}
+\newcommand{\Xlines}{\underaccent{\bar}{\bar{X}}}
+\newcommand{\Lim}[1]{\raisebox{0.5ex}{\scalebox{0.8}{$\displaystyle \lim_{#1}\;$}}}
+%  Defines a copyright symbol that is a bit nicer than the built-in one.
+\newcommand{\mycopyrightsymbol}{\raisebox{-0.3ex}{\tikz{\node[inner sep=0pt,outer sep=0pt] at (0,0) {\textsc{c}};\draw (0,0) circle (0.18);}}}
+
+
+%  Defines commands for real and complex projective space.
+\newcommand{\RP}{\mathbb{R}\mathrm{P}}  \newcommand{\CP}{\mathbb{C}\mathrm{P}}
+
+
+%  Defines a bordered matrix with square bracket delimiters instead of parentheses.
+%  (http://tex.stackexchange.com/questions/55054)
+%
+\let\bbordermatrix\bordermatrix
+\patchcmd{\bbordermatrix}{8.75}{4.75}{}{}
+\patchcmd{\bbordermatrix}{\left(}{\left[}{}{}
+\patchcmd{\bbordermatrix}{\right)}{\right]}{}{}
+
+%% MATH STUFF
+
+\usepackage{relsize}
+\usepackage{cancel}
+
+%Box Colour (https://tex.stackexchange.com/questions/122945/coloured-shadowed-boxes-around-equations)
+\usepackage[skins,theorems]{tcolorbox}
+\tcbset{highlight math style={enhanced, colframe=red,colback=white,arc=0pt,boxrule=1pt}}
+  
+
+% Math Symbol Aliases
+
+\newcommand{\bs}{\backslash}
+\newcommand{\subeq}{\subseteq}
+\newcommand{\supeq}{\supseteq}
+\newcommand{\subneq}{\subsetneq}
+\newcommand{\supneq}{\supsetneq}
+\newcommand{\derivativex}{\dfrac{\partial}{\partial x}}
+\newcommand{\customderiv}[2]{\dfrac{\partial #1}{\partial #2}}
+
+
+% Accents
+
+\newcommand{\openset}{\,\open{\subeq}\,}
+\newcommand{\open}[1]{\mathring{#1}}
+\newcommand{\clos}[1]{\overline{#1}}
+\newcommand{\resid}[1]{\overline{#1}}
+\newcommand{\cover}[1]{\widetilde{#1}}
+\newcommand{\overbar}[1]{%
+  \mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu%
+}
+
+%  Defines a bordered matrix with square bracket delimiters instead of parentheses.
+%  (http://tex.stackexchange.com/questions/55054)
+%
+\let\bbordermatrix\bordermatrix
+\patchcmd{\bbordermatrix}{8.75}{4.75}{}{}
+\patchcmd{\bbordermatrix}{\left(}{\left[}{}{}
+\patchcmd{\bbordermatrix}{\right)}{\right]}{}{}
+
+%  Calls one of the mathabx font families so that it is possible to use its symbols without making a global change.
+%  (http://www.ctan.org/pkg/mathabx)
+%  (http://tex.stackexchange.com/questions/14386)
+%
+\DeclareFontFamily{U}{mathb}{\hyphenchar\font45}
+\DeclareFontShape{U}{mathb}{m}{n}{<5> <6> <7> <8> <9> <10> gen * mathb
+<10.95> mathb10 <12> <14.4> <17.28> <20.74> <24.88> mathb12}{}
+\DeclareSymbolFont{mathb}{U}{mathb}{m}{n}
+
+% Defines circular arrows
+
+\DeclareFontFamily{U}{mathb}{\hyphenchar\font45}
+\DeclareFontShape{U}{mathb}{m}{n}{<5> <6> <7> <8> <9> <10> gen * mathb
+<10.95> mathb10 <12> <14.4> <17.28> <20.74> <24.88> mathb12}{}
+\DeclareSymbolFont{mathb}{U}{mathb}{m}{n}
+
+%  Defines circular arrows.
+\DeclareMathSymbol{\lcirclearrow}{0}{mathb}{'366}
+\DeclareMathSymbol{\rcirclearrow}{0}{mathb}{'367}
+\newcommand{\leftcirclearrow}{\mathrel{\ensuremath{\raisebox{0.1ex}{\scalebox{0.9}{\rotatebox[origin=c]{90}{$\lcirclearrow$}}}}}}
+\newcommand{\rightcirclearrow}{\mathrel{\ensuremath{\raisebox{0.1ex}{\scalebox{0.9}{\rotatebox[origin=c]{270}{$\rcirclearrow$}}}}}}
+
+% Semantic names for some common math Symbols.
+
+%-----------------------------------%
+%  Things Specific to Course Notes  %
+%-----------------------------------%
+
+
+%  Formatting for the table of contents. The first line allows for multi-column environments, the second line removes the heading "Contents".
+\usepackage{multicol} \setlength{\columnsep}{3cm}
+\makeatletter \renewcommand\tableofcontents{\@starttoc{toc}} \makeatother
+
+
+%  Sets the page style.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\setlength{\headheight}{14pt}
+\lfoot{\parbox[t]{1in}{\centering Last edited\\ \today}}
+\cfoot{\parbox[t]{3in}{\centering \coursetitle}}
+\rfoot{\parbox[t]{0.9in}{\centering Page \thepage\\ Lecture \arabic{lecture}}}
+
+
+%  Sets the inputs for \maketitle.
+\author{Lectures by \lecturer\\ Notes by \notetaker}
+\title{\coursetitle}
+\date{\institution\\ \courseterm}
+
+
+%  Defines headings for each day's notes.
+\newcommand{\classheader}[1]{\stepcounter{lecture}\newpage\section*{Lecture \arabic{lecture} (#1)}
+\phantomsection \addcontentsline{toc}{section}{Lecture \arabic{lecture} (#1)}}
+	
+% Misc additions to Template
+
+% http://tex.stackexchange.com/questions/18359
+%\pgfplotsset{compact=newest}
+
+\newcommand{\Cinfty}{\ensuremath{C^{\infty}}}
+\newcommand{\Crit}{\mathrm{Crit}}
+\usepackage{mathtools}
+\newcommand{\Or}{\mathrm{Or}}
+\renewcommand{\Re}{\mathrm{Re}}
+\renewcommand{\Im}{\mathrm{Im}}
+\usepackage{mathrsfs}
+\newtheorem*{examples}{Examples}
+\newtheorem*{exercise}{Exercise}
+\usepackage{pdfpages}
+\newcommand{\Lie}{\mathrm{Lie}}
+\newcommand{\Diffeo}{\mathrm{Diffeo}}
+
+\newcommand{\connection}{\nabla}
+\newcommand{\new}{\mathrm{new}}
+
+
+\newcommand{\review}{{\huge\color{myred}{$\star$}}}
+
+
+%---------------------------%
+%  Hyperlinks and Metadata  %
+%---------------------------%
+%
+% (this section must come last!)
+
+
+%  hyperref enables for the creation of hyperlinks, and also specifies the metadata of the PDF file.
+%  hyperxmp allows more metadata to be specified.
+%  (http://www.ctan.org/pkg/hyperref)
+%  (http://www.ctan.org/pkg/hyperxmp)
+%  (http://tex.stackexchange.com/questions/41461)
+%
+\usepackage{hyperref}
+\usepackage{hyperxmp}
+\hypersetup{
+pdfauthor={\notetaker},
+pdftitle={\coursetitle},
+pdfproducer={LaTeX},
+%pdfcopyright={Copyright (C) \the\year\ \notetaker. This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License. All attribution should be to \lecturer\ as the lecturer, and to \notetaker\ as the person taking these notes.},
+pdfsubject={differential topology},
+pdfkeywords={},
+%pdflicenseurl={http://creativecommons.org/licenses/by-sa/3.0/},
+colorlinks=true,
+linkcolor=myred,
+citecolor=mygreen,
+urlcolor=myblue,
+linktoc=page,
+pdfstartview=FitH
+}
+
+
+%%%%%% SLOPE FIELDS
+
+\pgfplotsset{ % Define a common style, so we don't repeat ourselves
+    MaoYiyi/.style={
+        width=0.6\textwidth, % Overall width of the plot
+        axis equal image, % Unit vectors for both axes have the same length
+        view={0}{90}, % We need to use "3D" plots, but we set the view so we look at them from straight up
+        xmin=0, xmax=1.1, % Axis limits
+        ymin=0, ymax=1.1,
+        domain=0:xmax, y domain=0:xmax, % Domain over which to evaluate the functions
+        xtick={0,0.5,1}, ytick={0,0.5,1}, % Tick marks
+        samples=11, % How many arrows?
+        cycle list={    % Plot styles
+                gray,
+                quiver={
+                    u={1}, v={f(x)}, % End points of the arrows
+                    scale arrows=0.075,
+                    every arrow/.append style={
+                        -latex % Arrow tip
+                    },
+                }\\
+                red, samples=31, smooth, thick, no markers, domain=0:2\\ % The plot style for the function
+        }
+    }
+}
+
+
+%------------%
+%  DOCUMENT  %
+%------------%
+
+\begin{document}
+	
+% TITLE
+
+\maketitle
+\thispdfpagelabel{Title}
+\thispagestyle{empty}
+\setcounter{page}{-1}
+\vspace{0.3in}
+
+
+
+%  Table of Contents
+%
+\begin{center}
+\begin{minipage}[t]{0.9\textwidth}
+\begin{multicols}{2}
+\tableofcontents
+\end{multicols}
+\end{minipage}
+\end{center}
+
+
+
+\newpage
+\thispdfpagelabel{-}
+\thispagestyle{empty}
+
+%% Introduction
+
+\section*{Introduction}
+Math 110.304 is one of the semi-important courses that is required/recommended for the engineering-based majors at Johns Hopkins University.
+
+These notes are being live-TeXed, through I edot for Typos and add diagrams requiring the Ti\textit{k}Z package separately. I am using Texpad on Mac OS X.
+
+I would like to thank Zev Chonoles from The University of Chicago and Max Wang from Harvard University for providing me with the inspiration to start live-TeXing my notes. They also provided me the starting template for this, which can be found on their personal websites.
+
+Please email any corrections or suggestions to \expandafter\href{mailto:\notetakersemail}{\texttt{\notetakersemail}}.
+	
+	
+\newpage
+
+\include{math302lecture1}
+\include{math302lecture2}
+\include{math302lecture3}
+\include{math302lecture4}
+\include{math302lecture5}
+\include{math302lecture6}
+\include{math302lecture7}
+\include{math302lecture8}
+\include{math302lecture9}
+\include{math302lecture10}
+\include{math302lecture11}
+\include{math302lecture12}
+\include{math302lecture13}
+\include{math302lecture14}
+\include{math302lecture15}
+\include{math302lecture16}
+\include{math302lecture17}
+\include{math302lecture18}
+\include{math302lecture19}
+\include{math302lecture20}
+\include{math302lecture21}
+\include{math302lecture22}
+\include{math302lecture23}
+\include{math302lecture24}
+\include{math302lecture25}
+\include{math302lecture26}
+
+
+
+
+
+	
+\end{document}

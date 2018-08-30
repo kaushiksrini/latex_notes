@@ -1,0 +1,104 @@
+\classheader{2018-08-29}
+\subsection*{Complex Eigenvalues}
+\textbf{New Question:} What is the eigenvalues (solutions to the \underline{characteristic equation} of $A_{2x2}$ in $\vec{x}' = A\vec{x}$) are not real?\\
+Then They are complex (the discriminant $b^2 - 4ac$ of the quadratic formula used to solve the \underline{characteristic equation} is < 0).\\
+They must be complex conjugates (why?) How to use them?
+Let's play the same game for constructing solutions to $\vec{x}' = A\vec{x}$ using eigenvalue eigenvector pairs:\\
+For $\vec{x}' = A_{2x2} \vec{x}$, suppose $\Gamma_1 \neq \Gamma_2$ are two distinct solutions to characteristic equation of $A$ and we calculate eigenvectors $\vec{v_1}, \vec{v_2}$ respectively to $\Gamma_1, \Gamma_2$. Then general solution is
+\begin{equation*}
+	\tcbhighmath[drop fuzzy shadow]{\vec{x}(t) = c_1 \vec{v_1} e^{\Gamma_1 t} + c_2 \vec{v_2} e^{\Gamma_2 t}}
+\end{equation*}
+We try this with complex $\Gamma$:
+\begin{example-N}
+	$\vec{x}' = \begin{bmatrix}
+		0 & 1\\
+		-2 & -2
+	\end{bmatrix} \vec{x} \quad$ Characteristic equation is $\Gamma^2 + 2\Gamma + 2 = 0$, solved by $\Gamma = -1 \pm i$\\
+	Leave them as $\Gamma_1 = -1 + i$, $\Gamma_2 = -1-i$ and solve for $\vec{v_1}$: $A\vec{v} = \Gamma \vec{v}$
+	\begin{gather*}
+		\begin{bmatrix}
+			0 & 1\\
+			-2 & -2
+		\end{bmatrix}
+		\begin{bmatrix}
+			v_1\\
+			v_2
+		\end{bmatrix} = (-1 + i)
+		\begin{bmatrix}
+			v_1\\
+			v_2
+		\end{bmatrix}\\
+		v_2 = -v_1 + iv_1\\
+		-2v_1 -2v_2 = -v_2 + iv_2
+	\end{gather*}
+\end{example-N}
+We can substitute $(1)$ into $(2)$ and simplify to get $-2iv_1 = -2iv_1$, solved by any choice of v. For example, choose $v_1 = 1$. Then $v_1 = (-1+i)$ and 
+\begin{equation*}
+	\Gamma_1 -1 + i, \quad \vec{v_1} = \begin{bmatrix}
+		1\\
+		-1 + i
+	\end{bmatrix} \quad \quad \text{forms an "eigenvalue/eigenvector" pair}
+\end{equation*}
+\textbf{Notes:}
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+	\item This is not quite accurate since the definition of eigenvector is that of a vector whose direction does not change upon multiplication by a matrix. Without real eigenvalues, there are no real eigenvectors! But the term "complex eigenvector" is a commonly used one. 
+	\item The other eigenvalue/eigenvector pair is $\Gamma_2 = -1 -i, \quad \vec{v_1} = \begin{bmatrix}
+		1\\
+		-1 - i
+	\end{bmatrix}$
+	\item Rewrite $\vec{v_1} = \begin{bmatrix}
+		1\\
+		-1 + i
+	\end{bmatrix} = \begin{bmatrix}
+		1\\-1
+	\end{bmatrix} + \begin{bmatrix}
+		0\\1
+	\end{bmatrix}i = \vec{a} + i\vec{b}$. Then along with $\Gamma_1 = -1 + i = \lambda + i \mu$ we can attempt to form solutions.
+\end{enumerate}
+General idea for a Method for constructing solutions?\\
+\redhline\\\\
+Given:
+\begin{itemize}
+	\item $\Gamma_1 = \lambda + i \mu$, $\vec{v_1} = \vec{a} + i \vec{b}$
+	\item $\Gamma_1 = \lambda - i \mu$, $\vec{v_1} = \vec{a} - i \vec{b}$
+\end{itemize}
+Create a "complex" solution in the normal way:
+\begin{align*}
+	\vec{x}(t) & = \vec{v_1}e^{\Gamma_1 t} = (\vec{a} + i\vec{b}) \underbrace{e^{\lambda t}(\cos \mu t) + i \sin \mu t}_{\text{Euler formula for } e^{\Gamma_1 t}}\\
+	& = e^{\lambda t}(\vec{a} \cos \mu t - \vec{b} \sin \mu t) + ie^{\lambda t}(\vec{a}\sin \mu t + \vec{b} \cos t)
+\end{align*}
+Hence we can write $\vec{x}(t) = \vec{a}(t) + i \vec{w}(t)$, where
+\begin{gather*}
+	\vec{u}(t) = e^{\lambda t}(\vec{a} \cos \mu t - \vec{b} \sin \mu t)\\
+	\vec{u}(t) = e^{\lambda t}(\vec{a} \sin \mu t - \vec{b} \cos \mu t)
+\end{gather*}
+\underline{Notes: }
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+	\item These are 2 real-valued functions which each solve the ODE $\vec{x}' = A \vec{x}$ (check this!)
+	\item These are independent (check the Wronskian)
+	\item The general solution to $\vec{x}' = A\vec{x}$ when eigenvalues $\Gamma = \lambda \pm i \mu$ are complex and with eigenvectors $\vec{v} = \vec{a} \pm i \vec{b}$ is 
+\begin{equation*}
+	\vec{x}(t) = c_1 \vec{u}(t) + c_2 \vec{w}(t)
+\end{equation*}
+\end{enumerate}
+\redhline\\\\
+\underline{Back to example:} $\vec{x}' = \begin{bmatrix}
+	0 & 1\\
+	-2 & -2
+\end{bmatrix} \vec{x}$.\\
+Here $\Gamma_1 = \lambda + i \mu = -1 + i$, $\vec{v_1} = \vec{a} + i \vec{b} = \begin{bmatrix}
+	1\\-1
+\end{bmatrix} + i \begin{bmatrix}
+	0\\1
+\end{bmatrix}$\\ So\\
+\begin{equation*}
+	\vec{x}(t) = c_1 e^{-t} \bigg( \begin{bmatrix}
+		1\\ -1
+	\end{bmatrix} \cos t - \begin{bmatrix}
+		0\\1
+	\end{bmatrix} \sin t \bigg) + c_2 e^{-t} \bigg( \begin{bmatrix}
+		-1\\ 1
+	\end{bmatrix} \sin t - \begin{bmatrix}
+		0\\1
+	\end{bmatrix} \cos t \bigg) 
+\end{equation*}

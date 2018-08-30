@@ -1,0 +1,139 @@
+\classheader{2018-07-08}
+\subsection*{Exact Equations and Integrating Factors}
+Suppose a first ODE has the form
+\begin{equation*}
+	\tcbhighmath[drop fuzzy shadow]{M(x,y) + N(x,y)y' = 0} \tag{$\ast$}
+\end{equation*}
+Then ($\star$) and ($\ast$) are the same under the condition thaht there exists a function.
+\begin{align}
+		\varphi(x,y), where \quad & \circled{1} \dfrac{d \varphi}{dx} (x,y) = M(x,y)\\
+		& \circled{2} \dfrac{d \varphi}{dx} (x,y) = N(x,y)
+\end{align}
+
+\begin{equation*}
+ 	\text{So that} \quad \tikzmark{a}{M(x,y)} + \tikzmark{c}{N(x,y)}y' = 0 = \dfrac{d \varphi}{dx} = \tikzmark{b}{\dfrac{d \varphi}{dx}} + \tikzmark{d}{\dfrac{d \varphi}{dy}}y'
+	\begin{tikzpicture}[overlay, remember picture]
+	\draw[-, red](a) to [out=35,in=145](b);
+	\draw[decorate] (a) to [out=35, in=145] (b);
+	\draw[-, red](c) to [out=35, in=145](d);
+	\draw[decorate] (c) to [out=35, in=145] (d);	
+	\end{tikzpicture}
+\end{equation*}
+If this is the case, then the ODE $(\ast)$ can be rewritten as $\dfrac{d \varphi}{dx} = 0$, or $\varphi (x,y) = C$, a constant.
+\begin{example}
+	Notice that $2x + y^2 +2xyy' = 0$ is of the form $M(x,y) + N(x,y)y' = 0$ with
+	\begin{align*}
+		M(x,y) & = 2x + y^2\\
+		N(x,y) & = 2xy
+	\end{align*}
+	But we also can see that the function $\varphi (x,y) = x^2 + xy^2$ has the partials.
+	\begin{equation*}
+		\dfrac{d \varphi}{dx} (x,y) = 2x + y^2 \quad \dfrac{d \varphi}{dy}(x,y) = 2xy
+	\end{equation*}
+	Hence $2x + y^2 + 2xyy' = 0$ can be written $\dfrac{d \varphi}{dx} = 0 = \dfrac{d}{dx}(x^2 + 2xy^2)$. If we assume that $y$ is an implicit function of $x$.\\
+	here we can (assuming $y$ is an implicit function of x) integrate $\dfrac{d \varphi}{dx} (x,y) = 0$ w.r.t. $x$ to set
+	\begin{equation*}
+		\int \dfrac{d \varphi}{dx}(x,y) dx = \int 0 dx
+	\end{equation*}
+	\begin{equation*}
+		\varphi (x,y) = x^2 + xy^2 = C
+	\end{equation*}
+	This is the implicit solution to
+	\begin{equation*}
+		2x + y^2 + 2xyy' = 0
+	\end{equation*}
+\end{example}
+\redhline\\
+\textbf{Question: } How do we know such a $\varphi (x,y)$ may exist and if so how to find it?\\\\
+\underline{Calc III Thm} Let $\varphi (x,y)$ have continuous partial derivatives in some open region. Then
+\begin{equation*}
+	\dfrac{d}{dx} (\dfrac{d \varphi}{dx}) = \dfrac{d}{dy} (\dfrac{d \varphi}{dx}) \quad \textit{i.e. Mixed 2nd partials are equal.}
+\end{equation*}
+Now if we had the ODE
+\begin{equation*}
+	M(x,y) + N(x,y)\dfrac{dy}{dx} = 0
+\end{equation*}
+and knew there was a function $\varphi (x,y)$ when $\dfrac{d \varphi}{dx} = M$, $\dfrac{d \varphi}{dy} = N$. then the last criteria is
+\begin{equation*}
+	\dfrac{d}{dx}(\textbf{N}) = \dfrac{d}{dy}(\textbf{M}) \text{, or } \quad \tcbhighmath[drop fuzzy shadow]{N_{\textbf{X}} = M_{\textbf{Y}}}
+\end{equation*}
+\begin{definition-N}
+	The ODE $M(x,y) + N(x,y)\dfrac{dy}{dx} = 0$ is called \underline{exact} on a region.
+	\begin{equation*}
+		R = \bigg\{ {(x,y) \in \mathbb{R}^2 \bigg| \begin{split}
+			\alpha < x < \beta\\
+			\gamma < y < \delta
+		\end{split}} \bigg\} 
+	\end{equation*}
+	If \circled{1} $M, N, M_y, N_x$ are $C^0$ on $R$, and \circled{2} $M_y = N_x$ on $R$
+\end{definition-N}
+\begin{theorem-N}
+	Let $M(x,y) + N(x,y)\dfrac{dy}{dx} = 0$ be exact o some open region $R$. Then $\exists$ a functions $\varphi(x,y)$ which is diff on $R$ where
+	\begin{equation*}
+		\circled{1} \dfrac{d \varphi}{dx} = M \quad \circled{2} \dfrac{d \varphi}{dy} = N
+	\end{equation*} and $\varphi (x,y) = C$ is there general implicit solution to the ODE on $R$
+\end{theorem-N}
+\begin{example-N}
+	Solve $(3x^2-2xy+2) + (6y^2 - x^2 + 3)y' = 0$, $y(1)=0$\\
+	\underline{\large Strategy} First, we verify the exactness. Then we integrate to find the function whose level sets comprise solutions to the ODE.\\
+	\underline{\large Solution} Here $M(x,y) = 3x^2 - 2xy + 2$, $N(x,y) = 6y^2 - x^2 + 3$ and since $M_y = \dfrac{dM}{dy} = -2x. = \dfrac{dN}{dx} = N_x$ the ODE is exact.\\
+	And since $M, N, M_y, N_x$ are all $C^0$ on $\mathbb{R}^2$, by \underline{Thm} $\varphi (x,y)$ will exist near $(1,0) \in \mathbb{R}^2$. To find $\varphi (x,y)$, note that $\dfrac{d \varphi}{dx} = M$, $\dfrac{d \varphi}{dy} = N$.\\
+	Integrate M \underline{wrt} x.
+	\begin{equation*}
+		\int M dx = \int \dfrac{d \varphi}{dx} dx = \int (3x^2 -2xy + 2)dx = x^3 -x^2y + 2x + \underbrace{h(y)}_{\text{why?}}
+	\end{equation*}
+	Hence $\varphi (x,y) = x^3 -x^2y + 2x + h(y)$ for some unknown function $h(y)$. To find $h(y)$, note that $\dfrac{d \varphi}{dy} = N$:
+	\begin{align*}
+		\dfrac{d \varphi}{dy}(x,y) & = \dfrac{d}{dx}(x^3 - x^2y + 2x + h(y))\\
+		& = -x^2 + h'(y)\\
+		& = N(x,y) = 6y^2 - x^2 + 3
+	\end{align*}
+	Hence $h'(y) = 6y^2 + 3$, or $h(y) = 2y^3 + 3y +$ \textit{constant}. Thus our general implicit solution is 
+	\begin{equation*}
+		\varphi(x,y) = x^3 - x^2y + 2x + 3y + 2y^2 = C
+	\end{equation*}
+	Our particular solution is $\varphi (1,0) = 1-0+2+0+0 = C$ or $c=3$, so $\varphi(x,y) = 3 = x^3 -x^y + 2x +3y +2y^3$. Determining a valid interval is difficult here. 
+\end{example-N}
+\begin{example-N}
+	Solve $2x + y^2 + 2xyy'=0$, $y(1) = 1$\\
+	\underline{\large Strategy} First, we verify the exactness. Then we integrate to find the function whose level sets comprise solutions to the ODE.\\
+	\underline{\large Solution} Here $M(x,y) = 2x + y^2$, $N(x,y) = 2xy$ and since $M_y = \dfrac{dM}{dy} = 2y. = \dfrac{dN}{dx} = N_x$ the ODE is exact.\\
+	And since $M, N, M_y, N_x$ are all $C^0$ on $\mathbb{R}^2$, by \underline{Thm} $\varphi (x,y)$ will exist near $(1,1) \in \mathbb{R}^2$. To find $\varphi (x,y)$, note that $\dfrac{d \varphi}{dx} = M$, $\dfrac{d \varphi}{dy} = N$.\\
+	Integrate M \underline{wrt} x.
+	\begin{equation*}
+		\int M dx = \int \dfrac{d \varphi}{dx} dx = \int (2x + y^2)dx = x^2 + xy^2 + \underbrace{h(y)}_{\text{why?}}
+	\end{equation*}
+	Hence $\varphi (x,y) = x^2 + xy^2 + h(y)$ for some unknown function $h(y)$. To find $h(y)$, note that $\dfrac{d \varphi}{dy} = N$:
+	\begin{align*}
+		\dfrac{d \varphi}{dy}(x,y) & = \dfrac{d}{dy}(x^2 + xy^2 + h(y))\\
+		& = 2xy + h'(y)\\
+		& = N(x,y) = 2xy
+	\end{align*}
+	Hence $h'(y) = 0$, or $h(y) = $ \textit{constant}. Thus $\varphi (x,y) = x^2 + xy^2 + $ \textit{constant}, and $\varphi (x,y) = x^2 + xy^2 = C$ is our general implicit solution 
+	The solution to $2x + y^2 + 2xyy' = 0$, $y(1) = 1$. $x^2 + xy^2 = 2$, variable on $x \in (0, \sqrt{2})$
+\end{example-N}
+{\large \textbf{\underline{Notes}}}
+\begin{enumerate}[label=\protect\circled{\Roman*}]
+	\item Sometimes, the ODE is in differential form:
+	\begin{example}
+		$(ye^{2xy} + x)dx + xe^{2xy}dy = 0$ is exact, since $M(x,y) = ye^{2xy} + x$, $N(x,y) = xe^{2xy}$ and 
+		\begin{equation*}
+			\textit{are equal}
+			\begin{cases}
+				M_y = e^{2xy} + 2xye^{2xy} \\
+				M_x = e^{2xy} + 2xye^{2xy}
+			\end{cases}
+		\end{equation*}
+	\end{example}
+	\item Caution: Sometimes a \underline{non-exact} 1st order ODE can be made exact via an integration factor
+		\begin{example}
+		$dx + (\frac{x}{y} - \sin y)dy = 0$ is not exact $M_y = 0 \neq \frac{1}{y} = N_x$\\
+		\begin{align*}
+			y[dx + (\frac{x}{y} - & \sin y)dy  = 0]\\
+			ydx + (x - y\sin y)dy & = 0 \text{ is exact since now }\\ M_y = 1 = \frac{d}{dx} [x - & y\sin y] = 1 = N_x
+		\end{align*}
+		\begin{center}
+			We won't focus on this last technique.
+		\end{center}
+		\end{example}
+\end{enumerate}

@@ -1,0 +1,98 @@
+\classheader{2018-07-08}
+I will relegate the discussion of Section of 2.8 to a worksheet posted. The theory can be deep (through very interesting). But the main takeaway is its usefulness in...
+\begin{enumerate}[label=\protect\circled{\Roman*}]
+	\item seeing where a first order ODE is "nice"
+	\item Understanding the intricacies of the theory even at this early stage.
+\end{enumerate}
+\redhline
+\section*{Second Order Linear Equations}
+\subsection*{Homogeneous Equations with Constant Coefficients}
+A general form of a 2nd order ODE is, for some function $f$
+\begin{equation*}
+	\tcbhighmath[drop fuzzy shadow]{y'' = f(t, y, y')} \tag{$\ast \ast$}
+\end{equation*}
+\begin{definition-N}
+	A 2nd order ODE is called \underline{linear} if it can be written
+	\begin{equation*}
+		y'' + p(t)y' + q(t)y = g(t)
+	\end{equation*}
+	\begin{center}
+		(so that $f(t, y, y') = g(t) - p(t)y' - q(t)$ in ($\ast$))\\
+		($\ast \ast$) (actually $P(t)y'' + Q(t)y' + R(t)y = G(t)$...)
+	\end{center}
+	\underline{Notes}
+	\begin{enumerate}[label=\protect\circled{\Roman*}]
+		\item $f$ needs to be linear in both $y$ and $y'$
+		\item If ODE is not linear, it is called non-linear.
+	\end{enumerate}
+\end{definition-N}
+\begin{definition-N}
+	If $g(t) \equiv 0$, then a linear ODE is called \underline{homogeneous}.
+\end{definition-N}
+\begin{definition-N}
+	An IVP with a 2nd order ODE continuous 2 pieces of initial data, usually $y(t_0) = y_0$, $y'(t_0) = y_0'$
+\end{definition-N}
+\underline{Question:} Why?\\
+In General, it is heard or impossible to solve a 2nd order ODE. Even linear is very difficult in general!\\
+\redhline\\\\
+One type that is solvable: Constant coefficients. Let ($\ast \ast$) here $P(t) \equiv a$, $Q(t) \equiv b$, $R(t) \equiv c$, and suppose $G(t) \equiv 0$ (homogenous).
+\begin{equation*}
+	\text{Then ODE is } \quad \tcbhighmath{ay'' + by' + cy = 0} \tag{$\star$}
+\end{equation*}
+\textbf{Q: } First think, what kinds of functions would possibly be solutions to their kind of ODE?
+\begin{multicols}{2}
+	\begin{itemize}
+	\item Polynomials? Prove Functions?
+	\item Trig functions?
+	\item Exponentials?
+	\item Logarithms?
+	\end{itemize}
+\end{multicols}
+\begin{example-N}
+	Suppose $a =1$, $b = 0$, $c = -1$, Then ($\ast \ast$) is $y'' - y = 0$, or $y'' = y$\\
+	\underline{\large Solutions?}\\ Here $y(t) = e^t$ and $y(t) = e^{-t}$ both solve $y'' - y = 0$ How about $e^{t} + e^{-t}$? $2e^t - 3e^{-t}$? Here $y(t) = c_1e^t + c_2e^{-t}$ is a solution for any choice of $c_1, c_2 \in \mathbb{R}$\\
+	What if IVP was $y''-y=0$, $y(0)=3$, $y(0) = 4$?
+	\begin{equation*}
+		y(0) = 3 = c_1 e^0 + c_2 e^{-0} = c_1 + c_2
+	\end{equation*}
+	\begin{equation*}
+		\underbrace{y(0) = 4 = c_1 e^0 - c_2 e^{-0} = c_1 - c_2}_{\begin{split}c_1 = \frac{7}{2}\\ c_2 = -\frac{1}{2} \end{split} \quad \begin{cases}
+			3 = c_1 + c_2\\ 4 = c_1 - c_2
+		\end{cases}}
+	\end{equation*}
+	And the particular solution to IVP is 
+	\begin{equation*}
+		y(t) = \frac{7}{2}e^t - \frac{1}{2} e^{-t}
+	\end{equation*}
+\end{example-N}
+\begin{example-N}
+	$2y'' + 8y' -10y = 0$\\
+	Here $y(t) = e^t$ and $y(t) = e^{-5t}$ both work! Check this... \underline{AND} so does $y(t) = c_1 e^t + c_2 e^{-5t}$. \underline{Is there a pattern?}
+\end{example-N}
+\redhline\\
+For $ay'' + by' + cy = 0$, assume the solution is exponential (is this a good idea?) and looks like $y(t) = e^{\Gamma t}$, where $\Gamma$ is an unknown parameter.\\
+Then substituting $y(t)$ and its derivatives into the ODE, we set
+\begin{equation*}
+	a\Gamma^2e^{\Gamma t} + b\Gamma e^{\Gamma t} + ce^{\Gamma t} = 0 \quad \textit{or} \quad a\Gamma^2 + b\Gamma + c = 0
+\end{equation*}
+Any valid values for $\Gamma$ must satisfy $\Gamma = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$. \underline{Recognize this?}\\\\
+For a 2nd order homogenous ODE with constant coefficients ($\star$) is called the \underline{characteristic equation}
+\underline{\large \textbf{Important:}} When the two roots $\sqrt{1}$, $\sqrt{2}$ of the char. eqn. one \underline{real} and \underline{distinct}, then the general solution to the ODE is
+\begin{equation*}
+	\tcbhighmath[drop fuzzy shadow]{y(t) = c_1 e^{\Gamma_1 t} + c_2 e^{\Gamma_2 t}}
+\end{equation*}
+\begin{center}
+	(we will need to make sure this is the case later)
+\end{center}
+\begin{example} $y''-y = 0$. Here $a = 1$, $b=0$, $c=1$, and characteristic equation is $\Gamma^2 - 1 = 0$, with roots $\Gamma = -1, 1$. General solution is 
+\begin{equation*}
+	y(t) = c_1e^t + c_2e^{-t}
+\end{equation*}
+\end{example}
+\begin{example}
+Characteristic equation is $2\Gamma^2 + 8\Gamma -10 = 0$ which factors to $(2\Gamma - 2)(\Gamma + 5) = 0$, so $\Gamma = 1, -5$.
+\begin{equation*}
+		y(t) = c_1e^t + c_2e^{-5t}	
+\end{equation*}	
+\end{example}
+

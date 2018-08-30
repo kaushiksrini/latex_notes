@@ -1,0 +1,135 @@
+\classheader{2018-08-20}
+\subsection*{Matrices Review}
+A linear system of equations looks like
+\begin{equation*}
+	\underline{n eqns.}
+	\begin{cases}
+		a_{11}x_1 + \cdots + a_{1n}x_n = b_1\\
+		a_{21}x_1 + \cdots + a_{2n}x_n = b_2\\
+		\vdots \quad \quad \quad \ddots \quad \quad \vdots \quad \quad \quad  \vdots\\
+		\underbrace{a_{n1}x_1 + \cdots + a_{nn}x_n = b_n}_{\text{n-unknowns}}\\
+	\end{cases}
+\end{equation*}
+We can write this as a single (matrix) equation by collecting up the constituent parts into arrays.
+\begin{equation*}
+	\underbrace{\begin{bmatrix}
+		a_{11} & \cdots & a_{1n}\\
+		a_{21} & \cdots & a_{2n}\\
+		\vdots & \ddots & \vdots\\
+		a_{n1} & \cdots & a_{nn}\\
+	\end{bmatrix}}_{A_{nxn}}
+	\underbrace{\begin{bmatrix}
+		x_1\\
+		x_2\\
+		\vdots\\
+		x_n		
+	\end{bmatrix}}_{\vec{X}_{nx1}}
+	=
+	\underbrace{\begin{bmatrix}
+		b_1\\
+		b_2\\
+		\vdots\\
+		b_n		
+	\end{bmatrix}}_{\vec{b}_{nx1}}
+\end{equation*}
+Here $b_2$ = (row 2 of A) $\cdot  \vec{x}$ where the determinant is matrix multiplication.
+\subsubsection*{Some facts about matrices and matrix equations}
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+	\item If $\vec{b} = \begin{bmatrix}
+		0\\ \vdots \\ 0 
+	\end{bmatrix}$ in $A\vec{x} = \vec{b}$, the equation is called homogenous.
+	\item A solution to $A\vec{x} = \vec{b}$ is a choice of $\vec{x}$ which satisfies the equation.
+	\item If $\det A \neq 0$, the system has a unique solution.
+	\item If $A\vec{x} = \vec{0}$ and $\det A \neq 0$, then $\vec{x} = \begin{bmatrix}
+		0\\ \vdots \\ 0 
+	\end{bmatrix}$ is the only solution.\\
+	If $\det A = 0$, then tons of solutions ($A\vec{x} = \vec{0}$ is never inconsistent)
+	\item If $A\vec{x} \neq \vec{0}$, then the inverse of A, $A^{-1}$ exists and can be used to "solve" $A\vec{x} = \vec{b}$: $A\vec{x} = \vec{b} \Rightarrow \vec{x} = A^{-1}\vec{b}$. There is also an identity matrix $I_n  = \begin{bmatrix} \begin{smallmatrix}
+		1 & 0 & \cdots & 0\\
+		0 & 1 & \cdots & \vdots\\
+		\vdots & \vdots & \ddots & 0\\
+		0 & \cdots & 0 & 1
+		\end{smallmatrix}
+	\end{bmatrix} =$ n-dim Identity matrix
+	\item The idea of solving a system of equations involves adding multiples of equations to other equations in order to produce new simpler equations.\\
+	In matrices, these are the elementary row operations one performs to A to reduce the number of non-zero entries. But what one does to A, one must also do to $\vec{I}$. We need to use an augmentation matrix.
+	\item All vectors, by convention, are considered column vectors. To talk about a row vector
+	\begin{equation*}
+		\begin{split}
+			\vec{x} = \begin{bmatrix}
+				x_1\\
+				\vdots\\
+				x_n
+			\end{bmatrix}
+		\end{split}
+		\quad \quad \quad
+		\begin{split}
+			\vec{x}^T = \begin{bmatrix}
+				x_1, \cdots, x_n
+			\end{bmatrix}
+		\end{split}
+	\end{equation*}
+	are should either specify "row vector", or take the transpose of a column vector.
+	\begin{definition}
+		A set of vectors $\vec{x}^{(1)}, \cdots, \vec{x}^{(n)}$ (careful of the notation) of the same size are said to be \underline{linearly dependent} (on each other) if $\exists$ a real numbers $c_1, \cdots, c_n \in \mathbb{R}$, not all at 0, where
+		\begin{equation*}
+			c_1\vec{x}^{(1)} + \cdots + c_n\vec{x}^{(n)} = 0
+		\end{equation*}
+		Otherwise they are \underline{linearly independent}\\
+		\textbf{Note: } The columns of $A_{nxn}$ are \underline{linearly independent} iff $\det A \neq 0$
+	\end{definition}
+	\item For $A\vec{x} = \vec{b}$, think of $\vec{x}, \vec{b} \in \mathbb{R}^n$ where $\mathbb{R}^n = $ the set of all n-vectors.\\ 
+	Then an $nxn$ matrix $A_{nxn}$ can be considered a linear transformation of $\mathbb{R}^n$ (a function taking $\mathbb{R}^n$ to $\mathbb{R}^n$) taking $\vec{x}$ to $\vec{b} = A\vec{x}$:
+	\begin{gather*}
+		A: \mathbb{R}^n \longrightarrow \mathbb{R}^n\\
+		\vec{x} \xmapsto{A} \vec{b} = A\vec{x}
+	\end{gather*}
+	$A$ takes n-vectors to n-vectors, where $\vec{b}$ is the image of $\vec{x}$ under $A$.
+	\item There is a special equation in linear algebra:
+	\begin{equation*}
+		\begin{split}
+			\boxed{A\vec{x} = \lambda \vec{x}}
+		\end{split}
+		\quad \quad \quad
+		\begin{split}
+			A_{nxn} \text{ - matrix}\\
+			\vec{x}\text{ - n-vector}\\
+			\lambda \text{ - scalar}
+		\end{split}
+	\end{equation*}
+	A choice of $\vec{x}$ and $\lambda$ which satisfy this equation indicate a direction (of $\vec{x}$) unchanged via multiplication by $A$, and expanded or contracted by a factor $\lambda$.\\
+	Here $\vec{x}$ is called an \underline{eigenvector} of $A$, and $\lambda$ is its corresponding \underline{eigenvalue}.\\\\
+	How to find eigenvalues?
+	\begin{gather*}
+	A\vec{x} = \lambda\vec{x}\\
+	A\vec{x} - \lambda\vec{x} = \vec{0}\\
+	A\vec{x} - \lambda I_n \vec{x} = \vec{0}\\
+	(A - \lambda I_n)\vec{x} = \vec{0}\\	
+	\end{gather*}
+	The \underline{only} way non-trivial solutions exist is if $\det (A-\lambda I_n) = 0$. But this equation \underline{only} has $\lambda$ in it!
+	\begin{example-N}
+		Let $A = \begin{bmatrix}
+			1 & 1\\ 6 & 0
+		\end{bmatrix}$. Then\\
+		\begin{gather*}
+			\det (A - \lambda I_2) = 0 = \det (
+			\begin{bmatrix}
+				\begin{smallmatrix}
+					1 & 1\\ 6 & 0
+				\end{smallmatrix}
+			\end{bmatrix} - 
+			\begin{bmatrix}
+				\begin{smallmatrix}
+					\lambda & 0\\ 0 & \lambda
+				\end{smallmatrix}
+			\end{bmatrix}) = 
+			\begin{bmatrix}
+				\begin{smallmatrix}
+					1 - \lambda & 1\\ 6 & -\lambda
+				\end{smallmatrix}
+			\end{bmatrix}\\
+			= (1 - \lambda)(-\lambda) - 6 = 0 = (\lambda - 3)(\lambda + 2)\\
+			\boxed{\lambda = 3, \lambda = -2}
+		\end{gather*}
+	\end{example-N}
+\end{enumerate}

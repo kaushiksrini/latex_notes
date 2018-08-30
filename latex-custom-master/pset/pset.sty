@@ -1,0 +1,71 @@
+%
+%  LaTeX pset.sty
+%
+%  @author Max Wang
+%
+
+\ProvidesClass{pset}
+
+% Pass options to common.
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{common}}
+\ProcessOptions\relax
+
+% Set page geometry and include common.
+\RequirePackage[letterpaper,text={7in,9in},centering]{geometry}
+\RequirePackage{common}
+
+% Static header.
+\fancyhead[RO]{Max Wang}
+
+% Reformat title.
+\renewcommand{\maketitle}{%
+  \thispagestyle{plain}%
+  \begin{center}%
+    \rule{7in}{0.2mm}\vspace{1em}
+    {\Large\bf \@title \par}%
+    {\large
+      \lineskip .75em%
+      \begin{tabular}[t]{c}%
+        \emph{\@author}
+      \end{tabular}\par}%
+    {\large \@date \par}%
+  \end{center}%
+  \vspace{1em}
+}
+
+% Theorem environments.
+\newtheorem{thm}{Theorem}
+\newtheorem{prob}[thm]{Problem}
+\newtheorem{claim}[thm]{Claim}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+
+\newtheorem{ethm}{Theorem}[enumi]
+\newtheorem{eprob}[ethm]{Problem}
+\newtheorem{eclaim}[ethm]{Claim}
+\newtheorem{eprop}[ethm]{Proposition}
+\newtheorem{elem}[ethm]{Lemma}
+\newtheorem{ecor}[ethm]{Corollary}
+
+% Solution environment.
+\newenvironment{soln}[1][Solution]{\par
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \endtrivlist\@endpefalse
+}
+
+% Subproblems environment.
+\newcounter{subparts}[thm]
+\newenvironment{sub}{\par
+  \stepcounter{subparts}
+  \leftskip0.35in
+  \parindent-0.35in
+  \textbf{(\alph{subparts})}
+  \;\,\normalsize\itshape
+}{
+  \upshape\parindent0.25in\par\leftskip0in}

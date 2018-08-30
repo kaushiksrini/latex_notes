@@ -1,0 +1,96 @@
+\classheader{2018-06-14}
+
+Start with $y = f(x)$, sine unknown functional relation between 2 variables, where
+\begin{itemize}
+	\item $x$ - independent variable
+	\item $y$ - dependent variable
+\end{itemize}
+
+Such an equation (or sets of them are) called a \underline{mathematical model} when the variables represent measuarble quantities in some application \textit{(usually set up to study some unknown entity of based on its relationship to something controllable x).}\\
+
+If $y = f(x)$ is known, then we can simply study its properties (using calculus).
+
+Often, though, we do not know $y = f(x)$, but we do have information about some properties, like derivatives, for example.
+
+\textbf{Examples:}
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+	\item $\frac{dx}{dy} = ky$
+	\item $F = ma$ (Newton's 2nd Law of motion )
+	\item $f'(x) = x - e^{x/2}$ (restraint of: Find $f(x - e^{x/2}) d\textit{x}$)
+	\item $\frac{d^2\theta}{dt^{2}} + \frac{g}{L} \sin \theta \rightarrow \textbf{The Pendulum}$
+\end{enumerate}
+
+The above are mathematical models whhere the actual function is only known implicitly...
+
+\section*{Ordinary Differential Equations}
+
+\begin{definition-N}
+	An \underline{Ordinary Differential Equation} \textbf{(ODE)} is an equation involving an unknown function between two entities and some of its derivatives\\
+\underline{Note:} "Ordinary" means that the unknown function is a function of one independent variable
+\end{definition-N}
+
+\begin{example-N}
+	\textbf{The Heat Equation (in 3-space)}\\
+	\center
+	$\customderiv{u}{t} = \alpha(\dfrac{\partial^2u}{\partial x^2} + \dfrac{\partial^2 u}{\partial y^2} + \dfrac{\partial^2 u}{\partial z^2})$
+	
+	is a \underline{partial} differential equation since $'u'$ is a function of more than 1-independent variable.
+\end{example-N}
+
+\begin{definition-N}
+	The \underline{order} of an ODE is the same as the order of the highest derivative that appears in the equation:
+\end{definition-N}
+
+\begin{definition-N}
+	The \underline{general form} of an nth order ODE is 
+	\begin{equation*}
+		\boxed{F(x, y, y', y'', ..., y^{(n)}) = 0}
+	\end{equation*}
+	\begin{center}
+		x-independent variable\\
+	y-dependent variable $y = f(x)$\\
+	$y^{(i)}$ is the ith derivative of $y = f(x)$\\
+	$F$ is some expression in $x, y, y', y'', ..., y^{(n)}$\\
+	\end{center}	
+	\underline{Note:} \underline{Sometimes}, we can solve for the highest derivative
+	\begin{equation*}
+		\boxed{y^{(n)} = G(x, y, y', y'', ..., y^{(n-1)})}
+	\end{equation*}
+\end{definition-N} 
+\redhline
+\begin{definition-N}
+	A function $f(\underbrace{x_1, x_2, ..., x_n}_{\vec{x}}, y_1, ..., y_n)$ is \underline{linear} in the variables $y_1, ..., y_n$ if \\$f(x_1, x_2, ..., x_n, y_1, ..., y_n) = G_0(\vec{x}) + \sum_{i = 1}^m G_i(\vec{x})y_i$ where the $G_i(x), i=0,...,m$ are arbitrary.\\\\
+	\underline{Notes:} \circled{1} For an ODE to be \underline{linear}, it must be linear in $y, y', ... , y^{(n)}$, and can be written as:
+	\begin{equation*}
+		\boxed{G_n\cdot y^{(n)} + \cdots + G_1 (\vec{x})\cdot y' + G_0(\vec{x})\cdot y = g(x)}
+	\end{equation*}
+\end{definition-N}
+
+\textbf{Examples:}
+	\begin{enumerate}[label=\protect\circled{\arabic*}]
+		\item $(sinx)y' + (lnx)y = tan (e^x)$ is a linear \underline{first} order ODE.
+		\item $y'' + xy' + siny = 0$ is \underline{NOT} linear.
+		\item $y''y + y' = 0$ is \underline{NOT} linear.
+	\end{enumerate}
+\redhline
+
+Suppose $y' = f(t, y)$ is a \underline{first} order linear ODE. Then thehere exist functions $p(t), q(t)$ so that $f(t, q) = -p(t)y + q(t)$, and the ODE can be written as
+\begin{equation*}
+\tcbhighmath[drop fuzzy shadow]{y' \pm p(t)y = q(t)} \tag{$\star$}
+\end{equation*}
+This form will be very important to understanding how to study this type of ODE.
+
+\begin{example-N}
+	Given $y'\sin x  + y\ln x = \tan e^x$, identify $p(t)$\\
+	\underline{Solution:} Divide by $sinx$ to set,
+	\begin{equation*}
+		y' + \dfrac{\ln x}{\sin x}y = \dfrac{\tan e^x}{\sin x}. \quad \boxed{p(t) = \dfrac{\ln x}{\sin x}}
+	\end{equation*}
+\end{example-N}
+
+\begin{definition-N}
+	A \underline{solution} to $(\star)$ on $I = (a,b) \subset \mathbb{R}$ is any function $y = f(x)$ that satisfies that equation $(\star)$.
+	Sometimes a solution is only known \underline{implicitly}
+\end{definition-N}
+
+Let's play this out and see just how the integrating factor is helpful.

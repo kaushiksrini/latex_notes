@@ -1,0 +1,108 @@
+\classheader{2018-08-14}
+\subsection*{Variation of parameter}
+\begin{example-N}
+	Solve $y'' - 2y' -3y = 4e^{-t}$\\
+	Fundamental set of solutions: $c_1e^{3t} + c_2e^{-t}$. Since -1 is a root of chosen equation of the homogeneous part, we cannot assume $\Ylines(t) = Ae^{-t}$ as it is already part of $c_1e^{3t} + c_2e^{-t}$. We fix this by setting $S = 1$ and $\Ylines(t) = Ate^{-t}$
+\end{example-N}
+\redhline
+\begin{example-N}
+	Solve $y'' - 4y' + 4 = 12e^{2t}$\\
+	Here $\Gamma = 2$ is the only solution. Fundamental solution is: $c_1e^{2t} + c_2te^{2t}$. Here $g(t) = 12e^{2t}$ so assume $\Ylines(t) = At^2e^{2t}$ ($S = 2$ since $\Gamma = 2$ is a double root to $\Gamma^2 - 4\Gamma + 4$).
+\end{example-N}
+\redhline
+\begin{example-N}
+	Solve $y'' - 4y' + 4y = 3t^3e^{-2t}$\\
+	Here $\Ylines(t) = t^2(At^3 + Bt^2 + Ct + D)e^{2t}$
+\end{example-N}
+\redhline\\
+This method is useful but limited in scope:
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+	\item LHS must have constant coefficients.
+	\item RHS must be \textbf{nice}.
+\end{enumerate}
+\redhline\\
+Here is a more general idea: \underline{Variation} of \underline{parameters}.
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+	\item Is a form of \underline{reduction of order}.
+	\item Works for any second order linear non-homogenous ODE
+	\item Relies on \underline{two} assumptions.		
+\end{enumerate}
+Given $y'' + p(t)y' + q(t)y = g(t)$, suppose $c_1y_1(t) + c_2y_2(t)$ is a fundamental set of solutions to $L[y] = 0$.\\\\
+\underline{Assumption 1} Assume $\boxed{\Ylines(t) = u_1(t)y_1(t) + u_2(t)y_2(t)}$ solves $L[y] = g(t)$, for $u_1$, $u_2$ unknown functions. (compare to reduction of order technique).
+\begin{center}
+	Then $\Ylines'(t) = u_1'y_1 + u_1y_1' + u_2'y_2 + u_2y_2'$
+\end{center}
+\textbf{Note:} This is messy, but a good assumption. We can make this easier to handle.\\\\
+\underline{Assumption 2:} Assume $\boxed{u_1'y_1 + u_2'y_2 = 0}$
+\begin{center}
+	Then $\Ylines'(t) = u_1y_1' + u_2y_2'$ and $\Ylines''(t) = u_1'y_1' + u_1y_1'' + u_2'y_2' + u_2y_2''$
+\end{center}
+Substitute these into $L[y] = g(t)$ and get
+\begin{equation*}
+	(u_1'y_1' + u_1y_1'' + u_2'y_2' + u_2y_2'') + p(u_1y_1' + u_2y_2') + q(u_1y_1 + u_2y_2) = g(t)
+\end{equation*}
+Rearrange to get
+\begin{equation*}
+	u_1\underbrace{(y_1'' + py_1' + qy_1)}_{0} + u_2\underbrace{(y_2'' + py_2' + qy_2)}_{0} + u_1'y_1 + u_2'y_2' = g(t)
+\end{equation*}
+\begin{equation*}
+	\boxed{u_1'y_1' + u_2'y_2' = g(t)}
+\end{equation*}
+Here, Assumption 2 is a good one since
+\begin{enumerate}[label=\protect\circled{\alph*}]
+	\item First assumption allows a lot of freedom since 2 unknowns are present.
+	\item Second assumption allows for no second derivatives of $u_1$, $u_2$ in ODE.
+\end{enumerate}
+Both assumptions within ODE yield the system
+\begin{align*}
+	u_1'y_1 + u_2'y_2 = 0\\
+	u_1'y_1' + u_2'y_2' = g(t)
+\end{align*}
+Solve this for $u_1'$ and $u_2'$, integrate each to find $u_1(t)$ and $u_2(t)$. Are there solutions? Solving, we get:
+\begin{align*}
+	u_1' = & \dfrac{-y_2g}{y_1y_2' - y_2y_1'} = \dfrac{-y_2g}{W(y_1, y_2)}\\
+	u_2' = & \dfrac{y_1g}{y_1y_2' - y_2y_1'} = \dfrac{y_1g}{W(y_1, y_2)}
+\end{align*}
+Hence
+\begin{equation*}
+	u_1 = \int \dfrac{-y_2g}{W(y_1, y_2)} dt, \quad \quad \quad u_2 = \int \dfrac{y_1g}{W(y_1, y_2)} dt
+\end{equation*}
+With these, $\Ylines(t) = u_1y_1 + u_2y_2$ is one particular solution, and 
+\begin{equation*}
+	y(t) = c_1y_1(t) + c_2y_2(t) + \Ylines(t)
+\end{equation*}
+is the general solution to $y'' + py' + qy = g$
+\begin{example-N}
+	Knowing $y_1(t) = t$, and $y_2(t) = te^t$ both solve $t^2y'' - t(t + 2)y' + (t+2)y = 0$ or $t > 0$, find the general solution to $t^2y'' - t(t + 2)y' + (t+2)y = 2t^3$.\\\\
+\underline{Strategy:} We use the Variation of parameters method with $\Ylines(t) = u_1(t)y_1(t) + u_2(t)y_2(t) = u_1t + u_2te^t$\\
+\textbf{Note:} Here, $g(t) = 2t$, not $2t^3$\\\\
+\underline{Solution:} Given this assumption for $\Ylines(t)$, we obtain the system $u_1'y)_1 + u_2'y_2 = 0$, $u_1'y_1' + u_2'y_2' = g(t)$,
+\begin{equation*}
+	\begin{rcases}
+		u_1't + u_2te^t = 0\\
+		u_1 + u_2'(e^t + te^t) = 2t
+	\end{rcases} (-t)* \text{ eqn 2 and add}
+	\begin{cases}
+		u_1't + u_2'te^t = 0\\
+		-u_1t - u_2't(e^t+te^t) = 2t^2
+	\end{cases}
+\end{equation*}
+Add equation 1 to equation 2 to get $-u_2't^2e^t = -2t^2$ or $u_2' = 2e^{-t}$, so $\boxed{u_2(t) = -2e^{-t}}$\\
+Then $\Ylines(t) = -2t(t) + (-2e^{-t})te^t = -2t^2 - 2t$. So general solution is $y(t) = c_1t + c_2te^t - 2t^2 - 2t$ or $\boxed{y(t) = K_1t + c_2te^t - 2t^2}$
+\end{example-N}
+\redhline\\
+\textbf{Note:} We could append directly to the general form for
+\begin{equation*}
+	u_1, u_2: W(t, te^t) = 
+	\begin{vmatrix}
+		t & te^t\\
+		1 & e^t + te^t
+	\end{vmatrix}
+	= t^2e^t \text{ on } t > 0
+\end{equation*}
+\begin{equation*}
+	u_1(t) = \int \dfrac{-y_2g}{W(y_1, y_2)} dt = \int \frac{-(te^t)2t}{t^2e^t} dt = -\int 2dt = -2t
+\end{equation*}
+\begin{equation*}
+	u_2(t) = \int \dfrac{-y_1g}{W(y_1, y_2)} dt = \int \frac{t(2t)}{t^2e^t} dt = 2\int e^{-t} dt = -2e^{-t}
+\end{equation*}

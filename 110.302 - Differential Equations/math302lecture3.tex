@@ -1,0 +1,185 @@
+\classheader{2018-06-16}
+Very generally, a first-order ODE of the form
+\begin{equation*}
+	\dfrac{dy}{dt} = f(t, y)
+\end{equation*}
+will have a function of both $t$ and $y$ and will not be solvable. However, with some additional structure to $f$, thhere are methods to solve:  In chapter 2, we explore some of these.
+
+\section*{First Order Differential Equations}
+\subsection*{Linear Equations}
+Suppose $f(t, y) = -p(t)y+q(t)$ for some function $p(t), q(t)$. Then $(\star)$ can be rewritten
+\begin{equation*}
+	\tcbhighmath[drop fuzzy shadow]{y' = -p(t)y+q(t) \quad \text{\textbf{or}} \quad
+	y'+p(t)y= q(t)} \tag{$\star\star$}
+\end{equation*}
+This new form exposes a structure that facilitates calculation: The LHS is almost the total derivative of a function. To make of so, we multiply the ODE by an expression called the integrating factor.
+\begin{definition-N}
+	An \underline{integrating factor} is a term that when multiplied to an expression renders the expression integrable.
+\end{definition-N}
+\redhline\\
+\newcommand{\intfac}{e^{\int p(t) dt}}
+To understand what we are looking for, look at the patterns here:\\
+Let y be a differentiable function of $t$. Then, for any other diff. function of $t$, $f(t)$, we have
+\begin{equation*}
+	\dfrac{d}{dt}\bigg[f(t)y\bigg] = f(t)y' + f'(t)y \quad \quad \textit{(by Product Rule)}
+\end{equation*}
+And also,
+\begin{equation*}
+	\begin{split}
+		\dfrac{d}{dt}\bigg[e^{f(t)}y\bigg] & = \mathlarger{e^{f(t)}y' + e^{f(t)}f'(t)y}\\
+		& = \mathlarger{e^{f(t)}\bigg[y' + f'(t)y\bigg]}
+	\end{split}
+\end{equation*}
+We do this just to look for patterns. In this case, we see an important one: Inside the brackets, $[y' + f'(t)y]$ looks very close to the LHS of $y'+p(t)y= q(t)$\\
+In fact, they are precisely the same when $\mathlarger{f'(t) = p(t)}$, or $\mathlarger{f(t) = \int p(t)dt}$\\
+\redhline\\\\
+So we do more calculation for a pattern:
+\begin{equation*}
+	\begin{split}
+		\dfrac{d}{dt}\bigg[\mathlarger{e^{\int p(t)dt}y}\bigg] & = e^{\int p(t)dt}y' + \dfrac{d}{dt}\bigg[e^{\int p(t)dt}\bigg] y\\
+		& = e^{\int p(t)dt}y' + e^{\int p(t)dt}p(t)y\\
+		& = e^{\int p(t) dt}\bigg[ \underbrace{y' + p(t)y}_{\text{precisely the LHS of $(\star\star)$}}\bigg]
+	\end{split}
+\end{equation*}
+This is useful because, if we take $y' + p(t)y = q(t)$ and multiply it the entire equation by $e^{\int p(t)dt}$, then the LHS becomes \underline{easily integrable}.\\
+\begin{center}
+	We call $e^{\int p(t)dt}$ the \underline{integrating factor} of $y' + p(t)y = q(t)$.
+\end{center}
+\redhline\\\\
+\textbf{\large Solve $y' + p(t)y = q(t)$}
+\begin{enumerate}[label=\textbf{Step \arabic*:}]
+	\setlength{\itemindent}{0.8in}
+	\item Multiply the entire equation by $e^{\int p(t) dt}$.\\
+	\begin{equation*}
+		e^{\int p(t) dt}\Big[y' + p(t)y = q(t)\Big]
+	\end{equation*}
+	\begin{equation*}
+		\underbrace{e^{\int p(t) dt}y' + e^{\int p(t) dt} p(t)y} = e^{\int p(t) dt} q(t)
+	\end{equation*}
+	\begin{equation*}
+		\dfrac{d}{dt}\bigg[e^{\int p(t) dt}y\bigg] = e^{\int p(t) dt} q(t)
+	\end{equation*}
+	\item Integrate with respect to (w.r.t.) $t$.
+	\begin{equation*}
+		\int \dfrac{d}{dt}\big[e^{\int p(t) dt}y\big]dt = \int e^{\int p(t) dt}q(t) dt
+	\end{equation*}
+	\begin{equation*}
+		e^{\int p(t) dt}y = \int e^{\int p(t) dt} q(t) dt + c
+	\end{equation*}
+	\item Solve for $y$.
+	\begin{equation*}
+		y(t) = e^{-\int p(t) dt}\bigg[\int e^{\int p(t) dt} q(t) dt + c\bigg]
+	\end{equation*}
+\end{enumerate}
+\redhline\\\\
+\textbf{\large Notes:}
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+	\item Theoretically, we can \underline{always} do this. Practically, the integrating factor $e^{\int p(t) dt}$ is pretty easy to calculate usually.
+	\item You do not need to memorise anything of the form of step 3. Just remember the steps.
+	\item Any antiderivative of p(t) will do since \circled{a} they all only differ by a constant and \circled{b} You are multiplying the entire equation by the factor. \\
+\end{enumerate}
+\begin{example-N}
+	Suppose $p(t) = 2t$. Then $e^{\int p(t) dt} = e^{\int 2t dt} = e^{t^2 + c}$. Then $e^{t^2 + c} = e^{t^2} e^c = e^{t^2}K$, for $K\in \mathbb{R}$ and constant.\\
+	Then $Ke^{t^2}\big[y'+p(t)y = q(t)\big]$ is same as $e^{t^2}\big[y'+p(t)y = q(t)\big]$ as far as solutions are concerned.
+\end{example-N}
+\newpage
+\underline{\huge Some examples:}
+\begin{enumerate}[label=\protect\circled{\Roman*}]
+	\item {\Large \underline{Solve $ty' - 2y = t^3e^{-2t}$}}\\
+	\newline
+	\underline{\large Strategy:} This is linear so we use the integrating factor $\intfac$ to solve using the 3 steps above.\\
+	\underline{\large Solution:} Place the ODE in standard form.
+	\begin{equation*}
+		y' - \frac{2}{t}y = t^2e^{-2t}
+	\end{equation*}
+	This gives us $p(t) = \frac{-2}{t}$, so the int. factor is $\intfac = e^{-2 \int \frac{1}{t}dt} = e^{-2 \ln |t|} = e^{\ln t^{-2}} = \underline{t^{-2}}$
+	\begin{enumerate}[label=\textbf{Step \arabic*:}]
+	
+	\setlength{\itemindent}{1.3in}
+	\item Multiply ODE by integrating factor.
+	\begin{equation*}
+		= t^{-2}\bigg[y'-\frac{2}{t}y = t^2e^{-2t}\bigg]
+	\end{equation*}
+	\begin{equation*}
+		= \underbrace{t^{-2}y'-\frac{2}{t^3}y} = e^{-2t}
+	\end{equation*}
+	\begin{equation*}
+		= \dfrac{d}{dt}\big[t^{-2}y\big] = e^{-2t}
+	\end{equation*}
+	\item Integrate wrt $t$
+	\begin{equation*}
+		= \int \dfrac{d}{dt}\big[t^{-2}y\big] dt = \int e^{-2t} dt
+	\end{equation*}
+	\begin{equation*}
+		\Rightarrow t^{-2}y = \frac{-e^{-2t}}{2} + K
+	\end{equation*}
+	\item Solve for $y(t)$
+	\begin{equation*}
+		\boxed{y(t) = \frac{t^2e^{-2t}}{2} + Kt^2} \tag{this solves the ODE}
+	\end{equation*}
+	
+	\end{enumerate}
+	
+	\item {\Large \underline{$x' + 2tx = t^3$. Solve this.}}\\
+	\newline
+	\underline{\large Strategy:} Use the integrating factor on this linear ODE to integrate through to an expression for $x(t)$\\
+	\underline{\large Solution:} This ODE is linear, with $p(t) = 2t$. Thus the int. factor is $\intfac = e^{\int 2tdt} = \underline{e^{t^2}}$
+	
+	\begin{enumerate}[label=\textbf{Step \arabic*:}]
+	
+	\setlength{\itemindent}{1.3in}
+	\item Multiply ODE by integrating factor.
+	\begin{equation*}
+		e^{t^2}\big[x' + 2tx = t^3\big]
+	\end{equation*}
+	\begin{equation*}
+		\underbrace{e^{t^2}x' + 2txe^{t^2}} = t^3e^{t^2}
+	\end{equation*}
+	\begin{equation*}
+		\frac{d}{dt}\big[e^{t^2}x \big] = t^3e^{t^2}
+	\end{equation*}
+	\item Integrate w.r.t. $t$
+	\begin{equation*}
+			\int \frac{d}{dt}\big[e^{t^2}x \big] dt = e^{t^2}x + c_1 = \underbrace{\int t^3e^{t^2} dt}
+	\end{equation*}
+	\begin{center}
+		Expand using by parts and substitution. $s = t^2$, $ds = 2tdt$
+	\end{center}
+	\begin{align*}
+		\int t^3e^{t^2} dt \longrightarrow & \frac{1}{2} \int se^sds\\
+		= & \frac{1}{2}e^s(s-1) + c_2\\
+		= & \frac{1}{2}e^{t^2}(t^2-1) + c_2
+	\end{align*}
+	\begin{center}
+		Combine constants to set:
+	\end{center}
+	\begin{equation*}
+		e^{t^2}x = \frac{1}{2}e^{t^2}(t^2-1) + K
+	\end{equation*}
+	\item Solve for x(t) to get the general solution.
+	\begin{equation*}
+		\boxed{x(t) = \frac{1}{2}t^2 - \frac{1}{2} + Ke^{-t^2}} \quad 
+	\end{equation*}
+	\end{enumerate}
+	\item {\Large Solve $\frac{dx}{ds} = \frac{x}{s} - s^2$, for $s > 0$}\\
+	Here the ODE is again linear (note $s$ is the independent variable), and $p(s) = -\frac{1}{s}$, the integrating factor is then\ldots
+	\begin{equation*}
+		\mathlarger{\intfac = e^{-\int (\frac{1}{s})ds} = e^{-\ln s} = e^{\ln s^{-1}} = \underline{s^{-1}}}
+	\end{equation*}
+	\begin{enumerate}[label=\textbf{Step \arabic*:}]
+	\setlength{\itemindent}{1.3in}
+	\item Multiply through standard form ODE to set
+	\begin{align*}
+		\frac{1}{s}\bigg[\dfrac{dx}{ds} - \dfrac{x}{s} = -s^2 \bigg] \Rightarrow & \underbrace{\dfrac{1}{s} \dfrac{dx}{ds} - \dfrac{x}{s^2}} = -s\\
+		& \dfrac{d}{ds}\bigg[\dfrac{1}{s} \cdot x \bigg] = -s
+	\end{align*}
+	\item Integrate w.r.t. $s$ to set
+	\begin{equation*}
+		\dfrac{1}{s}\cdot x = \int (-s)ds + c = \dfrac{-s^2}{2} + c
+	\end{equation*}
+	\item Solve for x(s):
+	\begin{equation*}
+		\boxed{x(s) = \dfrac{-s^3}{2} + cs}
+	\end{equation*}
+	\end{enumerate}
+\end{enumerate}
