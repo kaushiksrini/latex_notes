@@ -1,0 +1,89 @@
+\classheader{2018-08-30}
+\section*{Introduction to Probability (553.420) Review}
+\subsection*{Part 1 - Counting}
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+	\item Multiplication rule (Basic Counting Principle)
+	\item Combinations/Permutations
+	\begin{itemize}
+		\item Sampling with or without replacement. $\Rightarrow$ Inclusion-Exclusion Principle
+	\end{itemize}
+	\item Birthday Problem
+	\item Matching Problem (inclusion-exclusion principle)
+	\item $n$ balls going into $m$ boxes (all are distinguishable)
+	\item Multinomial Coefficients e.g. assign A, B, C, D, to different students $\rightarrow$ anagram problem
+	\item Pairing Problem
+	\begin{equation*}
+		2n \text{ people, paired up}
+		\begin{cases}
+			\text{ordered: } \binom {2n}{2,2,\cdots,2} \quad \text{e.g. different courts for players}\\\\
+			\text{unordered: } \frac{\binom {2n}{2,2,\cdots,2}}{n!}
+		\end{cases}
+	\end{equation*}
+	\item Partition of integers $\rightarrow \binom{n}{n+k-1}$ where $n$ is the sum of integer and $k$ is the number of partitions 
+\end{enumerate}
+\subsection*{Basics of Probability}
+\underline{Axioms}
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+	\item $0 \leq P(A) \leq 1$, $\forall A$
+	\item $P(\Omega) = 1 \rightarrow$ where $\Omega$ is the sample space
+	\item Countable additivity
+	\begin{itemize}
+		\item if $A_1, \cdots, A_n$ are mutually exclusive, then
+		\begin{equation*}
+			P\bigg(\bigcup\limits_{i=1}^{\infty} A_i\bigg) = P(A_1) + P(A_2) + \cdots = \sum\limits_{i=1}^{\infty} P(A_i)
+		\end{equation*}
+	\end{itemize}
+\end{enumerate}
+$\Rightarrow P(A) = 1 - P(A^c)$\\
+$P(A) = \mathlarger{\frac{|A|}{|\Omega|}}$
+\subsubsection*{Conditional Probability}
+\begin{equation*}
+	P(A|B) = \mathlarger{\frac{P(A \cap B)}{P(B)}}	
+\end{equation*}
+\subsubsection*{Bayes Rule}
+\begin{equation*}
+	P(A|B) = \mathlarger{\frac{P(A \cap B)}{P(B)}} = \mathlarger{\frac{P(B|A)P(A)}{\sum\limits_j P(B|C_j)P(C_j)}} \quad \quad \underbrace{\bigcup\limits_j C_j = \Omega}_{\text{partition of $\Omega$}}
+\end{equation*}
+\subsubsection*{Law of Total Probability}
+\begin{equation*}
+	P(A) = \sum\limits_j P(A|B_j) P(B_j) = \sum P(A \cap B_j) \quad \quad \underbrace{\bigcup\limits_j B_j = \Omega}_{\text{partition of $\Omega$}}
+\end{equation*}
+\subsection*{Part 2 - Discrete and Continuous Random Variables}
+\begin{tabularx}{\textwidth}{l|X|X}
+ \textbf{Function} & \textbf{Discrete} & \textbf{Continuous} \\
+\hline
+\hline
+Probability Function & PMF: $P(X=x)$ & PDF: $f_x(x)$\\
+\hline
+Probability Distribution & $\sum\limits_x P(X=x) = 1$ & $\int_x f_x(x) dx = 1$\\
+\hline
+Expectation & $E[X] = \sum\limits_x xP(X=x)$ & E[X] = $\int_x xf(x) dx$\\
+\hline
+Variance & $Var[X] = E[X^2] - (E[X])^2$ & $Var[X] = E[X^2] - (E[X])^2$
+\end{tabularx}
+\subsection*{Law of the Unconscious Statistician (LOTUS)}
+1-dim $\quad E[g(x)] = \sum\limits_x g(x) P(X=x) \bigg/ E[g(x)] = \int_x g(x)f(x)dx$\\
+2-dim $\quad E[g(X,Y)] = \sum\limits_y \sum\limits_x g(x,y) P(X=x,Y=y) \bigg/ E[g(X,Y)] = \int_y \int_x g(x,y) f(x,y)dx dy$
+\subsection*{Special notes on Discrete Distributions}
+\subsubsection*{Binomial Distribution}
+A sum of i.i.d. (identical, independent distribution) Bernoulli(p) R.V.
+\begin{itemize}
+	\item Approximation method $\Rightarrow$ if $n$ is large, $p$ very small and $np < 10$.
+	\begin{itemize}[label={--}]
+		\item use Poisson $(np)$, otherwise preferably $p \approx \frac{1}{2}$
+		\item use Normal $(np, np(1-p))$
+	\end{itemize}
+	\item Mode: 
+	\begin{itemize}[label={--}]
+		\item if $(n+1)p$ integer, mode = (n+1)p or (n+1)p - 1.
+		\item if $(n+1)p \notin \mathbb{Z}$ mode is $\left \lfloor{(n+1)p}\right \rfloor$
+		\item \textbf{Proof:} consider $\mathlarger{\frac{P(X=x)}{P(X=x-1)}}$ going below 1.
+	\end{itemize}
+\end{itemize}
+\subsection*{Negative Binomial}
+A sum of i.i.d Geometric(p) R.V.\\
+$\blacksquare$ $a^{th}$ head before $b^{th}$ tail
+\begin{example-N}
+	A coin has probability $p$ to land on a head, $q = 1-p$ to land on a tail.\\
+	$P[5^{th} \text{tail occurs before the } 10^{th} \text{ head}]$?
+\end{example-N}

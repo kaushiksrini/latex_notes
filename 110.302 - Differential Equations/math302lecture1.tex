@@ -1,22 +1,21 @@
 \classheader{2018-06-14}
 
-Start with $y = f(x)$, sine unknown functional relation between 2 variables, where
+Start with $y = f(x)$, some unknown functional relation between 2 variables, where
 \begin{itemize}
 	\item $x$ - independent variable
 	\item $y$ - dependent variable
 \end{itemize}
 
 Such an equation (or sets of them are) called a \underline{mathematical model} when the variables represent measuarble quantities in some application \textit{(usually set up to study some unknown entity of based on its relationship to something controllable x).}\\
-
 If $y = f(x)$ is known, then we can simply study its properties (using calculus).
 
 Often, though, we do not know $y = f(x)$, but we do have information about some properties, like derivatives, for example.
 
 \textbf{Examples:}
 \begin{enumerate}[label=\protect\circled{\arabic*}]
-	\item $\frac{dx}{dy} = ky$
+	\item $\frac{dx}{dy} = ky, k \in \mathbb{R}$
 	\item $F = ma$ (Newton's 2nd Law of motion )
-	\item $f'(x) = x - e^{x/2}$ (restraint of: Find $f(x - e^{x/2}) d\textit{x}$)
+	\item $f'(x) = x - e^{x/2}$ (restraint of: Find $\int (x - e^{x/2}) d\textit{x}$)
 	\item $\frac{d^2\theta}{dt^{2}} + \frac{g}{L} \sin \theta \rightarrow \textbf{The Pendulum}$
 \end{enumerate}
 
@@ -56,13 +55,14 @@ The above are mathematical models whhere the actual function is only known impli
 	\begin{equation*}
 		\boxed{y^{(n)} = G(x, y, y', y'', ..., y^{(n-1)})}
 	\end{equation*}
+	But this is not always possible, since $y^{(5)} + \sin y^{(5)} = y^{(3)}$ cannot be simplified
 \end{definition-N} 
 \redhline
 \begin{definition-N}
-	A function $f(\underbrace{x_1, x_2, ..., x_n}_{\vec{x}}, y_1, ..., y_n)$ is \underline{linear} in the variables $y_1, ..., y_n$ if \\$f(x_1, x_2, ..., x_n, y_1, ..., y_n) = G_0(\vec{x}) + \sum_{i = 1}^m G_i(\vec{x})y_i$ where the $G_i(x), i=0,...,m$ are arbitrary.\\\\
+	A function $f(\underbrace{x_1, x_2, ..., x_n}_{\vec{x}}, \underbrace{y_1, ..., y_n}_{\vec{y}})$ is \underline{linear} in the variables $y_1, ..., y_n$ if \\$f(x_1, x_2, ..., x_n, y_1, ..., y_n) = G_0(\vec{x}) + \sum_{i = 1}^m G_i(\vec{x})y_i$ where the $G_i(x), i=0,...,m$ are arbitrary.\\\\
 	\underline{Notes:} \circled{1} For an ODE to be \underline{linear}, it must be linear in $y, y', ... , y^{(n)}$, and can be written as:
 	\begin{equation*}
-		\boxed{G_n\cdot y^{(n)} + \cdots + G_1 (\vec{x})\cdot y' + G_0(\vec{x})\cdot y = g(x)}
+		\boxed{G_n(x) y^{(n)} + \cdots + G_1 (\vec{x})\cdot y' + G_0(\vec{x})\cdot y = g(x)}
 	\end{equation*}
 \end{definition-N}
 

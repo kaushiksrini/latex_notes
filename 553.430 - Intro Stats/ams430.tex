@@ -13,7 +13,7 @@
 %  Specfies basic information.
 %  In the metadata section of the preamble, you can specify the subject and a list of keywords for the PDF.
 %
-\newcommand{\coursetitle}{AMS 553.430 - Introduction to Statistic}
+\newcommand{\coursetitle}{AMS 553.430 - Introduction to Statistics}
 \newcommand{\lecturer}{Dwijavanti P Athreya}
 \newcommand{\notetaker}{Kaushik Srinivasan}
 \newcommand{\notetakersemail}{ksriniv4@jhu.edu}
@@ -63,7 +63,7 @@
 
 
 %  Defines some standard theorem environments, in both numbered and non-numbered versions. The numbering of each enviroment will be reset for each lecture.
-\newcounter{lecture}       \setcounter{lecture}{0}
+\newcounter{lecture}       \setcounter{lecture}{-1}
 \newcounter{tN}[lecture]   \newcounter{dN}[lecture]
 \newcounter{lN}[lecture]   \newcounter{rN}[lecture]
 \newcounter{cN}[lecture]   \newcounter{eN}[lecture]
@@ -113,6 +113,7 @@
 % tikz is for drawing all sorts of pictures and diagrams
 
 \usepackage{tikz}
+\usepackage{tabularx}
 \usetikzlibrary{decorations.text}
 \newcommand{\tikzmark}[2]{%
     \tikz[remember picture,baseline=-2pt]
@@ -303,6 +304,9 @@
 \newcommand{\Lie}{\mathrm{Lie}}
 \newcommand{\Diffeo}{\mathrm{Diffeo}}
 
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
 \newcommand{\connection}{\nabla}
 \newcommand{\new}{\mathrm{new}}
 
@@ -415,7 +419,10 @@ Please email any corrections or suggestions to \expandafter\href{mailto:\notetak
 	
 \newpage
 
-\include{ams430lecture1}
+\include{ams430lecture0}
+
+
+
 
 
 	
