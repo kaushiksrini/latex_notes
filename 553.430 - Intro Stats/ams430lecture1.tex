@@ -1,2 +1,59 @@
 \classheader{2018-08-30}
-Not cool
+\section*{Survey Sampling}
+We have a \underline{population of objects} under study (people, animals, places, etc.). We will consider a single numerical measurement associated to object $i: x_i$
+\begin{example}
+	$N = 5000, x_i=$ height of person $i$, Population size = N. We denote population measurements $\{x_1, x_2, \cdots, x_N\}$\\
+	Compute population quantities:
+	\begin{multicols}{2}
+		\begin{itemize}
+		\item population total $\tau = \sum\limits_{i=1}^N x_i$
+		\item population mean $\mu = \frac{\tau}{N}= \frac{\sum\limits_{i=1}^N x_i}{N}$
+	\end{itemize}
+	\end{multicols}
+
+\end{example}
+\textbf{Note: } $\tau$ and $\mu$ are \underline{population parameters}, their computation depends on all the population data.
+\begin{question}
+	 How to estimate $\tau$ and $\mu$ based on a sample of observation from this population?
+\end{question}
+\underline{Classical Answer:} Choose a "random" sample of objects and associated measurements denoted $\{x_1, x_2, \cdots, x_n \}$. \emph{Note: } capital $X_i$ denote random variables.\\
+Whiter "Random"? Two types of ways to sample:
+\begin{multicols}{2}
+	\begin{itemize}[label={--}]
+	\item without replacement
+	\item with replacement
+\end{itemize}
+\end{multicols}
+\begin{claim-N}
+	If $X_i$ are drawn without replacement, then the distribution of $X_1$ and $X_2$ are identical. Is this true? \textbf{In fact, \underline{\Large it is}} $\Rightarrow$ They are \textbf{\underline{\large NOT}} independent but they are identically distributed.
+\end{claim-N}
+\begin{center}
+	P(Ace in Pos 1) = P(Ace in Pos 2) = $\frac{4}{52}$
+\end{center}
+\subsubsection*{Combinatorial Approach}
+"well-shuffled deck" $\leftrightarrow$ all $52!$ rearrangements of the card are equally likely. How many rearrangements have ace at pos 1? \underline{$4 \cdot 51!$}
+\begin{equation*}
+	P(A_1) = \frac{4 \cdot 51!}{52!} = \frac{4}{52} = P(A_2) = P(A_{19}) = P(A_{36})
+\end{equation*}
+\begin{question}
+	If $X_1$ and $X_2$ are identically distributed, then how do they differ between corresponding draws with replacement?
+\end{question} 
+\begin{answer}
+	Independence. We can have Random Variables that are identically distributed and not independent. Note if independent, $P(A_2 |A_1) = P(A_2)$.
+\end{answer}
+\begin{equation*}
+	\begin{split}
+		\textbf{with replacement}\\
+		P(A_1) = \frac{4}{52}, \quad
+		P(A_2) = \frac{4}{52}\\
+		P(A_2 | A_1) = \frac{4}{52}
+	\end{split} \hspace{10em}
+	\begin{split}
+		\textbf{without replacement}\\
+		P(A_1) = \frac{4}{52}, \quad
+		P(A_2) = \frac{4}{52}\\
+		P(A_2 | A_1) = \frac{3}{51}
+	\end{split}
+\end{equation*}
+We can see from this that depending on sampling method, we gain or lose independence. In the finite population sampling method, we have $1, \ldots, N$ objects we care about. \\
+\textbf{Loss of Independence} when choosing sampling method is important. 
