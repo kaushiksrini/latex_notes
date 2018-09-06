@@ -64,7 +64,8 @@ Variance & $Var[X] = E[X^2] - (E[X])^2$ & $Var[X] = E[X^2] - (E[X])^2$
 \subsection*{Law of the Unconscious Statistician (LOTUS)}
 1-dim $\quad E[g(x)] = \sum\limits_x g(x) P(X=x) \bigg/ E[g(x)] = \int_x g(x)f(x)dx$\\
 2-dim $\quad E[g(X,Y)] = \sum\limits_y \sum\limits_x g(x,y) P(X=x,Y=y) \bigg/ E[g(X,Y)] = \int_y \int_x g(x,y) f(x,y)dx dy$
-\subsection*{Special notes on Discrete Distributions}
+\subsection*{Discrete Distributions}
+\subsubsection*{Bernoulli Distribution}
 \subsubsection*{Binomial Distribution}
 A sum of i.i.d. (identical, independent distribution) Bernoulli(p) R.V.
 \begin{itemize}
@@ -80,6 +81,8 @@ A sum of i.i.d. (identical, independent distribution) Bernoulli(p) R.V.
 		\item \textbf{Proof:} consider $\mathlarger{\frac{P(X=x)}{P(X=x-1)}}$ going below 1.
 	\end{itemize}
 \end{itemize}
+\subsubsection*{Poisson Distribution}
+
 \subsubsection*{Negative Binomial}
 \begin{gather*}
 	X \backsim NB(r,p) \quad x = r, r+1, \cdots \\
@@ -138,7 +141,8 @@ $\blacksquare$ Coupon Question\\
 	E[X] = E[\sum\limits_{i=1}^{N} I_i] = N E[I_i] = \boxed{N \bigg[ 1 - \bigg( \frac{N-1}{N} \bigg)^{10} \bigg]}
 \end{gather*}
 \end{example}
-\subsection*{Special Notes on some Continuous Distributions}
+\subsubsection*{Hypergeometric Distribution}
+\subsection*{Continuous Distributions}
 \subsubsection*{Normal Distribution}
 \begin{gather*}
 	\textbf{Normal: } X \backsim N(\mu, \sigma^2) \Rightarrow Z = \frac{X- \mu}{\sigma} \backsim N(0,1) \text{ with CDF } P(Z \leq z) = \Phi(z)\\
@@ -157,6 +161,9 @@ $\blacksquare$ Coupon Question\\
 	\item $M$ = min of $exp(\lambda)$ and $exp(\mu) \Rightarrow M \backsim exp(\lambda + mu)$
 	\item $M$ = min of $X_1, X_2, \cdots, X_n$, where $X_i \backsim_{\text{\tiny i.i.d.}} exp(\lambda) \Rightarrow exp(n\lambda)$ 
 \end{itemize}
+\subsubsection*{Gamma Distribution}
+\subsubsection*{Beta Distribution}
+
 \subsection*{CDF in General}
 \begin{itemize}
 	\item $F_x(t) = P(X \leq t)$
