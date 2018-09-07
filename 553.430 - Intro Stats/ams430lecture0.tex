@@ -6,11 +6,25 @@
 	\item Combinations/Permutations
 	\begin{itemize}
 		\item Sampling with or without replacement. $\Rightarrow$ Inclusion-Exclusion Principle
+	\begin{equation*}
+		\binom{n}{k} = \frac{n!}{k!(n-k)!} \qquad \qquad \Perm{n}{k} = \frac{n!}{(n-k)!}
+	\end{equation*}
 	\end{itemize}
 	\item Birthday Problem
 	\item Matching Problem (inclusion-exclusion principle)
+	\begin{itemize}[label={--}]
+		\item $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+		\item $P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)$  
+		\item etc...
+	\end{itemize}
 	\item $n$ balls going into $m$ boxes (all are distinguishable)
-	\item Multinomial Coefficients e.g. assign A, B, C, D, to different students $\rightarrow$ anagram problem
+	\begin{example}
+		$n$ balls numbered $1,2,\cdots, n$. $n$ boxes labelled $1,2,\cdots, n$. Distribute the balls into the boxes, one in each box. $M_i$ = ball $i$ is in box $i$
+	\end{example}
+	\item Multinomial Coefficients e.g. assign A, B, C, D, to different students $\rightarrow$ anagram problem\\ -- $n$ distinct objects into $r$ distinct groups
+	\begin{equation*}
+		\frac{n!}{n_1! n_2! n_3! \ldots n_r!} = \binom{n}{n_1, n_2, n_3, \ldots, n_r}
+	\end{equation*}
 	\item Pairing Problem
 	\begin{equation*}
 		2n \text{ people, paired up}
@@ -19,7 +33,11 @@
 			\text{unordered: } \frac{\binom {2n}{2,2,\cdots,2}}{n!}
 		\end{cases}
 	\end{equation*}
-	\item Partition of integers $\rightarrow \binom{n}{n+k-1}$ where $n$ is the sum of integer and $k$ is the number of partitions 
+	\item Partition of integers $\longrightarrow$ 
+	$n$: sum of integer, \quad $r$: number of partitions 
+	\begin{equation*}
+		 \binom{n + r - 1}{r - 1} = \binom{n + r - 1}{n}
+	\end{equation*}
 \end{enumerate}
 \subsection*{Basics of Probability}
 \underline{Axioms}
@@ -40,15 +58,21 @@ $P(A) = \mathlarger{\frac{|A|}{|\Omega|}}$
 \begin{equation*}
 	P(A|B) = \mathlarger{\frac{P(A \cap B)}{P(B)}}	
 \end{equation*}
-\subsubsection*{Bayes Rule}
-\begin{equation*}
-	P(A|B) = \mathlarger{\frac{P(A \cap B)}{P(B)}} = \mathlarger{\frac{P(B|A)P(A)}{\sum\limits_j P(B|C_j)P(C_j)}} \quad \quad \underbrace{\bigcup\limits_j C_j = \Omega}_{\text{partition of $\Omega$}}
-\end{equation*}
 \subsubsection*{Law of Total Probability}
 \begin{equation*}
 	P(A) = \sum\limits_j P(A|B_j) P(B_j) = \sum P(A \cap B_j) \quad \quad \underbrace{\bigcup\limits_j B_j = \Omega}_{\text{partition of $\Omega$}}
 \end{equation*}
-\subsection*{Part 2 - Discrete and Continuous Random Variables}
+\subsubsection*{Bayes Rule}
+\begin{equation*}
+	P(B_i|A) = \mathlarger{\frac{P(A|B_i)P(B_i)}{\sum\limits_j P(A|B_j)P(B_j)}} \quad \quad \underbrace{\bigcup\limits_j B_j = \Omega}_{\text{partition of $\Omega$}}
+\end{equation*}
+\subsubsection*{Independent events}
+If we have events $A_1, A_2, \cdots, A_n$, then
+\begin{equation*}
+	P(A_1 \cap A_2 \cap A_3 \cdots A_n) = P(A_1) \cdot P(A_2)\cdot P(A_3) \cdot \cdots P(A_n)
+\end{equation*}
+\subsection*{Introduction to Discrete and Continuous Random Variables}
+\textbf{Random Variable} - a real valued function defined on the sample space of an experiment $X:\Omega \rightarrow \mathbb{R}$, $\forall \omega \in \Omega, X(\omega) \in \mathbb{R}$\\
 \begin{tabularx}{\textwidth}{l|X|X}
  \textbf{Function} & \textbf{Discrete} & \textbf{Continuous} \\
 \hline
@@ -65,14 +89,44 @@ Variance & $Var[X] = E[X^2] - (E[X])^2$ & $Var[X] = E[X^2] - (E[X])^2$
 1-dim $\quad E[g(x)] = \sum\limits_x g(x) P(X=x) \bigg/ E[g(x)] = \int_x g(x)f(x)dx$\\
 2-dim $\quad E[g(X,Y)] = \sum\limits_y \sum\limits_x g(x,y) P(X=x,Y=y) \bigg/ E[g(X,Y)] = \int_y \int_x g(x,y) f(x,y)dx dy$
 \subsection*{Discrete Distributions}
+\begin{multicols}{2}
+	\begin{enumerate}
+	\item Bernoulli$(p)$
+	\item Binomial$(n,p)$
+	\item Poisson $(\lambda)$
+	\item Geometric$(p)$
+	\item Negative Binomial$(n,p)$
+	\item Hypergeometric$(N,M,n)$
+\end{enumerate}
+\end{multicols}
 \subsubsection*{Bernoulli Distribution}
+$X$ is a random variable with Bernoulli$(p)$ distribution
+\begin{tcolorbox}
+\begin{gather*}
+X \sim Bernoulli(p)\\
+	P(X = x) = \begin{cases}
+		p & x=1\\
+		1-p & x = 0
+	\end{cases}
+\end{gather*}
+\end{tcolorbox}
 \subsubsection*{Binomial Distribution}
 A sum of i.i.d. (identical, independent distribution) Bernoulli(p) R.V.
+\begin{tcolorbox}
+\begin{gather*}
+	X \sim Binomial(n,p)\\ 
+	\text{Support}: x \in \{0, 1, \cdots n\} \\
+	n: \text{sample size}\qquad 
+	p: \text{probability of success}\\
+	P(X = k) = \binom{n}{k} p^k (1-p)^{(n-k)}\\
+	E[X] = np \hspace{10em} Var(X) = np(1-p)
+\end{gather*}
+\end{tcolorbox}
 \begin{itemize}
-	\item Approximation method $\Rightarrow$ if $n$ is large, $p$ very small and $np < 10$.
+	\item Approximation methods $\Rightarrow$ 
 	\begin{itemize}[label={--}]
-		\item use Poisson $(np)$, otherwise preferably $p \approx \frac{1}{2}$
-		\item use Normal $(np, np(1-p))$
+		\item if $n$ is large, $p$ very small and $np < 10$. $\Rightarrow$ use Normal $(np, np(1-p))$
+		\item $p \approx \frac{1}{2}$ $\Rightarrow$ Use Poisson $(\lambda = np)$
 	\end{itemize}
 	\item Mode: 
 	\begin{itemize}[label={--}]
@@ -82,13 +136,29 @@ A sum of i.i.d. (identical, independent distribution) Bernoulli(p) R.V.
 	\end{itemize}
 \end{itemize}
 \subsubsection*{Poisson Distribution}
-
-\subsubsection*{Negative Binomial}
+\begin{tcolorbox}
 \begin{gather*}
-	X \backsim NB(r,p) \quad x = r, r+1, \cdots \\
-	r = \text{...}\\
-	p = \text{probability of success}
-\end{gather*}
+	X \sim Poisson(\lambda)\\
+	 x \in \{0, 1, \cdots \} \\
+	\lambda : \text{parameter}\\
+	P(X = x) = \frac{e^{-\lambda} \lambda^x}{x!}\\
+	E[X] = \lambda \hspace{10em} Var(X) = \lambda
+\end{gather*}	
+\end{tcolorbox}
+\textbf{Approximations}
+\begin{itemize}
+	\item if $n$ is large $\Longrightarrow$ Normal($\lambda,\lambda$)
+\end{itemize}
+\subsubsection*{Negative Binomial}
+\begin{tcolorbox}
+	\begin{gather*}
+	X \backsim NB(r,p)\\
+	\text{Support}: x = \{ r, r+1, \ldots \}\\
+	r = \text{the rth success}\\
+	p = \text{probability of success}\\
+	P(X = k) = \binom{k + r-1}{k} \cdot (1-p)^r \cdot p^k
+ 	\end{gather*}
+\end{tcolorbox}
 A sum of i.i.d Geometric(p) R.V.\\
 $\blacksquare$ $a^{th}$ head before $b^{th}$ tail
 \begin{example}
@@ -108,6 +178,16 @@ $\blacksquare$ $a^{th}$ head before $b^{th}$ tail
 	\end{gather*}
 \end{example}
 \subsubsection*{Geometric Distribution}
+\begin{tcolorbox}
+\begin{gather*}
+	X \sim Geometric(p)\\
+	\text{Support}: x \in \{1, 2, \cdots\}\\
+	p: \text{probability of success}\\
+	P(X = r) = (1-p)^{(r-1)} \cdot p\\
+	\text{prob for 1st success on $r$th trial}\\
+	E[X] = \frac{1}{p} \hspace{10em} Var(X) = \frac{1-p}{p^2}
+\end{gather*}	
+\end{tcolorbox}
 \begin{example}
 $\blacksquare$ Coupon Question\\
 \underline{Variation A}: $N$ different types of coupons $\rightarrow P($ get a specific type$) = \frac{1}{N}$\\
@@ -142,12 +222,76 @@ $\blacksquare$ Coupon Question\\
 \end{gather*}
 \end{example}
 \subsubsection*{Hypergeometric Distribution}
+\begin{tcolorbox}
+	\begin{gather*}
+		X \sim Hyp(N, M, n)\\
+		N \in \{0, 1, 2, \ldots \} \quad M \in \{0, 1, \ldots, N\} \quad n \in \{0, 1, \ldots, N\}\\
+		\text{Support}: k \in \{\max(0, n + M - N), min(n, M)\}\\
+		N \quad \text{is the population size}\qquad
+		K \quad\text{is the no. of success states in the population}\\
+		n \quad\text{is the no. of draws (i.e. quantity drawn in each trial)}\\
+		k \quad\text{is the no. of observed successes}\\
+		P(X = k) = \frac{\binom{M}{k} \binom{N - M}{M - k - 1}}{\binom{N}{n}}
+	\end{gather*}
+\end{tcolorbox}
 \subsection*{Continuous Distributions}
+\subsubsection*{Uniform Distribution}
+\begin{tcolorbox}
+	\begin{gather*}
+		X \sim Unif(a,b)\\
+		f_X(x) = 
+		\begin{cases}
+			\frac{1}{b-a} & a \leq x \leq b\\
+			0 & o/w
+		\end{cases}\\
+		E[X] = \frac{a + b}{2} \hspace{10em} Var(X) = \frac{(b-a)^2}{12}
+	\end{gather*}
+\end{tcolorbox}
 \subsubsection*{Normal Distribution}
-\begin{gather*}
-	\textbf{Normal: } X \backsim N(\mu, \sigma^2) \Rightarrow Z = \frac{X- \mu}{\sigma} \backsim N(0,1) \text{ with CDF } P(Z \leq z) = \Phi(z)\\
-	\Phi(-x) = 1 - \Phi(x) 
+\begin{tcolorbox}
+	\begin{gather*}
+	X \backsim N(\mu, \sigma^2) \Rightarrow Z = \frac{X- \mu}{\sigma} \backsim N(0,1) \text{ with CDF } P(Z \leq z) = \Phi(z)\\
+	\Phi(-x) = 1 - \Phi(x) \\
+	\text{Support:} \quad x \in (-\infty, \infty)\\
+	f_X(x) = \frac{1}{\sqrt{2\pi} \sigma}e^{\frac{-(x - \mu)^2}{2\sigma^2}}\\
+	E[X] = \mu \hspace{10em} Var(X) = \sigma^2
 \end{gather*}
+\end{tcolorbox}
+\subsubsection*{Exponential distribution}
+\begin{tcolorbox}
+\begin{gather*}
+	X \sim Exp(\lambda)\\
+	\text{Support:} \quad x \in [0, \infty)\\
+	f_X(x) = \lambda e^{-\lambda x}\\
+	E[X] = \frac{1}{\lambda} \hspace{10em} Var(X) = \frac{1}{\lambda^2}
+\end{gather*}	
+\end{tcolorbox}
+
+\textbf{Lack of memory property:} $P(X \geq s+t | X\geq t) = P(X \geq s)$
+\begin{itemize}
+	\item $M$ = min of $exp(\lambda)$ and $exp(\mu) \Rightarrow M \backsim exp(\lambda + \mu)$
+	\item $M$ = min of $X_1, X_2, \cdots, X_n$, where $X_i \backsim_{\text{\tiny i.i.d.}} exp(\lambda) \Rightarrow exp(n\lambda)$ 
+\end{itemize}
+\subsubsection*{Gamma Distribution}
+\begin{tcolorbox}
+	\begin{gather*}
+		X \sim Gamma(\alpha, \beta)\\
+		\text{Support:} \quad x \in [0, \infty)\\
+		F_X(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1} e^{-\beta x}\\
+		E[X] = \frac{\alpha}{\beta} \hspace{10em} Var(X) = \frac{\alpha}{\beta^2}\\
+		\textbf{Gamma Function:} \quad \Gamma(z) = (z - 1)! = \int_0^\infty x^{z-1} e^{-x} dx\\
+	\end{gather*}
+\end{tcolorbox}
+\subsubsection*{Beta Distribution}
+\begin{tcolorbox}
+\begin{gather*}
+	X \sim Beta(\alpha, \beta)\\
+	\text{Support:} \quad x \in [0, 1]\\
+	f_X(x) = \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)} x^{\alpha - 1} (1 - x)^{\beta - 1}\\
+	E[X] = \frac{\alpha}{\alpha + \beta} \hspace{10em} Var(X) = \frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}
+\end{gather*}	
+\end{tcolorbox}
+
 \subsubsection*{Chi-Square}
 \begin{gather*}
 	\textbf{Chi-Square: } \chi^2_n \text{is Chi-square with degrees of Freedom }n\\
@@ -155,15 +299,6 @@ $\blacksquare$ Coupon Question\\
 	\Rightarrow \chi^2_n = n \text{ i.i.d. } Z_i \backsim Gamma\bigg(\frac{1}{2},\frac{1}{2}\bigg)\\
 	= Gamma\bigg(\frac{n}{2},\frac{1}{2}\bigg)
 \end{gather*}
-\subsubsection*{Exponential distribution}
-\textbf{Lack of memory property} - $P(X \geq s+t | X\geq t) = P(X \geq s)$
-\begin{itemize}
-	\item $M$ = min of $exp(\lambda)$ and $exp(\mu) \Rightarrow M \backsim exp(\lambda + mu)$
-	\item $M$ = min of $X_1, X_2, \cdots, X_n$, where $X_i \backsim_{\text{\tiny i.i.d.}} exp(\lambda) \Rightarrow exp(n\lambda)$ 
-\end{itemize}
-\subsubsection*{Gamma Distribution}
-\subsubsection*{Beta Distribution}
-
 \subsection*{CDF in General}
 \begin{itemize}
 	\item $F_x(t) = P(X \leq t)$
@@ -184,9 +319,18 @@ $\blacksquare$ Coupon Question\\
 	\end{equation*}
 \end{itemize}
 \subsection*{Density Transformation}
+For density transformation \textbf{e.g.} finding pdf of $U = X + Y$
+\begin{multicols}{2}
+	\begin{itemize}[label={--}]
+	\item Convolution
+	\item MGF
+	\item Jacobian
+	\item CDF Transformation
+\end{itemize}
+\end{multicols}
 \begin{itemize}
 	\item Use CDF: Computer $P(Y \leq y) = P(g(x) = y)$
-	\item \textbf{1-dim: } If Y is monotonically increasing or decreasing: $Y = g(x) \quad \boxed{f_Y(y) = f_X(x(y)) \cdot |x'(y)|}$
+	\item \textbf{1-dim: } If Y is monotonically increasing or decreasing: $Y = g(x) \quad \boxed{f_Y(y) = f_X(x(y)) \cdot |(x^{-1})'(y)|}$
 	\item \textbf{2-dim: } Joint Density:
 	\begin{gather*}
 		(X, Y) \rightarrow (U, V) \quad \quad \quad U = h_1(X, Y) \quad \quad V = h_2(X,Y)\\
@@ -198,7 +342,7 @@ $\blacksquare$ Coupon Question\\
 	\end{gather*}
 	\item if $Z = X + Y\quad$ (2-dim $\rightarrow$ 1-dim) use CDF. Compute $P(Z \leq z) = P(X+Y \leq z)$. Integrate $f(x,y)$ over this region.
 \end{itemize}
-\subsection*{Joint Disrtibtuion}
+\subsection*{Joint Distribution}
 \begin{equation*}
 	\begin{split}
 		& \textbf{Discrete}\\
@@ -208,7 +352,7 @@ $\blacksquare$ Coupon Question\\
 	\begin{split}
 		& \textbf{Continuous}\\
 		F_{X,Y}(x,y) & = f_X(x) f_Y(y)\\
-		& = \dfrac{\partial}{\partial x \partial y} F_{X,Y}(x,y)
+		& = \dfrac{\partial^2}{\partial x \partial y} F_{X,Y}(x,y)
 	\end{split}
 \end{equation*}
 \begin{itemize}
@@ -295,3 +439,44 @@ Consider $X_1, X_2, \cdots, X_n \quad \quad X_{(j)}$ = j-th smallest
 		\rho(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var(X) Var(Y)}} = \frac{Cov(X,Y)}{\sigma_x \sigma_y}
 	\end{equation*}
 \end{enumerate}
+\subsection*{Limit Theorems}
+\subsubsection*{Markov's Inequality}
+For any non-negative random variable $X$
+\begin{equation*}
+	P(X \geq a) \leq \frac{E(X)}{a} \tag{for \underline{any} $a > 0$}
+\end{equation*}
+\begin{proof}
+	Let $X \geq 0$ a random variable and let $a > 0$.
+	Define new random variable from $X$ as $Y_a$
+	\begin{gather*}
+		Y_a =
+		\begin{cases}
+ 		0 & \text{if }	X < a\\
+ 		a & \text{if }	X \geq a\\
+		 \end{cases}\\
+		0 \leq Y_a \leq X \Longrightarrow \underbrace{E[Y_a]}_{a\cdot P(X \geq a)} \leq E[X]\\
+		E[Y_a] = 0 \cdot P(Y_a < a) + a\cdot P(X \geq a)\\
+		 E[Y_a] = a\cdot P(X \geq a) \leq E[X] \Longrightarrow \boxed{P(X \geq a) \leq \frac{E(X)}{a}}
+	\end{gather*}
+\end{proof}
+\subsubsection*{Chebyshev's Inequality}
+For any random variable Y with mean $\mu_y$ and variance $\sigma_y^2$
+\begin{equation*}
+	P(|Y - \mu)y| \geq c) \leq \frac{\sigma_y^2}{c^2} \tag{for \underline{any} $c > 0$}
+\end{equation*}
+\begin{proof}
+	\begin{gather*}
+		P(|Y - \mu_y)| \geq c) = P(\underbrace{|Y - \mu_y)|^2}_{=X} \geq c^2)\\
+		P(|Y - \mu_y)|^2 \geq c^2) \leq \frac{E[|Y - \mu_y|^2]}{c^2} = \frac{\sigma_y^2}{c^2}
+	\end{gather*}
+\end{proof}
+This is the same as
+\begin{itemize}[label={--}]
+	\item $P(|Y - \mu_y| \geq k \sigma_y) \leq \frac{1}{k^2}$
+	\item $P(|Y - \mu_y| \leq k \sigma_y) \geq \underbrace{1- \frac{1}{k^2}}_{\text{very conservative}}$
+\end{itemize}
+\subsubsection*{Weak Law of Large Numbers}
+If $X_1, X_2, \cdots$ are $i.i.d.$ with a mean $\mu$
+\begin{equation*}
+	\text{then} \qquad \mathlarger{\mathlarger{\Lim{n \rightarrow \infty}}} {\large P}\bigg( \bigg| \frac{X_1 + X_2 + \cdots + X_n}{n} - \mu \bigg| \geq \epsilon \bigg) = 0
+\end{equation*}
