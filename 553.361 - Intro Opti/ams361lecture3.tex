@@ -92,7 +92,9 @@ What makes a ingredient list special?
 	\end{rcases} \text{Need for electricity for }u, v
 	\end{align*} 
 \end{example-N}
-\textbf{(LP)} in standard form \qquad minimize $ c^Tx \qquad$ s.t. $Ax = b, \quad x \geq \vec{0}$\\
+\subsubsection*{Converting one form of (LP) to another}
+\begin{enumerate}
+\item \textbf{(LP)} in standard form \qquad minimize $ c^Tx \qquad$ s.t. $Ax = b, \quad x \geq \vec{0}$\\
 Here
 \begin{gather*}
 	A = \begin{bmatrix}
@@ -113,13 +115,14 @@ Here
 		31.7 & 28.6 & 17.6 & 37.4 & 22.8 & 29.7
 	\end{bmatrix}
 \end{gather*}
-Converting one form of (LP) to another\\
-max $\rightarrow$ min $\qquad$ min $\rightarrow$ max $\quad \Longrightarrow \quad$ max $6x_1 + 3x_2 - 4x_3 \leftrightarrow \text{ min } -6x_1 - 3x_2 + 4x_3$
+
+
+\item max $\rightarrow$ min \quad or \quad min $\rightarrow$ max $\quad \Longrightarrow \quad$ max $6x_1 + 3x_2 - 4x_3 \leftrightarrow \text{ min } -6x_1 - 3x_2 + 4x_3$
 \begin{gather*}
-	Ax \geq b \rightarrow \leq \\
+	Ax \circled{$\geq$} b \rightarrow \circled{$\leq$} \\
 	Ax \geq b \leftrightarrow \boxed{-A}x \leq \boxed{-b}
 \end{gather*}
-\textbf{Standard form $\rightarrow$ canonical form}
+\item \textbf{Standard form $\rightarrow$ canonical form}
 \begin{gather*}
 \begin{rcases}
 	\text{min} \hspace{0.5em}  c^Tx \hspace{0.5em} \\ \text{s.t.} \hspace{0.5em} Ax = b\\
@@ -152,14 +155,17 @@ x \geq \vec{0}
 	x \geq \vec{0}
 \end{cases}
 \end{gather*}
-\textbf{Canoconical form $\rightarrow$ Standard form}
+\item \textbf{Canoconical form $\rightarrow$ Standard form}
 \begin{gather*}
 	\begin{split}
 		a_{11}x_1 + a_{12}x_2 + a_{13} \geq b_1\\
 		a_{21}x_1 + a_{22}x_2 + a_{23} \geq b_2\\
+		x_1, x_2, x_3 \geq 0
 	\end{split} \quad \Longleftrightarrow \quad
 	\begin{split}
 		a_{11}x_1 + a_{12}x_2 + a_{13} + x_4 \qquad = b_1\\
 		a_{21}x_1 + a_{22}x_2 + a_{23} \underbrace{ \qquad + x_5}_{\text{slack variables}}= b_2\\
+		x_1, x_2, x_3, x_4, x_5 \geq 0
 	\end{split}
 \end{gather*}
+\end{enumerate}
