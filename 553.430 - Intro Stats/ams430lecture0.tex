@@ -145,9 +145,13 @@ A sum of i.i.d. (identical, independent distribution) Bernoulli(p) R.V.
 	E[X] = \lambda \hspace{10em} Var(X) = \lambda
 \end{gather*}	
 \end{tcolorbox}
-\textbf{Approximations}
 \begin{itemize}
-	\item if $n$ is large $\Longrightarrow$ Normal($\lambda,\lambda$)
+	\item Approximations
+	\begin{itemize}
+		\item if $n$ is large $\Longrightarrow$ Normal($\lambda,\lambda$)
+	\end{itemize}
+	\item Sums of Poisson\\
+	Let $X \sim Po(\lambda)$ \quad $Y \sim Po(\mu)$ \quad $\Longrightarrow$ \quad $X+Y \sim Po(\mu + \lambda)$
 \end{itemize}
 \subsubsection*{Negative Binomial}
 \begin{tcolorbox}
@@ -257,6 +261,23 @@ $\blacksquare$ Coupon Question\\
 	E[X] = \mu \hspace{10em} Var(X) = \sigma^2
 \end{gather*}
 \end{tcolorbox}
+\begin{itemize}
+	\item Sums and differences of Normal R.V.
+	\begin{gather*}
+		X_1 \sim \mathcal{N}(\mu, \sigma^2) \qquad X_2 \sim \mathcal{N}(\mu, \sigma^2)\\
+		Y_1 = X_1 + X_2 \qquad Y_2 = X_1 - X_2\\
+		\underbrace{Y_1 \sim \mathcal{N}(2\mu, 2\sigma^2)}_{\text{has } \mu} \qquad \underbrace{Y_2 \sim \mathcal{N}(0, 2\sigma^2)}_{\text{doesn't have } \mu}
+	\end{gather*}
+	\begin{itemize}[label={--}]
+		\item The sum and difference of Normal R.V. are Normal R.V.
+		\item Any Linear Combination of Independent Normal R.V. is a Normal R.V.
+	\end{itemize}
+	\item Dependence
+	\begin{itemize}[label={--}]
+		\item $Y_2 = X_1 - X_2$ density does not depend on $\mu$. But density of $X_1 + X_2$ does.
+		\item Key idea is used in Data Reduction
+	\end{itemize}
+\end{itemize}
 \subsubsection*{Exponential distribution}
 \begin{tcolorbox}
 \begin{gather*}
@@ -280,8 +301,16 @@ $\blacksquare$ Coupon Question\\
 		F_X(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1} e^{-\beta x}\\
 		E[X] = \frac{\alpha}{\beta} \hspace{10em} Var(X) = \frac{\alpha}{\beta^2}\\
 		\textbf{Gamma Function:} \quad \Gamma(z) = (z - 1)! = \int_0^\infty x^{z-1} e^{-x} dx\\
+		\Gamma(n) = (n-1)!\\
+		\Gamma\bigg(\frac{1}{2}\bigg) = \sqrt{\pi}\\
 	\end{gather*}
 \end{tcolorbox}
+\begin{itemize}
+	\item Sums of Gamma
+		\begin{itemize}[label={--}]
+		\item $Gamma(s, \lambda) \underset{\text{ind}}{+} Gamma(s, \lambda) = Gamma(s+t, \lambda)$ 
+		\end{itemize}
+\end{itemize}
 \subsubsection*{Beta Distribution}
 \begin{tcolorbox}
 \begin{gather*}
@@ -291,7 +320,13 @@ $\blacksquare$ Coupon Question\\
 	E[X] = \frac{\alpha}{\alpha + \beta} \hspace{10em} Var(X) = \frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}
 \end{gather*}	
 \end{tcolorbox}
-
+\begin{itemize}
+	\item \textbf{Gamma to Beta}
+	\begin{gather*}
+		X \sim Gamma(\alpha_1, \beta) \qquad Y \sim Gamma(\alpha_2, \beta)\\
+		\text{Then transformation} \quad U = \frac{X}{X+Y} \sim Beta(\alpha_1, \alpha_2) \tag{Use $X = UV$, $Y = V - UV$}
+	\end{gather*}
+\end{itemize}
 \subsubsection*{Chi-Square}
 \begin{gather*}
 	\textbf{Chi-Square: } \chi^2_n \text{is Chi-square with degrees of Freedom }n\\
@@ -318,30 +353,10 @@ $\blacksquare$ Coupon Question\\
 		P(a \leq x \leq B) = \int_a^b f(x) dx = F(b) - F(a)
 	\end{equation*}
 \end{itemize}
-\subsection*{Density Transformation}
-For density transformation \textbf{e.g.} finding pdf of $U = X + Y$
-\begin{multicols}{2}
-	\begin{itemize}[label={--}]
-	\item Convolution
-	\item MGF
-	\item Jacobian
-	\item CDF Transformation
-\end{itemize}
-\end{multicols}
-\begin{itemize}
-	\item Use CDF: Computer $P(Y \leq y) = P(g(x) = y)$
-	\item \textbf{1-dim: } If Y is monotonically increasing or decreasing: $Y = g(x) \quad \boxed{f_Y(y) = f_X(x(y)) \cdot |(x^{-1})'(y)|}$
-	\item \textbf{2-dim: } Joint Density:
-	\begin{gather*}
-		(X, Y) \rightarrow (U, V) \quad \quad \quad U = h_1(X, Y) \quad \quad V = h_2(X,Y)\\
-		f_{U,V}(u,v) = f_{X,Y}(x(u,v), y(u,v)) \cdot |J|\\
-		\text{where } \quad J = \begin{vmatrix}
-			\dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v}\\\\
-			\dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v}
-		\end{vmatrix} \quad \text{ determinant}
-	\end{gather*}
-	\item if $Z = X + Y\quad$ (2-dim $\rightarrow$ 1-dim) use CDF. Compute $P(Z \leq z) = P(X+Y \leq z)$. Integrate $f(x,y)$ over this region.
-\end{itemize}
+\subsubsection*{Integration by Recognition}
+\begin{gather*}
+	1 = \int_{-\infty}^{\infty} \frac{e^{-\frac{x^2}{2\sigma^2}}}{\sigma \sqrt{2\pi}} dx \hspace{5em} \sigma \sqrt{2\pi} = \int_{-\infty}^{\infty} e^{-\frac{x^2}{2\sigma^2}} \tag{normal dist.}
+\end{gather*}
 \subsection*{Joint Distribution}
 \begin{equation*}
 	\begin{split}
@@ -378,20 +393,93 @@ For density transformation \textbf{e.g.} finding pdf of $U = X + Y$
 		\textbf{Continuous: }\quad \quad f_{X+Y}(a) = \int_y f_X(a-y)f_Y(y)dy = \int_y f_X(x)f_Y(a-x)dx\\
 		\textbf{MGF: }\text{we can use this} \quad \quad M_{X+Y}(t) = M_X(t) M_Y(t) \longrightarrow \text{then identify dist of X+Y from mgf} 
 	\end{gather*}
+	\item \textbf{Density Transformation: }
+	\begin{center}
+		\begin{tikzcd}
+			F_{X,Y} \arrow[r, "\text{diff}"] & f_{X,Y} \arrow[dr, dotted, "\text{algebra}"]\arrow[dd, "\text{substitute}"]\\
+			& & f_{g(X,Y)}\arrow[ddl, dotted, bend left, "\text{integrate}"]\\
+			& F_{g(X,Y)}  \arrow[d, "\frac{d}{dt}"] \\
+			& f_{g(X,Y)}
+		\end{tikzcd}\\$X_1$ \& $X_2$ are indep r.v. $\Rightarrow$ want to find density of $\frac{X_1}{X_2}$\\
+		$Y_1 = \frac{X_1}{X_2}$ \qquad choose $Y_2$ to make work easier
+		\begin{tikzcd}
+			f_{X_1} \arrow[dr] & & f_{X_2}\arrow[dl]\\
+			& f_{X_1, X_2}\arrow[d, "\text{dens. transf.}"]\\
+			& f_{\frac{X_1}{X_2}, ???}\arrow[d]\\
+			& f_{\frac{X_1}{X_2}}
+		\end{tikzcd}
+	\end{center}
 \end{itemize}
+\subsection*{Density Transformation}
+For density transformation \textbf{e.g.} finding pdf of $U = X + Y$
+\begin{multicols}{2}
+	\begin{itemize}[label={--}]
+	\item Convolution
+	\item MGF
+	\item Jacobian
+	\item CDF Transformation
+\end{itemize}
+\end{multicols}
+\begin{itemize}
+	\item Use CDF: Computer $P(Y \leq y) = P(g(x) = y)$
+	\item \textbf{1-dim: } If Y is monotonically increasing or decreasing: $Y = g(x) \quad \boxed{f_Y(y) = f_X(x(y)) \cdot |(x^{-1})'(y)|}$
+	\item \textbf{2-dim: } Joint Density:
+	\begin{gather*}
+		(X, Y) \rightarrow (U, V) \quad \quad \quad U = h_1(X, Y) \quad \quad V = h_2(X,Y)\\
+		f_{U,V}(u,v) = f_{X,Y}(x(u,v), y(u,v)) \cdot |J|\\
+		\text{where } \quad J = \begin{vmatrix}
+			\dfrac{\partial x}{\partial u} & \dfrac{\partial x}{\partial v}\\\\
+			\dfrac{\partial y}{\partial u} & \dfrac{\partial y}{\partial v}
+		\end{vmatrix} \quad \text{ determinant}
+	\end{gather*}
+	\item if $Z = X + Y\quad$ (2-dim $\rightarrow$ 1-dim) use CDF. Compute $P(Z \leq z) = P(X+Y \leq z)$. Integrate $f(x,y)$ over this region.
+\end{itemize}
+\subsubsection*{Sterling's Formula}
+\begin{equation*}
+	n! \approx \sqrt{2 \pi n} \cdot \bigg(\frac{n}{e} \bigg)^n
+\end{equation*}
+This is only really useful when $n$ is large, when factorials are represented as ratios.
 \subsection*{Conditional distribution}
 \begin{align*}
 	\textbf{Discrete} \quad \quad
 	& P_{X|Y=y}(x|y) = \frac{P_{X,Y}(x,y)}{P_Y(y)} = \frac{P(X=x, Y=y)}{P(Y=y)}\\
   & \Rightarrow \sum\limits_y P_{X,Y}(x,y) = \sum\limits_y P_{X|Y=y}(x|y) \cdot P_Y(y)\\
   \textbf{Continuous} \quad \quad & f_{X|Y=y}(x|y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}\\
-  & \Rightarrow f_X(x) = \int_y f(x,y)dy = \int_y f_{X|Y=y}(x|y)\cdot f_Y(y)dy
+  & \Rightarrow f_X(x) = \int_y f(x,y)dy = \int_y f_{X|Y=y}(x|y)\cdot f_Y(y)dy\\
+  & F_{X|Y}(x|y) = \int\limits_{-\infty}^x f_{X|Y}(x|y) dx
 \end{align*}
+\begin{center}
+	\begin{tikzcd}
+	f_{X | Y} \arrow[d] & f_Y \arrow[dl, bend left, "\circled{x}"]\\
+	f_{X,Y} \arrow["\text{integrate}"]{d} \arrow[dr]\\
+	f_X \arrow[r, "\text{divide}"] & f_{Y|X}\\
+	
+\end{tikzcd} \hspace{5em}
+\begin{tikzcd}
+f_{X,Y} \arrow[d, "\text{integrate}"] \arrow[dr, bend left, "\text{divide}"]	\\
+f_X \arrow[r, "\text{divide}"]& f_{X|Y}\arrow[d, "\text{integrate } dx"]\\
+& F_{X|Y}
+\end{tikzcd}
+\end{center}
 \subsubsection*{Conditional Expectation}
 \begin{align*}
+	& E[X|Y=y] = \sum\limits_x xP(X = x | Y = y)\\
 	& E[X|Y=y] = \int_x xf(x|y) dx\\
 	& E[X|Y]: \text{compute } E[X|Y=y] \text{ first, replace $y$ with $Y$}
 \end{align*}
+\begin{itemize}
+	\item \textbf{Properties: }
+	\begin{itemize}
+		\item $E[aU + bV | Y = y] = aE[U|Y=y] + bE[V|Y=y]$ \qquad \boxed{LOTUS}
+		\item If $g(Y) = X$ then $E[X|Y=y] = X$
+		\item If \underline{$X$ and $Y$} are independent, then $E[X|Y=y] = E[X]$
+	\end{itemize}
+\end{itemize}
+\subsubsection*{Conditional Variance}
+\begin{gather*}
+	\boxed{Var(X|Y) = E[(X - E[X|Y])^2]} \tag{conditional variance}\\
+	\boxed{Var(X|Y) = E[X^2|Y] - (E[X|Y])^2} \tag{unconditional variance}\\
+\end{gather*}
 \subsection*{Ordered Statistics}
 Consider $X_1, X_2, \cdots, X_n \quad \quad X_{(j)}$ = j-th smallest
 \begin{align*}
@@ -405,10 +493,17 @@ Consider $X_1, X_2, \cdots, X_n \quad \quad X_{(j)}$ = j-th smallest
 \begin{equation*}
 	f_{x(j)}(t) = \binom{n}{j-1,1,n-j} F_X(t)^{j-1}\cdot f_X(t) \cdot [1-F_X(t)]^{n-j}
 \end{equation*}
+\textbf{As Beta distribution: }
+Let $U_1, U_2, \ldots, U_N \sim i.i.d.$ Uniform$(0,1)$ and let $1 \leq j \leq N$\\
+$U_{(j)} = $ jth smallest in $U_{(1)}, U_{(2)}, \ldots, U_{(N)}$ (ordered statistics). Then,
+\begin{gather*}
+	U_{(j)} \sim Beta(j, N - j + 1)\\
+	E[U_{(j)}] = \frac{j}{N+1}
+\end{gather*}
 \subsection*{Expectation and Variance}
 \begin{gather*}
-	\textbf{Law of Total Expectation: } E[X] = E[E[X|Y]]\\
-\textbf{Law of Total Variance: } Var(X) = E[Var(X|Y)] + Var[E(X|Y)]
+	\textbf{Law of Total Expectation: }\\ \mathlarger{\mathlarger{E[X] = E[E[X|Y]]}}\\\\
+\textbf{Law of Total Variance: }\\ \mathlarger{\mathlarger{Var(X) = E[Var(X|Y)] + Var[E(X|Y)]}}
 \end{gather*}
 \subsubsection*{Expectation}
 \begin{enumerate}[label=\protect\circled{\arabic*}]
@@ -425,20 +520,39 @@ Consider $X_1, X_2, \cdots, X_n \quad \quad X_{(j)}$ = j-th smallest
 \begin{enumerate}[label=\protect\circled{\arabic*}]
 	\item $Var(X_1 + X_2 + \cdots + X_n) = \sum\limits_{i=1}^n Var(X_i) + \sum\limits_{i \neq j} Cov(X_i, X_j)$
 	\begin{center}
-		if $X_i, X_j$ identical (not independent) $ = n Var(X_i) + n(n-1)Cov(X_i, X_j) \quad \quad i\neq j$
+		if $X_i, X_j$ identical (not independent) $ = n Var(X_i) + n(n-1)Cov(X_i, X_j) \quad \quad i\neq j$\\
+		\boxed{$Var(X+Y) = Var(X) + Var(Y) + 2Cov(X,Y)$}
 	\end{center}
 	\item \textbf{Covariance: }
 	\begin{align*}
 		Cov(X,Y) & = E[XY] - E[X]E[Y]\\
 		Cov(X,c) & = 0 \quad \quad c \textit{ is a constant}\\
 		Cov(X+Y,Z) & = Cov(X,Z) + Cov(Y,Z)\\
-		Cov(cX,dZ) & = cd \cdot Cov(X,Z) 
+		Cov(cX,dZ) & = cd \cdot Cov(X,Z)\\
+		Cov(aX + b, cY + d) & = ac \cdot Cov(X,Y) \qquad a,b,c,d \text{ are constants}\\
+		Cov(X,Y) & = 0 \qquad \text{If } X \perp Y \text{ (independent)}
 	\end{align*}
 	\item \textbf{Correlation Coefficient:}
 	\begin{equation*}
 		\rho(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var(X) Var(Y)}} = \frac{Cov(X,Y)}{\sigma_x \sigma_y}
 	\end{equation*}
 \end{enumerate}
+\subsection*{MGFs}
+Let $X$ be a random variable. Then
+\begin{gather*}
+	M_X(t) = E[e^{tX}]\\
+	\text{it can also be written as:}\\
+	 = E\bigg[ \sum\limits_{j = 0}^{\infty} \frac{(tX)^j}{j!} \bigg]\\
+	 = E\bigg[ \sum\limits_{j = 0}^{\infty} \bigg(\frac{X^j}{j!} \cdot t^j\bigg) \bigg]\\
+	 \boxed{M_X^{(n)} (0) = E[X^n]}
+\end{gather*}
+If $X$ and $Y$ are independent, then
+	\begin{align*}
+		M_{X+Y}(t) & = E[E^{(X+Y)t}]\\
+		& = E[e^{tX}]E[e^{tY}]\\
+		& = M_X(t) M_Y(t)
+	\end{align*}
+
 \subsection*{Limit Theorems}
 \subsubsection*{Markov's Inequality}
 For any non-negative random variable $X$
@@ -458,6 +572,7 @@ For any non-negative random variable $X$
 		E[Y_a] = 0 \cdot P(Y_a < a) + a\cdot P(X \geq a)\\
 		 E[Y_a] = a\cdot P(X \geq a) \leq E[X] \Longrightarrow \boxed{P(X \geq a) \leq \frac{E(X)}{a}}
 	\end{gather*}
+
 \end{proof}
 \subsubsection*{Chebyshev's Inequality}
 For any random variable Y with mean $\mu_y$ and variance $\sigma_y^2$
@@ -475,8 +590,18 @@ This is the same as
 	\item $P(|Y - \mu_y| \geq k \sigma_y) \leq \frac{1}{k^2}$
 	\item $P(|Y - \mu_y| \leq k \sigma_y) \geq \underbrace{1- \frac{1}{k^2}}_{\text{very conservative}}$
 \end{itemize}
+\subsubsection*{Central Limit Theorem}
+\begin{gather*}
+	\sum\limits_{i=1}^n X_i \sim \mathcal{N}(n\mu_n, n\sigma_x^2)\\
+	\frac{1}{n} \sum\limits_{i=1}^n X_i \sim \mathcal{N}\bigg(\mu_n, \frac{\sigma_x^2}{n}\bigg)
+\end{gather*}
 \subsubsection*{Weak Law of Large Numbers}
 If $X_1, X_2, \cdots$ are $i.i.d.$ with a mean $\mu$
 \begin{equation*}
-	\text{then} \qquad \mathlarger{\mathlarger{\Lim{n \rightarrow \infty}}} {\large P}\bigg( \bigg| \frac{X_1 + X_2 + \cdots + X_n}{n} - \mu \bigg| \geq \epsilon \bigg) = 0
+	\text{then} \qquad \mathlarger{\mathlarger{\Lim{n \rightarrow \infty}}} {\large P}\big( \big| \bar{X_n} - \mu \big| \geq \epsilon \big) = 0
 \end{equation*}
+\subsubsection*{Strong Law of Large Numbers}
+\begin{gather*}
+	X \xrightarrow{p} \mu_X \qquad \text{as } n \rightarrow \infty\\
+	Pr \big(\Lim{n\rightarrow \infty} \bar{X_n} = \mu \big) = 1
+\end{gather*}
