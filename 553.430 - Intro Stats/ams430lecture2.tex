@@ -75,15 +75,23 @@ Since $E[\bX] = \mu$, we say $\bX$ is an \underline{unbiased} estimator for $\mu
 \underline{\textit{Let's address $\circled{3}$}}
 
 \subsubsection*{Sampling with replacement.}
-Here $X_1, \cdots, X_n$ are $i.i.d.$. In general, $X_i$s are R.V. and $a_i$s are constants
+\begin{theorem}
+	Sampling from finite population with replacement
+	\begin{equation*}
+		Var(\bX) = \frac{\sigma^2}{n}
+	\end{equation*}	
+\end{theorem}
+\begin{proof}
+Here $X_1, \cdots, X_n$ are $i.i.d.$. In general, $X_i$'s are R.V. and $a_i$'s are constants
 \begin{equation*}
-	Var\big(\sum a_i X_i\big) = \sum\limits_i \sum\limits_j a_i a_j cov(X_i, X_j) 
+	Var\big(\sum_i a_i X_i\big) = \sum\limits_i \sum\limits_j a_i a_j cov(X_i, X_j) 
 \end{equation*}
 If $X_1, \cdots, X_N$ are independent, $\underset{i \neq j}{Cov(X_i, X_j)} = 0$! Hence
 \begin{gather*}
 	Var(\bX) = Var\bigg(\frac{1}{n} \sum\limits_{i=1}^n X_i \bigg) = \frac{1}{n^2} Var\bigg( \sum\limits_{i=1}^n X_i \bigg) = \frac{1}{n^2}  \sum\limits_{i=1}^n \underbrace{Var(X_i)}_{\text{a constant}}\\
-	\boxed{Var(\bX) = \frac{Var(X_i)}{n}}
+	\boxed{Var(\bX) = \frac{Var(X_i)}{n} = \frac{\sigma^2}{n}}
 \end{gather*}
+\end{proof}
 We need to compute $Var(X_i)$. Observe that $Var(X_i)$ are same for all: \textit{Why?} because they are identical.\\
 Also notice $\frac{Var(X_i)}{n}$ decreases with $n$.\\
 Observe that for all finite $n$, $Var(\bX)$ is not 0 unless $Var(X_i) = 0$!\\
@@ -101,4 +109,3 @@ Use this identity!
 	E[\bX] = \mu, \hspace{5em} Var(\bX) = \frac{\sigma^2}{n}\\
 	P(|\bX - E(\bX)| > \delta) \leq \frac{Var(\bX)}{\delta^2} = \frac{\sigma^2}{n\delta^2} \rightarrow 0 \qquad \text{as } n \rightarrow \infty
 \end{gather*}
-\subsubsection*{Sampling without replacement}

@@ -1,0 +1,106 @@
+\classheader{2018-09-10}
+\subsubsection*{Sampling without replacement}
+$Var(\bar{X}) =$ when sampling without replacement\\
+\begin{theorem}
+	Sampling from finite population without replacement
+	\begin{equation*}
+		Var(\bar{X}) = \frac{\sigma^2}{n} \bigg[ \underbrace{\frac{N-n}{n-1} }_{\text{FPN}} \bigg] \tag{finite population correction}
+	\end{equation*}
+\end{theorem}
+\underline{Points to Note} - In sample without replacement,
+\begin{itemize}[label={--}]
+	\item If $n = N$, $Var(\bar{X}) = 0$
+	\item If $n=1$, $Var(\bar{X}) = \frac{\sigma^2}{n} = \sigma^2$, same as with replacement
+	\item Check: for $n > 1$, how does $\frac{N-n}{N-1}$ relate to 1? The $Var(\bar{X})$ is \underline{always} less without replacement
+\end{itemize}
+\begin{proof}Start\\
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+	\item
+	\begin{gather*}
+		Var(\bar{X}) = Var\bigg(\frac{1}{n} \sum\limits_{i=1}^n X_i \bigg) = \frac{1}{n^2} \sum_i \sum_j Cov(X_i, X_j)\\
+		\bigg( \text{When sampling with replacement, } Cov(X_i, X_j) = 0 \text{ if } i \neq j \bigg)
+	\end{gather*}
+	In sampling without replacement, we cannot assert that $Cov(X_i, X_j) = 0$ and we'll compute it explicitly. 
+	\begin{align*}
+		\text{Recall} \qquad Cov(X_i, X_j) & = E[X_i X_j] - \underbrace{E[X_i] E[X_j]}_{\mu^2}\\
+		\mu^2 \leftarrow \text{as identical but not independent} \qquad & = E[X_i X_j] - \mu^2
+	\end{align*}
+	\item To calculate $E[X_i X_j]$, let us list distinct values in population
+	\begin{example}
+	$\{\underbrace{5}_{x_1}, \underbrace{5}_{x_2}, \underbrace{8}_{x_3}, \underbrace{11}_{x_4}, \underbrace{8}_{x_5}, \underbrace{17}_{x_6}, \underbrace{9}_{x_7}\}$ Let $n_l$ = $\#$ of times $\zeta_l$ appears in population.
+	\begin{center}
+		\begin{tabular}{c|c}
+		Distinct Value & frequency\\
+		\hline
+		$\zeta_1 = 5$ & $n_1=2$\\
+		$\zeta_2 = 8$ & $n_2=2$\\
+		$\zeta_3 = 11$ & $n_3=1$\\
+		$\zeta_4 = 17$ & $n_4=1$\\
+		$\zeta_5 = 9$ & $n_5=1$\\
+	\end{tabular}
+	\end{center}
+	\end{example}
+	\begin{gather*}
+		P[X_i = 5] = \frac{2}{7} = \frac{n_1}{N} \tag{i draws identical}\\
+		\Rightarrow P[X_i = \zeta_l] = \frac{n_l}{N}\\
+		n_1 + n_2 + \ldots + n_m = \sum_{j=1}^m n_j = N\\
+		E[X_i X_j] = \sum_{k=1}^m \sum_{l=1}^m \zeta_k \zeta_l \underbrace{P[X_i = \zeta_k, X_j = \zeta_l]}_{\text{?}}
+	\end{gather*}
+	\begin{gather*}
+		P[X_i = \zeta_k, X_j = \zeta_l] = \underbrace{P[X_j = \zeta_l| X_i = \zeta_k]}_{\circled{3}} \cdot \underbrace{P[X_i = \zeta_k]}_{ = \frac{n_k}{N}}
+	\end{gather*}
+	\item Cases for Conditional probability
+	\begin{gather*}
+		P[X_j = \zeta_l| X_i = \zeta_k] \stackrel{cases}{=} \begin{cases}
+			\frac{n_l}{N_1} & l \neq k \rightarrow \text{numbers are diff.}\\
+			\frac{n_l - 1}{N - 1} & l = k \rightarrow \text{numbers are same}
+		\end{cases}
+	\end{gather*}
+	\item So we have
+	\begin{gather*}
+		E[X_i X_j] = \sum_{k=1}^m \sum_{l=1}^m \zeta_k \zeta_l P[X_i = \zeta_k, X_j = \zeta_l]\\
+		E[X_i X_j] = \sum_{k=1}^m \sum_{l=1}^m \tikzmark{a}{\zeta_k} \zeta_l P[X_j = \zeta_l| X_i = \zeta_k] \cdot \tikzmark{b}{P[X_i = \zeta_k]}
+		\begin{tikzpicture}[overlay, remember picture]
+		\draw[-, red](a) to [out=-40,in=200](b);
+		\draw[decorate] (a) to [out=-40,in=200] (b);
+		\end{tikzpicture}\\
+		= \sum_k \zeta_k P[X_i = \zeta_k] \zeta_k \bigg( \sum_l \zeta_l P[X_j = \zeta_l| X_i = \zeta_k] \bigg)\\
+		= \sum_k \zeta_k P[X_i = \zeta_k] \zeta_k \bigg( \sum_{l\neq k} \zeta_l P[X_j = \zeta_l| X_i = \zeta_k] + \zeta_k P[X_j = \zeta_k | X_i = \zeta_k] \bigg)\\
+		= \sum_k \zeta_k P[X_i = \zeta_k] \zeta_k \bigg( \underbrace{\sum_{l\neq k} \zeta_l \frac{n_l}{N-1}}_{\circled{5}} + \zeta_k \frac{n_k - 1}{N - 1} \bigg)
+	\end{gather*}
+	\item When $l \neq k$ and we want to remove all $l$ terms
+	\begin{gather*}
+		\sum_{l\neq k} \zeta_l \frac{n_l}{N-1} = \frac{1}{N-1} \sum_{l \neq k} \zeta_l n_l\\
+		\bigg(\sum_l \zeta_l n_l = \tau = n\mu \bigg) \quad \text{population total}\\
+		 = \frac{1}{N-1} (\tau - \zeta_k n_k)
+	\end{gather*}
+	\item \underline{Now Back}
+	\begin{align*}
+		E[X_i X_j] & = \sum_k \zeta_k \frac{n_k}{N} \bigg( \frac{1}{N-1} (\tau - \zeta_k n_k) + \zeta_k \frac{n_k - 1}{N-1} \bigg)\\
+		& = \frac{1}{N(N-1)} \sum_k \zeta_k n_k \big[ (\tau - \cancel{\zeta_k n_k}) + \cancel{\zeta_k n_k} - \zeta_k \big]\\
+		& = \frac{1}{N(N-1)} \sum_k \zeta_k n_k \big[\tau - \zeta_k \big]\\
+		& = \frac{1}{N(N-1)} \bigg( \sum_k \zeta_k n_k \tau - \sum_k \zeta_k^2 n_k \bigg)\\
+		& = \frac{1}{N(N-1)} \bigg[ \tau^2 - \sum_k \zeta_k^2 n_k \bigg]
+	\end{align*}
+	\item What is $\sum\limits_k (\zeta_k)^2 \frac{n_k}{N}$? Second moment $E[X_i^2]$ \qquad $E[X_i^2] = \sigma^2 + \mu^2$
+	\begin{gather*}
+		E[X_i^2] = \sigma^2 + \mu^2 \qquad \frac{\tau^2}{N} = N\mu^2 as \mu = \frac{\tau}{N}\\
+		E[X_i X_j] \Longrightarrow \frac{1}{N-1} \bigg[N\mu^2 - (\sigma^2 + \mu^2) \bigg]\\
+		 = \frac{1}{N-1}[(N-1)\mu^2 - \sigma^2] = \mu^2 - \frac{\sigma^2}{N-1}
+	\end{gather*}
+	\begin{align*}
+		\text{So} \quad Cov(X_i, X_j) & = \mu^2 - \frac{\sigma^2}{N-1} - \mu^2\\
+		& = -\frac{\sigma^2}{N-1} \tag{Cov $< 0$}\\
+		\text{So} \quad Cov(X_i, X_j) & = Var(X_i) = \sigma^2\\
+	\end{align*}
+	\item Putting it all together
+	\begin{align*}
+		Var(\bX) & = \frac{1}{n^2} \bigg(\sum_{i\neq j} Cov(X_i, X_j) + \sum_{i=1}^n Var(X_i) \bigg)\\
+		& = \frac{1}{n^2} \bigg(\sum_{i\neq j} -\frac{\sigma^2}{N-1} + n\sigma^2 \bigg)\\
+		& = \frac{1}{n^2} \bigg(\frac{-n(n-1)\sigma^2}{N-1} + \frac{\sigma^2}{n} \bigg)\\
+		& = \frac{\sigma^2}{n} \bigg(1 - \frac{n-1}{N-1} \bigg)\\
+		& \boxed{ = \frac{\sigma^2}{n} \bigg(\frac{N-n}{N-1} \bigg)}
+	\end{align*}
+\end{enumerate}
+\end{proof}
+ 
