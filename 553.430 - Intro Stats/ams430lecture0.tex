@@ -605,3 +605,13 @@ If $X_1, X_2, \cdots$ are $i.i.d.$ with a mean $\mu$
 	X \xrightarrow{p} \mu_X \qquad \text{as } n \rightarrow \infty\\
 	Pr \big(\Lim{n\rightarrow \infty} \bar{X_n} = \mu \big) = 1
 \end{gather*}
+\redhline\\
+\subsection*{Jensen's Inequality}
+If $p_1, \ldots, p_n$ are positive numbers and $\sum_{i=1}^n p_i = 1$, and $f$ is a real continuous function that is \underline{convex}, then
+\begin{gather*}
+	f\bigg(\sum\limits_{i=1}^n p_i x_i \bigg)\leq \sum\limits_{i=1}^n p_i f(x_i)
+\end{gather*}
+Conversely, if $f$ is a \underline{concave} function
+\begin{gather*}
+	f\bigg(\sum\limits_{i=1}^n p_i x_i \bigg) \geq \sum\limits_{i=1}^n p_i f(x_i)
+\end{gather*}

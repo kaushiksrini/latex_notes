@@ -59,7 +59,7 @@ In repeated sampling, approx $(1 - \alpha)$ of intervals contain $\mu$, and ($\a
 \end{center}
 \textbf{Problem: }This interval involved $\sigma$ which is unknown. Observe that if $n$ is large, then $\frac{\bX - \mu}{\sigma/ \sqrt{n}}$ is still approx $N(0,1)$ in distribution where (no population parameters)
 \begin{gather*}
-	\tcbhighmath[drop fuzzy shadow]{s^2 = \frac{1}{n-1} \sum(X_i - \bX)} \tag{sample variance}
+	\tcbhighmath[drop fuzzy shadow]{s^2 = \frac{1}{n-1} \sum(X_i - \bX)^2} \tag{sample variance}
 \end{gather*}
 So we obtain 
 \begin{gather*}
@@ -100,19 +100,24 @@ Observe $\sigma^2$ us still unknown. We'd like to consider estimators for $\sigm
 \end{gather*}
 Try to understand $E[\hat{\sigma}^2]$
 \begin{gather*}
-	\hat{\sigma}^2 = \frac{1}{n} \sum_{i = 1}^n (x_1^2 -2x_i \bX + \bX^2)\\
-	\hat{\sigma}^2 = \frac{\sum\limits_{i=1}^n x_i^2}{n} - 2\bX \bX	 + \bX^2 = \frac{\sum\limits_{i=1}^n x_i^2}{n} - \bX^2\\
-	E[\hat{\sigma}^2] = E \bigg[\frac{\sum\limits_{i=1}^n x_i^2}{n}\bigg] - E[\bX^2] \qquad \text{can't get $E[\bX^2]$ from $Var(\bX)$}\\
-	Var(\bX) = E[\bX^2] - (E[\bX^2])^2\\
-	\underbrace{Var(\bX)}_{\text{computed}} + \mu^2 = E[\bX^2]\\
-	E \bigg[\frac{1}{n} \sum_{i=1}^n \bigg] = \frac{1}{n} \sum_{i=1}^n E[X_i^2] = \sigma^2 + \mu^2\\
+	\hat{\sigma}^2 = \frac{1}{n} \sum_{i = 1}^n (X_1^2 -2X_i \bX + \bX^2)\\
+	\hat{\sigma}^2 = \frac{1}{n}\sum\limits_{i=1}^n x_i^2 - 2\bX \bX	 + \bX^2 = \frac{1}{n}\sum\limits_{i=1}^n X_i^2 - \bX^2\\
+	E[\hat{\sigma}^2] = \underbrace{E \bigg[\frac{1}{n} \sum\limits_{i=1}^n X_i^2 \bigg]}_{\circled{1}} - \underbrace{E[\bX^2]}_{\circled{2}} \qquad \text{can get $E[\bX^2]$ from $Var(\bX)$}\\
+	\begin{split}
+		\circled{1} \quad E \bigg[\frac{1}{n} \sum_{i=1}^n X_i^2 \bigg] = \frac{1}{n} \sum_{i=1}^n E[X_i^2] = \sigma^2 + \mu^2\\ 
+		%TODO: Why?
+	\end{split} \hspace{4em} 
+	\begin{split}
+	\circled{2} \quad Var(\bX) = E[\bX^2] - (E[\bX])^2\\
+		E[\bX^2] = \underbrace{Var(\bX)}_{\text{computed}} + \mu^2\\
+	\end{split}\\
 	\text{Combining, we get: }\\
 	E[\hat{\sigma}^2] = \sigma^2 + \mu^2 - (Var(\bX) + \mu^2)\\
-	= \sigma^2 - \bigg[\frac{\sigma^2}{n} \bigg(\frac{N-n}{N-1} \bigg) \bigg]
+	E[\hat{\sigma}^2] = \sigma^2 - \bigg[\frac{\sigma^2}{n} \bigg(\frac{N-n}{N-1} \bigg) \bigg]
 \end{gather*}
 The estimator is biased, but
 \begin{gather*}
-	= \sigma^2 \bigg(\underbrace{1 - \frac{N-n}{(n)(N-1)}}_{\text{constant, }c} \bigg)\\
-	= C \sigma^2
+	E[\hat{\sigma}^2] = \sigma^2 \bigg(\underbrace{1 - \frac{N-n}{(n)(N-1)}}_{\text{constant, }c} \bigg)\\
+	E[\hat{\sigma}^2] = C \sigma^2
 \end{gather*}
 and thus $\frac{\hat{\sigma}^2}{C}$ is an unbiased estimator.
