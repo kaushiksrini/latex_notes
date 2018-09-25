@@ -1,0 +1,106 @@
+\classheader{2018-09-17}
+\begin{itemize}
+	\item Approximation methods / Delta-methods
+	\item Bivariate populations
+	\item Ratio estimations
+\end{itemize}
+We calculated $E\underbrace{[\hat{\sigma}^2]}_{C\sigma^2}$ where $\hat{\sigma}^2 = \frac{1}{n} \sum\limits_{i=1}^n (X_i - \bX)^2$ and you can use our computations to generate an unbiased estimator for population variance $\sigma^2$. Can also use his to calculate $E[s^2]$, where $s^2 = \frac{1}{n-1} \sum\limits_{i=1}^n (X_i - \bX)^2$
+\subsection*{Bias-Variance Tradeoff}
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+	\item Unbiased estimators are useful: if $T$ is an unbiased estimator for $\theta$ then $E[T] = \theta$.
+	\item However, if we wish to evaluate two estimatorsL- one biased and other unbiased, we may not universally want to choose the unbiased one always, we need to consider \boxed{variance}.
+\end{enumerate}
+\underline{Why?} Suppose that T is an estimator for $\theta$.\\
+\textbf{The Mean Squared Error (MSE):}
+\begin{equation*}
+	MSE = E[(T - \theta)^2] \xrightarrow{\text{exercised}} \underbrace{Var(T)}_{\text{Variance}} + \underbrace{(E(T) - \theta)^2}_{\text{Bias}}
+\end{equation*}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  no markers, domain=-2:2, samples=100,
+  axis lines*=center, xlabel=$x$, ylabel=$y$,
+  every axis y label/.style={at=(current axis.above origin),anchor=south},
+  every axis x label/.style={at=(current axis.right of origin),anchor=west},
+  height=5cm, width=12cm,
+  xtick={4,6.5}, ytick=\empty,
+  enlargelimits=false, clip=false, axis on top,
+  grid = major
+  ]
+	%\draw[-] (0,0) -- (0,0.6 ) node[left] {$y$};
+  \addplot [very thick,red!50!black] {gauss(0,1)};
+  \addplot [very thick,cyan!50!black] {gauss(0.5,0.5)};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+We can see from the above plots that the red graph has an estimator $\theta$ closer to $\mu$, but has a higher variance. However, estimator B has an unbiased estimator, but has a smaller variance. Depends on sampling analysis.
+\subsection*{Bivariate population sampling}
+Suppose we have a population of $N$ objects. On each object we have a \underline{pair} of measurements: $(x_i, y_i)$\\
+\emph{Note: } When sampling from this population if object $i$ is in sample, then both measurements in pair $(x_i, y_i)$ are retained. In particular $(x_i, y_i)$ appears exactly once in the population, and sample w/o repl, then you cannot retrieve measurement $i$ later.\\
+\subsubsection*{Parameters}
+\begin{multicols}{3}
+	\begin{gather*}
+	\sigma_Y^2 = \frac{1}{N} \sum_{i=1}^N (y_i - \mu_Y)^2\\
+	\mu_X = \frac{1}{N} \sum_{i=1}^N X_i\\ 
+	\mu_Y = \frac{1}{N} \sum_{i=1}^N Y_i\\
+	\tau_X = N\mu_X\\ \tau_Y = N\mu_Y\\
+	\sigma_X^2 = \frac{1}{N} \sum_{i=1}^N (x_i - \mu_X)^2
+	\end{gather*}
+\end{multicols}
+\subsubsection*{Covariance}
+\begin{gather*}
+	\sigma_{XY}^2 = \frac{1}{N} \sum_{i=1}^N (x_i - \mu_X)(y_i - \mu_Y)
+\end{gather*}
+Suppose $\mu_X \neq 0$ \hspace{5em} Define $r = \frac{\mu_X}{\mu_Y}$ \hspace{5em} What is a reasonable estimator $r$?\\
+Could consider $R = \frac{\bX}{\bar{Y}}$\\
+\redhline\\\\
+Now Suppose that $\mu_X$. were known. Consider $\mu_X \cdot R = \frac{\mu_X}{\bX} \bar{Y}$.\\ Plausible estimator for $\mu_Y$. But why? we already have $\bar{Y}$, an unbiased estimator for $\mu_Y$. We will see that $\mu_X \cdot R$, the so called \textbf{ratio estimate}, is
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+	\item a biased estimate
+	\item can contribute in reduction in variance relative to $\bar{Y}$
+\end{enumerate}
+So we will need to understand $E[R], Var(R)$ \& approximations of $E[R]$ \& $Var(R)$
+\subsection*{Approximation Methods}
+Let $X$ be a random variable with mean = $\mu_X$ and variance = $\sigma_X^2$. Let $Z = g(X)$, where $g: \mathbb{R} \rightarrow \mathbb{R}$, $g$ a deterministic function of $x$.\\
+\textbf{Question:} How to compute $E[Z]$?\\
+\emph{Answer: } If density of $X$ is known, (call this $f_X$), then 
+\begin{gather*}
+	E(Z) = \int_\mathbb{R} g(X) f_X(x)dx \hspace{2em} \text{involves an integral}
+\end{gather*}
+Cumbersome even if $f_X$ is known; closed form solution to integral exists; not possible to get exact value even if $f_X$ known, but no closed form solution; not even possible to write integral if $f_X$ unknown. If $g$ is linear, then it is OK e.g. $E[g(X)] = E[aX + b] = a\mu_X + b$
+\subsubsection*{Taylor Expansions}
+Taylor expansion of $g$ about $\mu_X$ (Why? Think Chebyshev!)
+\begin{gather*}
+	g(x) \approx g(\mu_X) + g'(\mu_X) (x - \mu_X) + \frac{g''(x)(x - \mu_X)^2}{2!} + \cdots + \text{\small higher order terms}\\
+	\tcbhighmath[drop fuzzy shadow]{g(X) \approx g(\mu_X) + g'(\mu_X) (X - \mu_X) + \frac{g''(X)(X - \mu_X)^2}{2!}}
+\end{gather*}
+\begin{gather*}
+	E[Z] \approx E[g(\mu_X)] + E[g'(\mu_X)(X - \mu_X)] + E\bigg[\frac{g''(\mu_X)}{2!} (X - \mu_X)^2 \bigg]\\
+	\approx g(\mu_X) + g'(\mu_X) \cancelto{0}{E[(X - \mu_X)]} + \frac{g''(\mu_X)}{2!} E[ (X - \mu_X)^2]\\
+	\tcbhighmath[drop fuzzy shadow]{E[Z] \approx g(\mu_X) + \frac{g''(\mu_X)}{2!} \sigma^2_X}
+\end{gather*}
+But $R = \frac{\bar{Y}}{\bX}$, a function of \underline{two variables}!
+\begin{center}
+	$\text{Consider} \qquad g(x,y) : \mathbb{R}^2 \rightarrow \mathbb{R}$\\
+	Taylor expand $g$ about $(\mu_x, \mu_y)$
+\end{center}
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+	\item \underline{Linear Approximation}
+	\begin{gather*}
+		g(x,y) \approx g(\mu_x, \mu_y) + \dfrac{\partial g}{\partial x}(\mu_x, \mu_y) \cdot (x - \mu_x) + \dfrac{\partial g}{\partial y}(\mu_x, \mu_y) \cdot (y - \mu_y)
+	\end{gather*}
+	\item \underline{Second order approximation}
+	\begin{gather*}
+		g(x,y) \approx g(\mu_x, \mu_y) + \dfrac{\partial g}{\partial x}(\mu_x, \mu_y) \cdot (x - \mu_x) + \dfrac{\partial g}{\partial y}(\mu_x, \mu_y) \cdot (y - \mu_y)\\
+		+ \frac{1}{2} \dfrac{\partial^2 g}{\partial x^2}(\mu_x, \mu_y) \cdot (x - \mu_x)^2 + \frac{1}{2} \dfrac{\partial^2 g}{\partial y^2}(\mu_x, \mu_y) \cdot (y - \mu_y)^2 + \dfrac{\partial g}{\partial x \partial y}(\mu_x, \mu_y) \cdot (x - \mu_x) (y - \mu_y) 
+	\end{gather*}
+\end{enumerate}
+\textbf{Evaluating $E[g(X,Y)]$}
+\begin{gather*}
+	E[g(X,Y)] \approx g(\mu_x, \mu_y) + \dfrac{\partial g}{\partial x}(\mu_x, \mu_y) \cdot \cancelto{0}{E[(x - \mu_x)]} + \dfrac{\partial g}{\partial y}(\mu_x, \mu_y) \cdot \cancelto{0}{E[(y - \mu_y)]}\\
+		+ \frac{1}{2} \dfrac{\partial^2 g}{\partial x^2}(\mu_x, \mu_y) \cdot E[(x - \mu_x)^2] + \frac{1}{2} \dfrac{\partial^2 g}{\partial y^2}(\mu_x, \mu_y) \cdot E[(y - \mu_y)^2] + \dfrac{\partial g}{\partial x \partial y}(\mu_x, \mu_y) \cdot E[(x - \mu_x) (y - \mu_y)]
+\end{gather*}
+When the dust settles,
+\begin{gather*}
+	\tcbhighmath[drop fuzzy shadow]{E[g(X,Y)] \approx g(\mu_x, \mu_y) + \frac{1}{2} \dfrac{\partial^2 g}{\partial x^2}(\mu_x, \mu_y) \cdot \sigma_X^2 + + \frac{1}{2} \dfrac{\partial^2 g}{\partial y^2}(\mu_x, \mu_y) \cdot \sigma_Y^2 + \dfrac{\partial g}{\partial x \partial y}(\mu_x, \mu_y) \cdot Cov(X,Y)}
+\end{gather*}

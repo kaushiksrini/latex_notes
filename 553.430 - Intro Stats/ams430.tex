@@ -377,6 +377,9 @@ pdfstartview=FitH
     }
 }
 
+\pgfmathdeclarefunction{gauss}{2}{%
+  \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+}
 
 %------------%
 %  DOCUMENT  %
@@ -429,11 +432,8 @@ Please email any corrections or suggestions to \expandafter\href{mailto:\notetak
 \include{ams430lecture2}
 \include{ams430lecture3}
 \include{ams430lecture4}
-
-
-
-
-
+\include{ams430lecture5}
+\include{ams430lecture6}
 
 	
 \end{document}
