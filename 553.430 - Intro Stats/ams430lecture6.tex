@@ -36,11 +36,11 @@ So we find
 \begin{gather*}
 	Z \approx a + b(X - \mu_X) + c(Y - \mu_Y)\\
 	Var(Z) \approx b^2Var(X) + c^2 Var(Y) + 2bcCov(X,Y)\\
-	\approx \bigg[\underbrace{\dfrac{\partial g}{\partial x}}_{\text{b}} \bigg]^2 \sigma_X^2 + \bigg[\underbrace{\dfrac{\partial g}{\partial y}}_{\text{c}} \bigg]^2 \sigma_Y^2 + 2 \bigg[\underbrace{\dfrac{\partial g}{\partial x}}_{\text{b}} \bigg] \bigg[\underbrace{\dfrac{\partial g}{\partial y}}_{\text{c}} \bigg] \sigma_{XY}
+	\approx \bigg[\underbrace{\dfrac{\partial g}{\partial x}}_{\text{b}} \bigg]^2 \sigma_X^2 + \bigg[\underbrace{\dfrac{\partial g}{\partial y}}_{\text{c}} \bigg]^2 \sigma_Y^2 + 2 \bigg[\underbrace{\dfrac{\partial g}{\partial x}}_{\text{b}} \bigg] \bigg[\underbrace{\dfrac{\partial g}{\partial y}}_{\text{c}} \bigg] \sigma_{XY} 
 \end{gather*}
 We don't go further than linear as higher variance requires higher order moments e.g. $E[x^4] \leftarrow$ they don't matter.
 \begin{gather*}
-	Var(R) \approx \bigg[\dfrac{-\mu_y}{\mu_x^2} \bigg]^2 \sigma_{\bX}^2 + \bigg[ \frac{1}{\mu_x} \bigg]^2 \sigma_{\bar{Y}}^2 + 2 \bigg[\dfrac{-\mu_y}{\mu_x^2} \bigg] \bigg[\frac{1}{\mu_x} \bigg] \sigma_{\bX \bar{Y}}
+	Var(R) \approx \bigg[\dfrac{-\mu_y}{\mu_x^2} \bigg]^2 \sigma_{\bX}^2 + \bigg[ \frac{1}{\mu_x} \bigg]^2 \sigma_{\bar{Y}}^2 + 2 \bigg[\dfrac{-\mu_y}{\mu_x^2} \bigg] \bigg[\frac{1}{\mu_x} \bigg] \sigma_{\bX \bar{Y}} \tag{$\star$}
 \end{gather*}
 Recall
 \begin{gather*}
@@ -50,5 +50,23 @@ Recall
 Recall
 \begin{gather*}
 	\sigma_{XY} = \frac{1}{N} \sum_{i=1}^N (x_i - \mu_x)(y_i - \mu_y)\\
-	\rho = \frac{\sigma_{xy}}{\sigma_x \sigma_y}
+	\rho = \frac{\sigma_{xy}}{\sigma_x \sigma_y} \Longrightarrow \boxed{\sigma_{xy} = \rho \sigma_x \sigma_y}
 \end{gather*}
+Now $\star$ implies
+\begin{align*}
+	Var(R) & \approx \frac{1}{n} \bigg[\frac{N-n}{N-1}\bigg] \bigg\{ \frac{\mu_y^2}{\mu_x^4} \sigma_x^2 + \frac{1}{\mu_x^2} \sigma_y^2 - \frac{2\mu_y}{\mu_x^3} \sigma_{xy} \bigg\}\\
+	& \approx \frac{1}{n\mu_x^2} \bigg[\frac{N-n}{N-1}\bigg] \bigg\{ \underbrace{\frac{\mu_y^2}{\mu_x^2}}_{r^2} \sigma_x^2 + \sigma_y^2 - 2\underbrace{\frac{\mu_y}{\mu_x^3}}_{r} \underbrace{\sigma_{xy}}_{\rho \sigma_x \sigma_y} \bigg\}\\
+	Var(R) & \approx \frac{1}{n\mu_x^2} \bigg[\frac{N-n}{N-1}\bigg] \big( r^2\sigma_x^2 + \sigma_y^2 - 2r\rho \sigma_x \sigma_y \big)
+\end{align*}
+\redhline
+\subsection*{Ratio Estimations}
+Ratio estimate for $\mu_Y$ is $\mu_X R \leftarrow$ useful if $\mu_X$ is known. We know from before that $E[\mu_X R] \neq \mu_Y$.
+\begin{gather*}
+	Var(\bar{Y}) = \frac{\sigma_y^2}{n}\bigg[ \frac{N-n}{N-1} \bigg] \hspace{5em} E[\bar{Y}] = \mu 
+\end{gather*}
+Ratio is useful if bias is small and variance reduction is significant (relative to $Var(\bar{Y})$).\\\\
+\underline{Recall}
+\begin{align*}
+	E(R) & = \frac{\mu_x}{\mu_y} + \frac{1}{\cancel{2}} \frac{\cancel{2} \mu_y}{\mu_x^3} \cdot \frac{\sigma_y^2}{n}\bigg[ \frac{N-n}{N-1} \bigg] - \frac{1}{\mu_X^2} \frac{\sigma_{xy}}{n}\bigg[ \frac{N-n}{N-1} \bigg]\\
+	& \approx r + \frac{1}{n \mu_x^2} \bigg[ \frac{N-n}{N-1} \bigg] \big(r\sigma_x^2 - \rho \sigma_x \sigma_y \big)
+\end{align*}
