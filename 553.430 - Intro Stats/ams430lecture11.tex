@@ -1,1 +1,25 @@
-\classheader{2018-10-04}
+\classheader{2018-10-10}
+\begin{itemize}
+	\item MLEs - consistency
+	\item Asymptotic normality
+\end{itemize}
+\textbf{Question:} Are MLEs always unbiased?\\
+\emph{Answer:} No, 
+\begin{gather*}
+	\text{Consider} \qquad X_i \sim \text{ i.i.d. } \mathcal{N}(\mu, \sigma^2)\\
+	\text{MLE for } \sigma^2, \quad \hat{\sigma}^2 = \frac{1}{n}\sum (X_i - \bX)^2\\
+	E[S^2] = \sigma^2 \quad \text{where} \quad s^2 = \frac{\sum (X_i - \bX)}{n-1}\\
+	s^2 > \hat{\sigma}^2\\ 
+	E[\hat{\sigma}^2] < \hat{\sigma}^2\\
+	E[\hat{\sigma}^2] = \frac{n-1}{n} \sigma^2 \qquad \textbf{But} \qquad \mathbb{E}[\hat{\sigma}^2] \xrightarrow{n \rightarrow \infty} \sigma^2
+\end{gather*}
+So this estimator is asymptotically unbiased
+\begin{equation*}
+	\text{Bias}[\hat{\sigma}^2] = \bigg| \frac{n-1}{n} \sigma^2 - \sigma^2 \bigg| \rightarrow 0 \quad \text{as} \quad n \rightarrow \infty
+\end{equation*}
+We will see arguments for why
+\begin{enumerate}
+	\item MLEs are consistent
+	\item Asymptotically normal \& asymptotically unbiased
+	\item Have a variance related to Fisher Information
+\end{enumerate}

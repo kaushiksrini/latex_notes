@@ -70,3 +70,8 @@ Ratio is useful if bias is small and variance reduction is significant (relative
 	E(R) & = \frac{\mu_x}{\mu_y} + \frac{1}{\cancel{2}} \frac{\cancel{2} \mu_y}{\mu_x^3} \cdot \frac{\sigma_y^2}{n}\bigg[ \frac{N-n}{N-1} \bigg] - \frac{1}{\mu_X^2} \frac{\sigma_{xy}}{n}\bigg[ \frac{N-n}{N-1} \bigg]\\
 	& \approx r + \frac{1}{n \mu_x^2} \bigg[ \frac{N-n}{N-1} \bigg] \big(r\sigma_x^2 - \rho \sigma_x \sigma_y \big)
 \end{align*}
+Finally,
+\begin{align*}
+	E[\mu_x R] \approx \mu_y + \frac{1}{\mu_y} \bigg(\frac{1}{n} \bigg) \bigg(\frac{N-n}{N-1} \bigg) (r \sigma_x^2 - \rho \sigma_x \sigma_y)
+\end{align*}
+So is non-zero, but decaying in $n$.\\ \textbf{Fact: } For $n$ large but small relative to $N$ ($n << N$), $R$ can be approx. using normal distribution.
