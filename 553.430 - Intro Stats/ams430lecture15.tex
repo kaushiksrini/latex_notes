@@ -1,0 +1,67 @@
+\classheader{2018-10-24}
+\begin{itemize}
+	\item Bayesian Estimation
+	\item Sufficiency
+	\item Likelihood Ratio Tests
+\end{itemize}
+We want to estimate a mean $\theta$, for \underline{i.i.d. normal data}. Suppose that the \underline{variance is known}. We have a normal likelihood. \\\\
+Consider a normal prior distribution for $\theta$. Need to specify a prior mean \& a prior variance.\\\\
+Suppose we have a prior mean of $\theta_0$ and a prior variance of $\sigma_{\text{pr}}^2$. Let's write all expressions in terms of \underline{precision} $\xi = 1/\sigma^2$
+\begin{gather*}
+	\tcbhighmath[drop fuzzy shadow]{\text{Prior:} \qquad f(\theta) = \frac{(\xi_{\text{prior}})^{\frac{1}{2}}}{\sqrt{2\pi}} \exp \bigg( -\frac{1}{2} \xi_{\text{prior}} (\theta - \theta_0)^2 \bigg)}
+\end{gather*}
+\underline{Likelihood:} Suppose that $\theta$, mean, is unknown but $\sigma^2$, variance, is known; $\sigma^2 = \sigma^2_0 \longleftrightarrow \xi_0 = 1/\sigma_0^2$
+\begin{equation*}
+	\tcbhighmath[drop fuzzy shadow]{f(x | \theta, \xi_0) = \bigg(\frac{\xi_0}{2\pi} \bigg)^{\frac{1}{2}} \exp\bigg( -\frac{1}{2} \xi_{\text{prior}} (x - \theta_0)^2 \bigg)}
+\end{equation*}
+Note that $\xi_{\text{pr}}$ is a measure of our uncertainty about $\theta$\\\\
+\textbf{Question:} Once we calculate the posterior distribution, we updated our "belief" about $\theta$. In this new "belief" — i.e. this new posterior distribution, do we have more precision or less?\\\\
+Let $X_1, \ldots, X_n \sim$ i.i.d. $f(x | \theta, \xi_0)$. Calculate $f(\theta | x_1, \ldots, x_n)$.
+\begin{equation*}
+	f(\theta | x_1, \ldots, x_n) = \frac{f(x_1, \ldots, x_n | \theta, \xi_0) \cdot f(\theta)}{\underbrace{\int_\theta f(x_1, \ldots, x_n | \theta, \xi_0) \cdot f(\theta) d\theta}_{\substack{C(x_1, \ldots, x_n) - \text{normalizing constant} \\ \theta \text{ has been integrated out}}}}
+\end{equation*}
+\begin{align*}
+	\underline{\text{Likelihood:}} \qquad f(x_1, \ldots, x_n | \theta, \xi_0) = & \bigg(\frac{\xi_0}{2\pi} \bigg)^{\frac{n}{2}} \exp\bigg( -\frac{\xi_0}{2} \sum_{i=1}^n  (x_i - \theta)^2 \bigg)\\
+	\underline{\text{Product:}} \qquad f(x_1, \ldots, x_n | \theta, \xi_0) \cdot f(\theta) = & \underbrace{\bigg(\frac{\xi_0}{2\pi} \bigg)^{\frac{n}{2}} \bigg(\frac{\xi_{\text{pr}}}{2\pi} \bigg)^{\frac{1}{2}}}_{C} \exp \bigg(  - \underbrace{\bigg[\frac{\xi_{\text{pr}}}{2}(\theta - \theta_0)^2 + \frac{\xi_0}{2}  \sum_{i=1}^n  (x_i - \theta)^2 \bigg]}_{Q(\theta)} \bigg)
+\end{align*}
+So the posterior is of the form $C \exp (-Q(\theta))$ where $Q$ is a quadratic - hence, normal!\\\\
+$Q(\theta)$ will depend on $\theta$, $\underbrace{\theta_0, \{x_1, \ldots, x_n\}}_{\text{known!}}$\\
+\underline{Objective:} Force, through rough sheer of algebra, $Q(\theta)$ into the form. \textbf{Why?} Because the form of the product tells us the posterior density belongs to normal family - we now want to figure out mean and precision. We are going to force just by algebra, where each terms are calculable. 
+\begin{equation*}
+	\bigg[ \frac{\xi_{\text{post}}}{2} (\theta - \theta_{\text{post}})^2 \bigg]
+\end{equation*}
+We have
+\begin{align*}
+	& = \frac{\xi_{\text{pr}}}{2} (\theta - \theta_0)^2 + \frac{\xi_0}{2}\sum_i (X_i - \theta)^2 \qquad \text{in the exponent}\\
+	& = \frac{\xi_{\text{pr}}}{2} (\theta^2 - 2 \theta \theta_0 + \theta_0^2) + \frac{\xi_0}{2}\sum_i (x_i^2 - 2 x_i \theta + \theta^2)\\
+	& = \underbrace{\bigg[\frac{\xi_{\text{pr}} + n \xi_0}{2}\bigg]}_{a} \theta^2 - \underbrace{(\theta_0 \xi_{\text{pr}} + n \bX \xi_0)}_{b} \theta + \underbrace{\boxed{\frac{\theta_0^2 \xi_{\text{pr}}}{2} + \frac{\xi_0 \sum_i x_i }{2}}}_{c} \approx a\theta^2 + b\theta + c
+\end{align*}
+How do we work with this? 
+\begin{align*}
+	a\theta^2 + b\theta + c & = a \bigg(\theta^2 - \frac{b}{a} \theta + \frac{c}{a}\bigg)\\
+	& = a \bigg(\theta - \frac{2b}{2a}\theta + \bigg(\frac{b}{2a} \bigg)^2 + \frac{c}{a} - \bigg(\frac{b}{2a} \bigg)^2 \bigg) \leftrightarrow \boxed{\exp\bigg(-a \bigg( \theta - \frac{b}{2a} \bigg)^2} + \text{STUFF} \bigg) 
+	%& = a\bigg( \theta - \frac{b}{2a} \bigg)^2 + a \bigg( \frac{c}{a} - \bigg(\frac{b}{2a} \bigg)^2 \bigg)
+\end{align*}
+So we get Normal with mean $\mu $ and precision $\xi$: $C \exp(-Q(\theta)) $
+\begin{gather*}
+	a = \frac{\xi_{\text{pr}} + n \xi_0}{2}
+\end{gather*}
+So posterior precision:
+\begin{enumerate}
+	\item $\xi_{\text{pr}} + n \xi_0 > \xi_{\text{pr}}$
+	\item As $n \rightarrow \infty$, $\xi_{\text{pr}}$ matters less
+\end{enumerate}
+\begin{gather*}
+	\text{Posterior mean:} \qquad \frac{b}{2a} = \frac{\theta_0 \xi_{\text{pr}} + n \bar{x} \xi_0}{\xi_{\text{pr}} + n \xi_0} = \theta_{\text{post}} = \frac{\theta_0 \xi_{\text{pr}}}{\xi_{\text{pr}} + n \xi_0} + \frac{n \bar{x} \xi_0}{\xi_{\text{pr}} + n \xi_0}\\
+	f_{\text{post}} \sim \mathcal{N}\bigg(\frac{b}{2a}, 2a \bigg) \qquad \text{where its $\mathcal{N}$(mean, precision)} \qquad \substack{\text{as $n \rightarrow \infty$} \\ \text{$\theta_{\text{post}}$ looks like $\bX$!}}
+\end{gather*}
+\subsubsection*{Sufficiency in this Context}
+if $T$ is sufficient for $\theta$, 
+\begin{equation*}
+	f(x_1, \ldots, x_n| \theta) = g(T, \theta) h(x_1, \ldots, x_n)
+\end{equation*}
+So the posterior distribution is
+\begin{equation*}
+	\frac{f(x_1, \ldots, x_n| \theta) \cdot f(\theta)}{\int_\theta f(x_1, \ldots, x_n| \theta) f(\theta) d\theta} = \frac{g(T, \theta) h(x_1, \ldots, x_n) f(\theta)}{\int_\theta g(T, \theta) h(x_1, \ldots, x_n) f(\theta) d\theta} = \frac{g(T, \theta) \cancel{h(x_1, \ldots, x_n)} f(\theta)}{\cancel{h(x_1, \ldots, x_n)} \int_\theta g(T, \theta) f(\theta) d\theta}\\
+\end{equation*}
+Posterior density depends on data ONLY through \underline{sufficient statistic}
