@@ -1,0 +1,104 @@
+\classheader{2018-10-29}
+\section*{Hypothesis Testing}
+A hypothesis is a \underline{conjecture} about a population parameter. Recall that in parametric inference we often consider $X_i$ i.i.d. $f(X|\theta)$, where $\theta$ is the parameter and $\theta \in \Theta$ = parameter space
+\begin{example}
+	\begin{enumerate}
+		\item $X_i \sim$ Bernoulli($p$) \qquad $p \in (0,1)$
+		\item $X_i \sim \mathcal{N}(\mu, \sigma^2)$, \quad $\theta = (\mu, \sigma^2)$, \quad $\Theta = \mathbb{R}_x(0, \infty)$
+		\item $X_i \sim $ Unif$[0, \infty]$ and $\theta > 0$ so $\Theta = \mathbb{R}^+$
+	\end{enumerate}
+\end{example}
+Hypothesis typically take the form (in the frequentist interpretation)
+\begin{gather*}
+	\theta = \theta_0\\
+	\text{or} \quad \theta \in \circled{H}_0 \subset \Theta
+\end{gather*}
+We say that a hypothesis $H$ is \underline{simple} if it fully determines the distribution $f(x|\theta)$
+\begin{example}
+$H$: $\theta = 4$ in uniform case, then $f(x|\theta) = \frac{1}{4} I_{(0, 4)} (x)$\\
+$H$: $\theta > 3$ NOT SIMPLE
+\end{example}
+\underline{Any non simple} hypothesis is called composite. Typically we want to evaluate a pair of competing conjecture.\\\\
+We let these be denoted by $H_0$, the so called \emph{NULL}, and $H_1$, the so called \emph{ALTERNATE}.\\\\
+In  the frequentist framework, parameters are not random. Consider an especially simple starting point:
+\begin{gather*}
+	\circled{H} = \circled{H}_0 \bigcup \circled{H}_a\\
+	H_0 : \theta \in \circled{H}_0 \qquad \text{is simple}\\
+	H_a : \theta \in \circled{H}_a \qquad \text{is simple}
+\end{gather*}
+\textbf{Questions:} Is the data we observe more likely under $H_0$ or under $H_a$\\\\
+That is, what is the likelihood under $H_0$ and what is the likelihood under $H_a$ and how do they compare?
+\begin{gather*}
+	H_0: \theta = \theta_0\\
+		H_a: \theta = \theta_a
+\end{gather*}
+\begin{gather*}
+	\textbf{Likelihood Ratio (LR)}: \qquad \frac{f(x_1, \ldots, x_n | \theta_0)}{f(x_1, \ldots, x_n | \theta_a)}
+\end{gather*}
+If LR is large, suggests observed data more likely under $H_0$ so LR gives us a \underline{decision rule} - $T(X_1, \ldots, X_n)$ - where $T$ is binary either $reject H_0$ or $fail to reject H_0$.\\\\
+Decision Rule may be in correct for a given string of data you might fail to reject $H_0$ when $H_a$ is true or reject $H_0$ when $H_0$ is true
+\subsubsection*{Types of Error}
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+	\item \textbf{Type I Error}: Reject $H_0$ when $H_0$ is true
+	\item \textbf{Type II Error}: Fail to reject $H_0$ when $H_0$ is false
+\end{enumerate}
+It can be challenging to simultaneously control both.
+\begin{gather*}
+	\alpha = P(\text{Type I Error})\\
+	\beta = P(\text{Type II Error})\\
+\end{gather*}
+Instead, we will set a tolerance for the probability of Type I Error, $\alpha$, called the significance level of the test, and we will look for the decision rule that satisfies this tolerance and also minimizes the probability of Type II Error.\\\\
+\textbf{Note:} Decision rule to always accept $H_0$ has no Type I Error, but might have high probability of Type II Error.\\\\
+There are many possible decision rules \quad 
+$T(X_1, \ldots, X_n)$. How to both control Type I error and Type II error? $\rightarrow$ look at likelihood\\\\
+Supposed we say P(Type I Error) $\leq \alpha$. This will help us determine a rejection region: a set of \underline{values of data} for which $H_0$ is rejected.
+\begin{gather*}
+	\text{Let} \quad d(X_1, \ldots, X_n) = \begin{cases}
+		0 & \text{if we do not reject $H_0$}\\
+		1 & \text{if we reject $H_0$}
+	\end{cases}\\\\
+	\textbf{LRT:} \quad \frac{f(X_1, \ldots, X_n | \theta_0)}{f(X_1, \ldots, X_n | \theta_n)} = g(X_1, \ldots, X_n; \theta_0, \theta_n)
+\end{gather*}
+We want to reject $H_0$ for observed data in which
+\begin{gather*}
+	\frac{f(X_1, \ldots, X_n | \theta_0)}{f(X_1, \ldots, X_n | \theta_n)} \quad \text{is small}
+\end{gather*}
+i.e. we want to choose a constant $c$ s.t.
+\begin{equation*}
+	P\bigg( \frac{f(X_1, \ldots, X_n | \theta_0)}{f(X_1, \ldots, X_n | \theta_n)} \leq c \bigg| H_0 \bigg) \leq \alpha
+\end{equation*}
+Observe that the LRT depends on data and the specific non-random values $\theta_0 + \theta_a$. But to determine the critical value $c$, we only need to know the \underline{distribution} of the data under $H_0$.
+\begin{example} $X_i$ i.i.d. Bernoulli($p$)
+\begin{gather*}
+\begin{rcases}
+	H_0: \quad \theta = p = p_0\\
+	H_a: \quad \theta = p = p_a
+\end{rcases} p_0 > p_a\\
+\textbf{LRT} \quad \frac{p_0^{\sum X_i} (1-p_0)^{\sum (1 - X_i)}}{p_a^{\sum X_i} (1-p_a)^{\sum (1- X_i)}} \qquad \text{where $n$ = sample size}
+\end{gather*}	
+\end{example}
+Rejecting for small values of LRT i.e. when LRT = $c$. is equivalent to rejecting when $\ln(LRT) = \ln (c) = d$
+\begin{gather*}
+	\text{Taking logs we get} \qquad \ln \bigg( p_0^{\sum X_i} (1-p_0)^{\sum (1 - X_i)} \bigg) - \ln \bigg( p_a^{\sum X_i} (1-p_a)^{\sum (1 - X_i)} \bigg)\\
+	= (\ln p_0 - \ln p_a)\sum_i X_i  +  [\ln(1-p_0) - \ln (1-p_a)] \bigg(\sum_i(1-X_i)\bigg)
+\end{gather*}
+Want this to be bounded from above in order to determine a critical region or rejection region\\\\
+We expect to reject $H_0$ for small values on $\sum X_i$
+\begin{align*}
+	\ln\bigg(\frac{p_0}{p_a}\bigg) \sum_i X_i + \ln\bigg(\frac{1-p_0}{1-p_a}\bigg) \sum_i (1 -  X_i) \leq & d\\
+	\sum_i X_i \bigg[ \ln\bigg(\frac{p_0}{p_a}\bigg) - \ln\bigg(\frac{1-p_0}{1-p_a}\bigg) \bigg] \leq & d - n \ln\bigg(\frac{1-p_0}{1-p_a}\bigg)
+\end{align*}
+So we reject if
+\begin{gather*}
+	\sum_i X_i \leq \underbrace{d - n \ln\bigg(\frac{1-p_0}{1-p_a}\bigg)}_{D}\\
+	\text{We want} \qquad P\bigg( \sum_i X_i \leq D | H_0\bigg) \leq \alpha
+\end{gather*}
+Suppose $\alpha = 0.05$. Note that under $H_0$ $\sum_i X_i \sim$ Bin$(n, p_0)$. So can determine $D$ such that $P(\sum X_i \leq D) \leq 0.05$\\\\
+Now suppose that we have determined $C$ for our rejection region observe that probability of \textbf{Type II Error} is given by
+\begin{equation*}
+	P ( \text{LRT} > C | H_a )
+\end{equation*}
+\subsection*{Power}
+\begin{center}
+	Power = $1 - P(\textbf{Type II Error})$
+\end{center}
