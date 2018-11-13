@@ -1,0 +1,117 @@
+\classheader{2018-11-12}
+\begin{itemize}
+	\item Distributions derived from the normal $(\chi^2, F, t)$
+\end{itemize}
+
+\textbf{Recall} If $U \sim \mathcal{N}(0,1)$ and $V \sim \chi^2(v \text{ df})$ where $U$, $V$ are independent, then
+\begin{equation*}
+	\frac{U}{\sqrt{V / \nu}}\sim t_{\nu \text{ df}}
+\end{equation*}
+We saw that if $X_i$ are i.i.d. $\mathcal{N}(\mu, \sigma^2)$, then 
+\begin{gather*}
+	\frac{\bX - \mu}{s / \sqrt{n}} \sim t_{n-1 \text{ df}}\\
+	s = \sqrt{s^2} = \sqrt{\frac{1}{n-1} \sum_i (X_i - \bX)^2}
+\end{gather*}
+Finally, suppose $W_1 \sim \chi^2_{n_1 \text{ df}}$ and $W_2 \sim \chi^2_{n_2 \text{ df}}$ with $W_1$ and $W_2$ independent.
+\begin{gather*}
+	\frac{W_1/n_1}{W_2/n_2} \sim F(n_1, n_2)
+\end{gather*}
+Note that if $Y \sim F(n_1, n_2)$, then $\frac{1}{Y} \sim F(n_2, n_1)$\\\\
+Suppose $X_1, \ldots, X_n$ are i.i.d. $\mathcal{N}(\mu, \sigma^2)$ (both parameters unknown)\\
+How to test
+\begin{gather*}
+	H_0: \mu = \mu_0 \qquad \sigma^2 > 0\\
+	H_a: \mu \neq \mu_0 \qquad \sigma^2 > 0\\
+	\Theta = \{ (\mu, \sigma^2), \mu \in \mathbb{R}, \sigma^2 > 0 \}, \quad 	\Theta_0 = \{ (\mu_0, \sigma^2), \sigma^2 > 0 \}
+\end{gather*}
+So $\theta = (\mu, \sigma^2)$, we will consider
+\begin{gather*}
+	\frac{\max\limits_{\theta \in \Theta_0} l(X_1, \ldots, X_n | \theta) }{\max\limits_{\theta \in \Theta} l(X_1, \ldots, X_n | \theta) }  = \frac{\cancel{\bigg( \frac{1}{\sigma\sqrt(2\pi)} \bigg)^n} \exp \bigg\{ \frac{-\sum_i (x_i - \mu_0)^2}{2\sigma^2} \bigg\} }{\cancel{\bigg( \frac{1}{\sigma\sqrt(2\pi)} \bigg)^n} \exp \bigg\{ \frac{-\sum_i (x_i - \mu)^2}{2\sigma^2} \bigg\} }
+\end{gather*}
+\textbf{Denominator} recall MLEs for $\mu, \sigma^2$ in normalcase
+\begin{gather*}
+	\hat{\mu}_{\text{MLE}} = \bX\\
+	\sigma^2_{\text{MLE}} = \frac{1}{n}\sum_i (X_i - \bX)^2
+\end{gather*}
+\textbf{Numerator} MLE for $\sigma^2$ when $\mu = \mu_0$: $\frac{1}{n}\sum_i (X_i - \mu_0)^2$\\\\
+\textbf{Numerator of GLRT}
+\begin{gather*}
+	\bigg[ \frac{1}{\sqrt{\frac{1}{n}\sum_i (X_i - \mu_0)^2}} \bigg]^n \exp \bigg(-\frac{\sum_i (X_i - \mu_0)^2}{\frac{2}{n} \sum_i (X_i - \mu_0)^2} \bigg) \cdot \bigg( \frac{1}{\sqrt{2\pi}} \bigg)^n
+\end{gather*}
+\textbf{Denominator of GLRT}
+\begin{gather*}
+	\bigg[ \frac{1}{\sqrt{\frac{1}{n}\sum_i (X_i - \bX)^2}} \bigg]^n \exp \bigg(-\frac{\sum_i (X_i - \bX)^2}{\frac{2}{n} \sum_i (X_i - \bX)^2} \bigg) \cdot \bigg( \frac{1}{\sqrt{2\pi}} \bigg)^n
+\end{gather*}
+So GLRT looks like
+\begin{gather*}
+	\frac{\bigg( \sqrt{\frac{1}{n}\sum_i (X_i - \mu_0)^2} \bigg)^n}{\bigg( \sqrt{\frac{1}{n}\sum_i (X_i - \bX)^2} \bigg)^n}
+\end{gather*}
+We reject when GLR $\leq c$. Equivalent to rejecting $H_0$ when 
+\begin{gather*}
+	\frac{\cancel{\frac{1}{n}} \sum \frac{(X_i - \bX)^2}{\sigma^2}}{\cancel{\frac{1}{n}} \sum \frac{(X_i - \mu_0)^2}{\sigma^2}} \qquad \text{is small}
+\end{gather*}
+Observe that under $H_0$, 
+\begin{gather*}
+	\sum_{i=1}^{n} \frac{(X_i - \mu_0)^2}{\sigma^2} \sim \chi^2_{n \text{ df}}
+\end{gather*}
+Furthermore,
+\begin{gather*}
+	\sum_{i=1}^{n} \frac{(X_i - \bX)^2}{\sigma^2} = \frac{(n-1)s^2}{\sigma^2} \sim \chi^2_{n-1 \text{ df}}
+\end{gather*}
+But last week, we claimed that we would reject $H_0$ for large absolute values of $\frac{\bX - \mu_0}{s / \sqrt{n}}$. Rejecting for large absolute values of this is same as rejecting for large values of 
+\begin{gather*}
+	\bigg( \frac{\bX - \mu_0}{s / \sqrt{n}} \bigg)^2 \sim (t_{n-1 \text{ df}})^2
+\end{gather*}
+\textbf{"Fun" Fact:}
+\begin{gather*}
+	U \sim t_{n-1 \text{ df}}, \qquad U = \frac{Z}{\sqrt{V / \nu}} \\
+	\text{then} \quad U^2 \sim F(1, \nu_1) \qquad U^2 =  \frac{Z^2}{V / \nu_1}= \frac{Z^2 / 1}{V / \nu_1}
+\end{gather*}
+Suppose now, we have data from two normal populations. 
+\begin{gather*}
+	X_1, \ldots, X_{n_1} \sim \mathcal{N}(\mu_1, \sigma^2_1)\\
+	Y_1, \ldots, Y_{n_2} \sim \mathcal{N}(\mu_2, \sigma^2_2)
+\end{gather*}
+\underline{Let's consider two cases}
+\begin{enumerate}[label=\protect\circled{\Roman*}]
+	\item Equal population variances: $\sigma^2_1 = \sigma^2_2$
+	\item Unequal population variances: $\sigma^2_1 \neq \sigma^2_2$
+\end{enumerate}
+Consider, in case \circled{I}, testing 
+\begin{align*}
+	H_0: & \mu_1 - \mu_2 = 0, \hspace{0.5em} \sigma^2 > 0 \qquad (\sigma^2 = \sigma^2_1 = \sigma^2_2)\\
+	H_A: & \mu_1 - \mu_2 \neq 0, \hspace{0.5em} \sigma^2 > 0 
+\end{align*}
+\underline{Intuition}: We need an estimator for $\mu_1: \bX$ and $\mu_2: \bar{Y}$ and $\sigma^2$ \underline{(pooled sample variance)}
+\begin{gather*}
+	\tcbhighmath[drop fuzzy shadow]{s^2_p = \frac{s^2_x (n_1 - 1) + s^2_y(n_2-1)}{n_1 + n_2 -2} = \frac{\sum_i (X_i - \bX)^2 + \sum_i (Y_i - \bar{Y})^2}{n_1 + n_2 -2}}
+\end{gather*}
+\begin{claim-N}
+	The GLRT for testing $H_1$ vs $H_a$ in the equal variances case is equivalent to reject $H_0$ for large values of
+\end{claim-N}
+\begin{gather*}
+	\frac{(\bX - \bar{Y} - 0)^2}{\bigg( \sqrt{s^2_p / (n_1 + n_2)}\bigg)^2} = \Bigg(\frac{\bX - \bar{Y} - 0}{\sqrt{s_p^2 \big(\frac{1}{n_1} + \frac{1}{n_2} \big)}} \Bigg)^2
+\end{gather*}
+Next, we will show that under $H_0$, 
+\begin{gather*}
+	\frac{\bX - \bar{Y} - 0}{\sqrt{s_p^2 \big(\frac{1}{n_1} + \frac{1}{n_2} \big)}} \sim t(n_1 + n_2 - 2 \text{ df})
+\end{gather*}
+This will be complete as soon as we verify that :
+\begin{enumerate}[label=\protect\circled{\Roman*}]
+	\item 
+	\begin{gather*}
+		\frac{s_p^2 (n_1 + n_2 - 2)}{\sigma^2}\sim \chi^2(n_1 +n_2 - 2 \text{ df})
+	\end{gather*}
+	\item 		$\bX - \bar{Y}$ is independent of $s_p^2$
+\end{enumerate}
+So if we want to test whether two normal populations with equal variances have equal means as well, we could use an F test and reject for large values. \\\\
+Extent this idea to 3 or more populations:
+\begin{gather*}
+	\text{Population 1:} \quad X_{11}, \ldots, X_{1J}\\
+	\text{Population 2:} \quad X_{21}, \ldots, X_{2J}\\
+	\text{Population 3:} \quad X_{31}, \ldots, X_{3J}\\
+	X_{ij} \sim \mathcal{N}(\mu_i, \sigma^2) \quad \text{all independent}\\
+	i \text{: which population}, \quad j \text{: which element of sample}
+\end{gather*}
+Want to test $H_0 = \mu_1 = \mu_2 = \mu_3$ vs $H_a$ atleast two $\mu_i$'s differ\\\\
+\textbf{Punchline:} We'll end up with an F-test.
