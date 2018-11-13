@@ -1,2 +1,42 @@
 \classheader{2018-09-26}
-\section*{Maximum Likelihood Estimation}
+\subsection*{Maximum Likelihood Estimation}
+Suppose $X_1, \ldots, X_n$ are i.i.d. with common density $f(x|\theta)$ for some parameter $\theta$ or pmf $p(X|\theta)$\\\\
+\emph{Note:} functional form is assumed known, $\theta$ may not be. Recall joint density of $X_1, \ldots, X_n$ is $f(X_1, \ldots, X_n | \theta)$
+\begin{align*}
+	f(X_1, \ldots, X_n |\theta) & = f_1(X_1|\theta)\cdot f_2(X_2|\theta) \cdots f_n(X_n|\theta)\\
+	& = \prod_{i=1}^n f(X_i|\theta)
+\end{align*}
+\emph{Note:} $f(X_1, \ldots, X_n |\theta)$ has $n$ arguments. \textbf{Do not drop the indices on the $X_i$'s!!!!!}\\\\
+The product/joint distribution in i.i.d. case is called the likelihood function (or joined likelihood).
+\begin{example-N}
+	Let $X_i$'s be i.i.d. Bernoulli($p$). $0 \leq p \leq 1$
+	\begin{gather*}
+		P(X_i = 1) = p \qquad 	P(X_i = 0) = 1-p\\
+		P(X_i = x_i |p) = p^{x_i} (1-p)^{1-x_i} \qquad \text{for $x_i = 0$ or $1$}
+	\end{gather*}
+	Suppose we observe a collection of points $X_1, \ldots, X_n$ and suppose that $X_1 = x_1, \ldots, X_n = x_n$. What is the probability of observing string of values
+	\begin{align*}
+		P(X_1, \ldots, X_n| p) & = \prod_{i=1}^n P(X_i = x_i | p)\\
+		& = \prod_{i=1}^n p^{x_i} (1-p)^{1-x_i}\\
+		& = p^{\sum_i x_i} (1-p)^{n - \sum_i x_i}
+	\end{align*}
+\end{example-N}
+\underline{Central question:} What values of the parameter makes the observed data maximally likely? i.e. what value of the parameter maximizing the likelihood.\\\\
+For maximizing likelihood, can take the log-likelihood as it is also monotonically increasing.
+\begin{gather*}
+	l(\theta) = \log l(p) = \log (p^{\sum_i x_i} (1-p)^{n- \sum_i x_i})\\
+	= \big( \sum_i x_i\big) \log p + \big( n- \sum_i x_i \big) \log (1-p)
+\end{gather*}
+This is a sufficiently smooth function of $p$ so can consider finding maxima via critical points.
+\begin{gather*}
+	\frac{\partial L}{\partial p} = \frac{\sum_{i=1}^n X_i}{p} - \frac{n- \sum_i x_i}{1-p} = 0 \qquad \text{solve for $p$}\\
+	\frac{n- \sum_i x_i}{1-p} = \frac{\sum_{i=1}^n X_i}{p} \Longrightarrow \boxed{\hat{p}_{\text{MLE}} = \frac{\sum_i X_i}{n} = \bX}
+\end{gather*}
+\underline{We already Know}:
+\begin{enumerate}
+	\item $\bX$ is unbiased
+	\item $\bX$ is consistent
+	\item $\bX$ is asymptotically normal
+	\item $\bX$ has variance $\frac{\sigma^2}{n}$
+\end{enumerate}
+We will stem asymptotic analogues of trace properties for MLEs more general. 
