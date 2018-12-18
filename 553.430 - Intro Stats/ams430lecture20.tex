@@ -1,8 +1,16 @@
 \classheader{2018-11-12}
 \begin{itemize}
 	\item Distributions derived from the normal $(\chi^2, F, t)$
+	\item Analysis of Variance
 \end{itemize}
-
+\textbf{Recall} if $X_i$'s are i.i.d. $\mathcal{N}(0,1)$, then 
+\begin{gather*}
+	\sum_{i=1}^m X_i^2 \sim \chi^2 (m \text{ df})
+\end{gather*}
+\textbf{Fact} if $U \sim \chi^2 (n_1 \text{ df}), V\sim \chi^2 (n_2 \text{ df})$ $U, V$ are independent
+\begin{gather*}
+U + V \sim \chi^2(n_1 + n_2 \text{ df})	
+\end{gather*}
 \textbf{Recall} If $U \sim \mathcal{N}(0,1)$ and $V \sim \chi^2(v \text{ df})$ where $U$, $V$ are independent, then
 \begin{equation*}
 	\frac{U}{\sqrt{V / \nu}}\sim t_{\nu \text{ df}}

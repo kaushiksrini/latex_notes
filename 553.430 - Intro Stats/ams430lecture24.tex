@@ -1,0 +1,98 @@
+\classheader{2018-12-05}
+{\Large Last Lecture :(}
+
+\begin{itemize}
+	\item Simple Linear Regression
+\end{itemize}
+\subsection*{Simple Linear Regression}
+\textbf{Model}: Response variable y depends on predictor variable x, but also includes Random error.
+\begin{gather*}
+	y = \beta_0 + \beta_1 x + \epsilon\\
+	\epsilon \sim \mathcal{N}(0, \sigma^2)\\
+	\textbf{Data: } \quad \{ (x_i, y_i) : 1 \leq i \leq n\}
+	y_i = \beta_0 + \beta_1 x + \epsilon_i \qquad \boxed{\epsilon_i \text{ are i.i.d. } \mathcal{N}(0, \sigma^2)}
+\end{gather*}
+\begin{example-N}
+	$x_i$ = hours of study for student $i$\\
+	$y_i$ = exam score\\
+	We need to estimate the parameters.
+	\begin{gather*}
+		\beta_0, \beta_1 \text{ - (intercept, slope)}\\
+		\sigma^2 \text{ - (variance)}
+	\end{gather*}
+\end{example-N}
+\textbf{Likelihood}:
+\begin{gather*}
+	\bigg(\frac{1}{\sigma \sqrt{2\pi}} \exp\bigg\{ \frac{-1}{2\sigma^2}\sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_i))^2 \bigg\}  \bigg)^2
+\end{gather*}
+Note that $\epsilon_i = y_i - (\beta_0 + \beta_1 x_i)$\\\\
+\underline{Exercise}: Calculate $\hat{\beta}_{0_{MLE}}, \hat{\beta}_{1_{MLE}}, \hat{\sigma^2}_{MLE}$\\\\
+We typically think of $x_i$'s as fixed given the $y_i$'s as random can also consider ($x_i, y_i$) pairs arising from a bivariate normal distribution.\\\\
+Now if we consider $(x_i, y_i)$ as arising from a bivariate normal distribution, with correlation $p$, then conditional on $x$, \underline{$y(x)$ has a normal distribution} with a mean that depends linearly on $x$ (HW1, bivariate normal)\\\\
+\underline{Remark}: ANOVA is regression with categorical predictors. $X_i$ determines which pop. To estimate $\beta_0, \beta_1, \sigma^2$
+\subsubsection*{Sum of squared differences}
+\begin{gather*}
+	\sum_{i=1}^n (y_i - (a + bx_i))^2 = \mathcal{L}(a,b)
+\end{gather*}
+Minimize $\mathcal{L}(a,b)$ over $a, b$. This leads to
+\begin{align*}
+	\hat{a} & = \bar{y} - \hat{b} \bar{x}\\
+	\hat{b} & = \frac{\sum (x_i - \bar{x}) (y_i - \bar{y})}{\sum (x_i - \bar{x})^2} = \frac{S_{xy}}{S_{xx}}
+\end{align*}
+Estimated slope
+\begin{align*}
+	\hat{\beta}_1 & = \frac{\sum (x_i - \bar{x}) (y_i - \bar{y})}{\sum (x_i - \bar{x})^2}\\
+	\hat{\beta}_1 & = \hat{y} - \hat{\beta}_1 \bar{x}
+\end{align*}
+Estimated regression line: $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x$\\\\
+Actual mean of $y$: $y = \mathbb{E}[y] = \beta_0 + \beta_1 x$\\\\
+For estimating $\sigma^2$ -- note that if $\beta_0$, $\beta_1$ are known, $\sigma^2$ still remains to be estimated, but the MLE in this case can be expressed as a function of $\beta_0$, $\beta_1$
+\subsubsection*{Total variability in data}
+\begin{gather*}
+	\sum_{i=1}^n (y_i - \bar{y})^2 = \sum (y_i - \hat{y}_i)^2 + \sum (\hat{y}_i - \bar{y})^2 + 2 \sum (y_i - \bar{y}) (y_i - \hat{y}_i)\\
+	\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i\\
+	\frac{\sum \hat{y_i}}{n} = \hat{\beta}_0 + \hat{\beta}_1 \bar{x} = \bar{y} - \hat{\beta}_1 \bar{x} + \hat{\beta}_1 \bar{x} = \bar{y} \Rightarrow \boxed{\bar{\hat{y}} = \bar{y}}\\
+\end{gather*}
+\begin{align*}
+	\hat{y}_i - \bar{y} & = \hat{\beta}_0 + \hat{\beta}_1 x_i - \bar{y}\\
+	& = \hat{\beta}_0 \bigg[ \frac{\sum (x_i - \bar{x}) (y_i - \bar{y})}{\sum (x_i - \bar{x})^2} \bigg] \bar{y}\\
+	& = \cancel{\bar{y}} = \hat{\beta}_1 \bar{x} + \hat{\beta}_1 x_i - \cancel{\bar{y}}\\
+	& = \hat{\beta}_1 (x_i - \bar{x})
+\end{align*}
+\begin{gather*}
+	y_i - \bar{y}_i = y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i)
+\end{gather*}
+Now, if we wanted to estimate $\sigma^2$, and we know $\beta_0, \beta_1$, we might consider
+\begin{gather*}
+	\frac{\sum\limits_{i=1}^n (\overbrace{y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i)}^{(\epsilon^2)})^2}{n}
+\end{gather*}
+So, since $\beta_0$, $\beta_1$ are unknown, can instead consider
+\begin{gather*}
+	\frac{\sum\limits_{i=1}^n (y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i))^2}{n - 2} = \hat{\sigma}^2
+\end{gather*}
+We have an estimate for $\beta_1$ and $\hat{beta}_1$. How is $\hat{beta}_1$ distributed?
+\begin{gather*}
+	\hat{\beta_1} = \frac{\sum \overbrace{(x_i - \bar{x})}^{a_i} (y_i - \bar{y})}{\sum (x_i - \bar{x})^2} = \frac{a_i y_i - \boxed{\sum a_i \bar{y}}}{\sum (x_i - \bar{x})^2} = \frac{\sum a_i y_i}{\sum a_i^2}
+\end{gather*}
+\begin{align*}
+	\sum a_i \bar{y} & = \sum (x_i - \bar{x})\bar{y}\\
+	& = \bar{y} \cancelto{0}{(\sum x_i - n\bar{x})}
+\end{align*}
+So $\bar{\beta}_1$ is linear combination of normal random variables ($y_i$'s)
+\begin{gather*}
+	Var(\hat{\beta}_1) = \frac{\sum (a_i)^2 \sigma^2}{(\sigma a_i^2)^2} = \frac{\sigma^2}{(\sum a_i^2)}
+\end{gather*}
+So that we can show (exercise) that $\mathbb{E}[\hat{\beta}_1] = \beta_1$, then we can use
+\begin{gather*}
+	\frac{\hat{\beta}_1 - 0}{\sqrt{\sigma^2 / \sum a_i^2}} \qquad \text{as a test statistic}
+\end{gather*}
+Instead we use $H_0: \beta_1 = 0$ vs $H_a: \beta_1 \neq 0$
+\begin{gather*}
+	\frac{\hat{\beta}_1 - 0}{\sqrt{MSE / \sum (x_i - \bar{x})^2}}  \sim t_{n-2}
+\end{gather*}
+\subsection*{Summary of Linear Regression}
+\begin{gather*}
+\textbf{Model} \qquad tty_i = \beta_0 + \beta_1 x_i + \epsilon_i \qquad \epsilon \sim \mathcal{N}(0, \sigma^2)\\
+\textbf{Estimates} \qquad \hat{\beta}_0 = \bar{y} - \hat{\beta_1}\bar{x}; \quad \hat{\beta}_1 = \frac{\sum (x_i - \bar{x}) (y_i - \bar{y})}{\sum (x_i - \bar{x})^2}; \quad \hat{\sigma^2} = s^2 = \frac{\sum (y_i - \hat{y}_i)^2}{n-2} = MSE
+\end{gather*}
+Is model useful? $\longrightarrow$ $H_0: \beta_1 \neq 0$ vs $\beta_1 \neq 0$
