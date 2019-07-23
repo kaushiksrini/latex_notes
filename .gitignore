@@ -8,6 +8,8 @@
 
 *.log
 
+.DS_Store
+
 *.log
 
 *.gz
